@@ -1,11 +1,27 @@
 <#
     .SYNOPSIS
-    Checks for duplicate files in ths current directory tree.
+    Checks for duplicate files in the current directory tree.
+    .PARAMETER HardLimit
+    A fixed limit to impose on this parser if desired, for example for testing.
+    .PARAMETER OutputFile
+    The file to output with the results.
 #>
 param(
     [Parameter(Mandatory=$false)]
-    [int]$HardLimit = [Int32]::MaxValue
+    [ValidateRange(1,999999999)]
+    [int]
+    $HardLimit = [Int32]::MaxValue,
+    [string]
+    $OutputFile = "DuplicateFiles.csv"
 )
+
+# Clear the output file first
+if( Test-Path $OutputFile ) {
+    Remove-Item -Path $OutputFile -Confirm
+    if( Test-Path $OutputFile ) {
+        Write-Warning "Output file not cleared, errors will occur if schema does not match"
+    }
+}
 
 # Declare the item manifest table
 $manifest = @{}
@@ -29,6 +45,8 @@ function Write-FileHash {
         $notes = [PSCustomObject]@{
             Original = $original.FullName
             Duplicate = $File.FullName
+            FileSize = $File.Length
+            Hash = $Hash
         }
         $script:duplicates += $notes
     } else {
@@ -64,6 +82,8 @@ foreach( $child in $children ) {
         $notes = [PSCustomObject]@{
             Original = "zero-length file"
             Duplicate = $child.FullName
+            FileSize = 0
+            Hash = "zero-length file"
         }
         $duplicates += $notes
     }
@@ -79,7 +99,7 @@ foreach( $child in $children ) {
 if( $duplicates ) {
     Write-Host "Exporting duplicates to duplicates.csv"
     $duplicates | ForEach-Object {
-        Export-Csv -InputObject $_ -Path "duplicates.csv" -Append
+        Export-Csv -InputObject $_ -Path $OutputFile -Append
     }
 } else {
     Write-Host "No duplicate files found"

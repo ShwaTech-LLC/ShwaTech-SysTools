@@ -11,6 +11,8 @@
     An optional switch to include zero-length files in the duplicates report.
     .PARAMETER TrackMasterDuplicates
     An optional switch to track duplicate files in the master directory.
+    .PARAMETER OutputFile
+    An optional name for the output report file. By default, this is FileTreeReport.csv
 #>
 param(
     [Parameter(Mandatory=$true)]
@@ -27,7 +29,9 @@ param(
     [switch]
     $TreatZeroAsDuplicate,
     [switch]
-    $TrackMasterDuplicates
+    $TrackMasterDuplicates,
+    [string]
+    $OutputFile = "FileTreeReport.csv"
 )
 
 # Assertions
@@ -39,6 +43,12 @@ if( -not (Test-Path $Duplicate) ) {
 }
 if( $Master -eq $Duplicate ) {
     throw "You cannot specify the same path for both Master and Duplicate"
+}
+if( Test-Path $OutputFile ) {
+    Remove-Item -Path $OutputFile -Confirm
+    if( Test-Path $OutputFile ) {
+        Write-Warning "Output file not cleared, errors will occur if schema does not match"
+    }
 }
 
 # Setup variables
@@ -144,11 +154,8 @@ foreach( $file in $duplicateFiles ) {
 # Report the duplicates to a file
 if( $duplicates ) {
     Write-Host "Exporting duplicates report"
-    if( Test-Path "duplicates.csv" ) {
-        Remove-Item "duplicates.csv"
-    }
     $duplicates | ForEach-Object {
-        Export-Csv -InputObject $_ -Path "duplicates.csv" -Append
+        Export-Csv -InputObject $_ -Path $OutputFile -Append
     }
 } else {
     Write-Host "No duplicates found"
