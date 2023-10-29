@@ -13,6 +13,30 @@ $manifest = @{}
 # Declare the table for storing duplicates
 $duplicates = @()
 
+function Write-FileHash {
+    param(
+        [Parameter(Mandatory=$true)]
+        $File,
+        [Parameter(Mandatory=$true)]
+        [string]
+        $Hash
+    )
+    # Check the manifest for a file with the same hash
+    if( $script:manifest.ContainsKey( $Hash ) ) {
+
+        # Flag the duplicate file and pair it to the original
+        $original = $script:manifest[$Hash]
+        $notes = [PSCustomObject]@{
+            Original = $original.FullName
+            Duplicate = $File.FullName
+        }
+        $script:duplicates += $notes
+    } else {
+        # Add the original file to the manifest
+        $script:manifest.Add( $Hash, $File )
+    }
+}
+
 # Get all the items in the current directory including all the subfolders and files
 $children = Get-ChildItem -Recurse -File
 
@@ -20,29 +44,22 @@ $children = Get-ChildItem -Recurse -File
 $total = $children.Length
 $counter = 0
 foreach( $child in $children ) {
-
     # Skip zero-length files
     if( $child.Length -gt 0 ) {
-
         # Calculate the file hash
-        $hash = (Get-FileHash ($child.FullName)).Hash
-
-        # Check the manifest for a file with the same hash
-        if( $manifest.ContainsKey( $hash ) ) {
-
-            # Flag the duplicate file and pair it to the original
-            $original = $manifest[$hash]
-            $notes = [PSCustomObject]@{
-                Original = $original.FullName
-                Duplicate = $child.FullName
-            }
-            $duplicates += $notes
+        $hash = $null
+        try {
+            $hash = (Get-FileHash ($child.FullName)).Hash
+        } catch {
+            $hash = $null
+        }
+        # Report the file hash or warning
+        if( $hash ) {
+            Write-FileHash -File $child -Hash $hash
         } else {
-            # Add the original file to the manifest
-            $manifest.Add( $hash, $child )
+            Write-Warning "Failed to read file $($child.FullName)"
         }
     } else {
-
         # Treat all zero-length files as trash
         $notes = [PSCustomObject]@{
             Original = "zero-length file"
@@ -50,7 +67,6 @@ foreach( $child in $children ) {
         }
         $duplicates += $notes
     }
-
     # Increment the file counter and report progress, stop if the hard limit is reached
     $counter++
     if( $counter -gt $HardLimit ) {
@@ -61,7 +77,10 @@ foreach( $child in $children ) {
 
 # Output the report of all the duplicate files, if any were found
 if( $duplicates ) {
+    Write-Host "Exporting duplicates to duplicates.csv"
     $duplicates | ForEach-Object {
         Export-Csv -InputObject $_ -Path "duplicates.csv" -Append
     }
+} else {
+    Write-Host "No duplicate files found"
 }
