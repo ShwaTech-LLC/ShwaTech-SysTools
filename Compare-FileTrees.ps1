@@ -53,7 +53,7 @@ if( Test-Path $report ) {
 }
 
 # Setup variables
-$master = @{}
+$table = @{}
 $duplicates = @()
 $masterFiles = Get-ChildItem -Path $Master -Recurse -File
 $total = $masterFiles.Length
@@ -69,9 +69,9 @@ foreach( $file in $masterFiles ) {
             $hash = $null
         }
         if( $hash ) {
-            if( $master.ContainsKey( $hash ) ) {
+            if( $table.ContainsKey( $hash ) ) {
                 if( $TrackMasterDuplicates ) {
-                    $originalFile = $master[$hash]
+                    $originalFile = $table[$hash]
                     $dupe = [PSCustomObject]@{
                         Original = $originalFile.FullName
                         Duplicate = $file.FullName
@@ -81,7 +81,7 @@ foreach( $file in $masterFiles ) {
                     $duplicates += $dupe
                 }
             } else {
-                $master.Add( $hash, $file )
+                $table.Add( $hash, $file )
             }
         } else {
             Write-Warning "File $($file.FullName) could not be read"
@@ -119,8 +119,8 @@ foreach( $file in $duplicateFiles ) {
             $hash = $null
         }
         if( $hash ) {
-            if( $master.ContainsKey( $hash ) ) {
-                $originalFile = $master[$hash]
+            if( $table.ContainsKey( $hash ) ) {
+                $originalFile = $table[$hash]
                 $dupe = [PSCustomObject]@{
                     Original = $originalFile.FullName
                     Duplicate = $file.FullName
@@ -129,7 +129,7 @@ foreach( $file in $duplicateFiles ) {
                 }
                 $duplicates += $dupe
             } else {
-                $master.Add( $hash, $file )
+                $table.Add( $hash, $file )
             }
         } else {
             Write-Warning "File $($file.FullName) could not be read"
