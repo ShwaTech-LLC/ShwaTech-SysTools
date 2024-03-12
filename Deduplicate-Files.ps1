@@ -1,12 +1,22 @@
 <#
     .SYNOPSIS
-    Checks for duplicate files in the current directory tree.
+    Checks for duplicate files in a specific directory.
+    .PARAMETER Path
+    The Path to search for duplicate files.
+    .PARAMETER LiteralPath
+    The LiteralPath to search for duplicate files.
     .PARAMETER HardLimit
     A fixed limit to impose on this parser if desired, for example for testing.
     .PARAMETER OutputFile
     The file to output with the results.
 #>
 param(
+    [Parameter(ParameterSetName="Path",Mandatory)]
+    [string]
+    $Path,
+    [Parameter(ParameterSetName="LiteralPath",Mandatory)]
+    [string]
+    $LiteralPath,
     [Parameter(Mandatory=$false)]
     [ValidateRange(1,999999999)]
     [int]
@@ -15,10 +25,25 @@ param(
     $OutputFile = "DuplicateFiles.csv"
 )
 
+# Assert path access
+if( $Path ) {
+    if( -not (Test-Path -Path $Path) ) {
+        throw "Invalid or inaccessible Path specified"
+    }
+}
+
+# Assert literal path access
+if( $LiteralPath ) {
+    if( -not (Test-Path -LiteralPath $LiteralPath ) ) {
+        throw "Invalid or inaccessible LiteralPath specified"
+    }
+}
+
 # Clear the output file first
-if( Test-Path $OutputFile ) {
-    Remove-Item -Path $OutputFile -Confirm
-    if( Test-Path $OutputFile ) {
+$report = Join-Path -Path $PSScriptRoot -ChildPath $OutputFile
+if( Test-Path $report ) {
+    Remove-Item -Path $report -Confirm
+    if( Test-Path $report ) {
         Write-Warning "Output file not cleared, errors will occur if schema does not match"
     }
 }
@@ -56,7 +81,13 @@ function Write-FileHash {
 }
 
 # Get all the items in the current directory including all the subfolders and files
-$children = Get-ChildItem -Recurse -File
+$children = if( $Path ) {
+    Get-ChildItem -Path $Path -Recurse -File
+} elseif( $LiteralPath ) {
+    Get-ChildItem -LiteralPath $LiteralPath -Recurse -File
+} else {
+    throw "No Path or LiteralPath specified"
+}
 
 # Generate a manifest of file hashes for every file, this will take a while for large directory trees
 $total = $children.Length
@@ -99,7 +130,7 @@ foreach( $child in $children ) {
 if( $duplicates ) {
     Write-Host "Exporting duplicates to duplicates.csv"
     $duplicates | ForEach-Object {
-        Export-Csv -InputObject $_ -Path $OutputFile -Append
+        Export-Csv -InputObject $_ -Path $report -Append
     }
 } else {
     Write-Host "No duplicate files found"

@@ -15,17 +15,15 @@
     An optional name for the output report file. By default, this is FileTreeReport.csv
 #>
 param(
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory)]
     [string]
     $Master,
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory)]
     [string]
     $Duplicate,
-    [Parameter(Mandatory=$false)]
     [ValidateRange(1,999999999)]
     [int]
     $HardLimit = [Int32]::MaxValue,
-    [Parameter(Mandatory=$false)]
     [switch]
     $TreatZeroAsDuplicate,
     [switch]
@@ -44,15 +42,18 @@ if( -not (Test-Path $Duplicate) ) {
 if( $Master -eq $Duplicate ) {
     throw "You cannot specify the same path for both Master and Duplicate"
 }
-if( Test-Path $OutputFile ) {
-    Remove-Item -Path $OutputFile -Confirm
-    if( Test-Path $OutputFile ) {
+
+# Setup the report of duplicates
+$report = Join-Path -Path $PSScriptRoot -ChildPath $OutputFile
+if( Test-Path $report ) {
+    Remove-Item -Path $report -Confirm
+    if( Test-Path $report ) {
         Write-Warning "Output file not cleared, errors will occur if schema does not match"
     }
 }
 
 # Setup variables
-$table = @{}
+$master = @{}
 $duplicates = @()
 $masterFiles = Get-ChildItem -Path $Master -Recurse -File
 $total = $masterFiles.Length
@@ -68,9 +69,9 @@ foreach( $file in $masterFiles ) {
             $hash = $null
         }
         if( $hash ) {
-            if( $table.ContainsKey( $hash ) ) {
+            if( $master.ContainsKey( $hash ) ) {
                 if( $TrackMasterDuplicates ) {
-                    $originalFile = $table[$hash]
+                    $originalFile = $master[$hash]
                     $dupe = [PSCustomObject]@{
                         Original = $originalFile.FullName
                         Duplicate = $file.FullName
@@ -80,7 +81,7 @@ foreach( $file in $masterFiles ) {
                     $duplicates += $dupe
                 }
             } else {
-                $table.Add( $hash, $file )
+                $master.Add( $hash, $file )
             }
         } else {
             Write-Warning "File $($file.FullName) could not be read"
@@ -118,8 +119,8 @@ foreach( $file in $duplicateFiles ) {
             $hash = $null
         }
         if( $hash ) {
-            if( $table.ContainsKey( $hash ) ) {
-                $originalFile = $table[$hash]
+            if( $master.ContainsKey( $hash ) ) {
+                $originalFile = $master[$hash]
                 $dupe = [PSCustomObject]@{
                     Original = $originalFile.FullName
                     Duplicate = $file.FullName
@@ -128,7 +129,7 @@ foreach( $file in $duplicateFiles ) {
                 }
                 $duplicates += $dupe
             } else {
-                $table.Add( $hash, $file )
+                $master.Add( $hash, $file )
             }
         } else {
             Write-Warning "File $($file.FullName) could not be read"
@@ -155,7 +156,7 @@ foreach( $file in $duplicateFiles ) {
 if( $duplicates ) {
     Write-Host "Exporting duplicates report"
     $duplicates | ForEach-Object {
-        Export-Csv -InputObject $_ -Path $OutputFile -Append
+        Export-Csv -InputObject $_ -Path $report -Append
     }
 } else {
     Write-Host "No duplicates found"
