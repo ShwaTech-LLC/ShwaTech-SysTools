@@ -30,6 +30,23 @@ The `Duplicate` property will tell you the full path of the duplicate file.
 File comparison is performed using the full contents of the file via `Get-FileHash` so the dates and times are ignored.
 Only files whose contents are IDENTICAL will be marked as duplicates.
 
+## Compare-TreeStructures.ps1
+* Purpose: To identify files in one directory tree that no longer exist in another directory tree
+
+|Requirements|Version|
+|-|-|
+|Environment|Any file system|
+|PowerShell Version|7|
+|Operating System|Any|
+|Scheduled|No, manual script|
+
+This script will compare the `Destination` directory tree contents to those in the `Source` directory tree.
+Any files found in `Destination` that do not exist in `Source` will be reported.
+This script is useful for removing deprecated files when synchronizing contents of a directory that is in active use over long periods of time.
+
+### _Warnings_
+* On MacOS and Linux, do not use this script with root paths that are duplicated in subdirectories, for example `/home/user/docs/home/user`. The report results will not be accurate because the script uses the String-Replace method to re-root files into the source tree by replacing the `Destination` with the `Source`. If the `Destination` path appears more than once in the `Source` path, the re-rooted file will contain an incorrect path and the file will be reported to be missing even if it is not. This issue does not occur on Windows because all root paths begin with a drive letter and colon which are only found at the root of the path.
+
 ## Deduplicate-Files.ps1
 * Purpose: To deduplicate files contained in a single directory tree
 
