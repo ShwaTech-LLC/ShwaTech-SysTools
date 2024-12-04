@@ -1,3 +1,7 @@
+# Ignore generated certificate data
 certificate.json
 *-private.pfx
 *-public.cer
+
+# Ignore generated inventory data
+inventory*.csv
