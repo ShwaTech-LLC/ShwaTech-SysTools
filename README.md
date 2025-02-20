@@ -140,3 +140,7 @@ This has only been tested on PowerShell 7, but it may work on PowerShell 5.1 as 
 
 # License
 The software in this repository is provided free of charge under the [MIT license](https://github.com/ShwaTech-LLC/ShwaTech-SysTools/blob/main/LICENSE).
+
+# References
+## Microsoft Graph
+### [https://learn.microsoft.com/en-us/powershell/microsoftgraph/get-started?view=graph-powershell-1.0](https://learn.microsoft.com/en-us/powershell/microsoftgraph/get-started?view=graph-powershell-1.0)
