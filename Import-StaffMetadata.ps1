@@ -14,6 +14,11 @@ param(
     $Path
 )
 
+# Gatekeeper for PowerShell 7
+if( $PSVersionTable.PSVersion.Major -lt 7 ) {
+    throw "This script requires PowerShell 7"
+}
+
 # Validate and fetch the staff metadata
 if( Test-Path $Path ) {
     # OK
