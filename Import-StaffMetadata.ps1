@@ -7,6 +7,7 @@
     2. Department
     3. Job Title
     4. Employee Name (used to display messages, but not updated)
+    5. Mobile Phone
 #>
 param(
     [Parameter(Mandatory)]
@@ -45,7 +46,7 @@ foreach( $member in $staff ) {
         $found = $company | Where-Object { $_.UserPrincipalName -eq $member.'Company Email Address' }
         if( $found ) {
             Write-Host "Updating $($found.UserPrincipalName) with Department $($member.Department) and Job Title $($member.'Job Title')"
-            Update-MgUser -UserId ($found.Id) -Department ($member.Department) -JobTitle ($member.'Job Title')
+            Update-MgUser -UserId ($found.Id) -Department ($member.Department) -JobTitle ($member.'Job Title') -MobilePhone ($member.'Mobile Phone')
         } else {
             Write-Warning "$($member.'Company Email Address') not found in company directory"
         }

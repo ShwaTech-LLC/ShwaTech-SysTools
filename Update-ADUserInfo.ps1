@@ -9,6 +9,10 @@
     Optional. Their Department name. Not updated if not specified or blank.
     .PARAMETER Company
     Optional. Their Company name. Not updated if not specified or blank.
+    .PARAMETER MobilePhone
+    Optional. Their mobile phone number. Not updated if not specified or blank.
+    .PARAMETER StreetAddress
+    Optional. Their street address. Not updated if not specified or blank.
 #>
 param(
     [Parameter(Mandatory)]
@@ -19,7 +23,11 @@ param(
     [string]
     $Department,
     [string]
-    $Company
+    $Company,
+    [string]
+    $MobilePhone.
+    [string]
+    $StreetAddress
 )
 
 # Gatekeeper for Windows PowerShell
@@ -50,6 +58,12 @@ if( $user ) {
     }
     if( $Company ) {
         $user | Set-ADUser -Company $Company
+    }
+    if( $MobilePhone ) {
+        $user | Set-ADUser -MobilePhone $MobilePhone
+    }
+    if( $StreetAddress ) {
+        $user | Set-ADUser -StreetAddress $StreetAddress
     }
 } else {
     Write-Warning "User $UserPrincipalName not found"
