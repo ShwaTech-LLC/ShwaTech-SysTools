@@ -91,6 +91,18 @@ This is necessary for modern authentication of custom scripts and applications w
 
 The script requires an `AppRegistrationName` which should match the name of the Enterprise Application you created in Microsoft Entra ID so that the common name of the certificate matches the app name.  The public and private key are saved to the current directory, a `certificate.json` file is created which contains the thumbprint needed for applications to find the certificate, and the certificate is saved into the `My` store for the current user. You can delete the private key file as it is not needed, but it is generated in case you do need it. The private key is protected by a random password which you can find the `certificate.json` file.
 
+## Prune-Path.ps1
+* Purpose: To remove empty directories from a file tree
+
+|Requirements|Version|
+|-|-|
+|Environment|Any file system|
+|PowerShell Version|Any|
+|Operating System|Any|
+|Scheduled|No, manual script|
+
+This script will recursively remove all empty directories at the directory specified by `Path`. By default, this script will echo all deleted directories to the console. To suppress this, include the `Quiet` parameter.
+
 ## Remove-Duplicates.ps1
 * Purpose: To remove duplicate files detected by `Compare-FileTrees.ps1` or `Deduplicate-Files.ps1`
 
