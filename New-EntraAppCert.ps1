@@ -4,11 +4,15 @@
     .PARAMETER AppRegistrationName
     The name of the App Registration in Microsoft Azure Entra ID.
     This must match the name exactly.
+    .PARAMETER ExportPrivateKey
+    An optional parameter to specify if you want to export the private key associated with the certificate.
 #>
 param(
     [Parameter(Mandatory)]
     [string]
-    $AppRegistrationName
+    $AppRegistrationName,
+    [switch]
+    $ExportPrivateKey
 )
 
 # Assert preconditions
@@ -32,23 +36,39 @@ if( -not $cert ) {
 
 # Export the certificate files
 $cer = Export-Certificate -Cert $cert -FilePath (Join-Path -Path $PSScriptRoot -ChildPath "$AppRegistrationName-public.cer")
-$pfx = Export-PfxCertificate -Cert $cert -FilePath (Join-Path -Path $PSScriptRoot -ChildPath "$AppRegistrationName-private.pfx") -Password $certStr
+if( $ExportPrivateKey ) {
+    $pfx = Export-PfxCertificate -Cert $cert -FilePath (Join-Path -Path $PSScriptRoot -ChildPath "$AppRegistrationName-private.pfx") -Password $certStr
+}
 
 # Exporting the thumbprint
 Write-Host "App registration name:  $AppRegistrationName"
 Write-Host "Certificate password:   $certSec"
 Write-Host "Certificate thumbprint: $($cert.Thumbprint)"
-Write-Host "Private key file:       $($pfx.FullName)"
+if( $ExportPrivateKey ) {
+    Write-Host "Private key file:       $($pfx.FullName)"
+}
 Write-Host "Public key file:        $($cer.FullName)"
 Write-Host "Certificate details:    $PSScriptRoot\certificate.json"
 
-# Save the details to a file
+# Construct the certificate details data structure
+$outFile = Join-Path -Path $PSScriptRoot -ChildPath 'certificate.json'
 $certDetails = [PSCustomObject]@{
     CertApp = $AppRegistrationName
-    CertPw = $certSec
+    CertPw = if( $ExportPrivateKey ) { $certSec } else { 'not exported' }
     CertThumb = $cert.Thumbprint
-    CertPvt = $pfx.FullName
+    CertPvt = if( $ExportPrivateKey ) { $pfx.FullName } else { 'not exported' }
     CertPub = $cer.FullName
-    CertDetails = "$PSScriptRoot\certificate.json"
+    CertDetails = $outFile
 }
-$certDetails | ConvertTo-Json | Out-File "$PSScriptRoot\certificate.json" -Force
+
+# Save the details to a file
+if( Test-Path $outFile ) {
+    $answer = Read-Host "$outFile already exists, overwrite? [N/y]"
+    if( $answer -ne 'y' ) {
+        exit
+    } else {
+        $certDetails | ConvertTo-Json | Out-File $outFile -Force
+    }
+} else {
+    $certDetails | ConvertTo-Json | Out-File $outFile -Force
+}

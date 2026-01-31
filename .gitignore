@@ -5,3 +5,6 @@ certificate.json
 
 # Ignore generated inventory data
 inventory*.csv
+
+# Temporary staff information
+staff.csv
