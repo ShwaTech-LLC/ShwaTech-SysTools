@@ -21,14 +21,65 @@ print(hello_world)              # Each line is an instruction to the interpreter
 
 hello_world = 'Hello again, world!'; print(hello_world)
 
-the_number_seven = 7        # Scope in Python is based on indentation
+# Python allows you to carry instructions onto subsequent lines with the \ operator
+
+hello_world = \
+'Hello again there, world!'
+print(hello_world)
+
+# Scope in Python is defined by indentation
+
+the_number_seven = 7        # This is at the top scope
 if the_number_seven != 7:   # Conditional scopes like ifs...
   print('Oops!')            # Get indented with tab or spaces
+
+# Variables declared at lower scopes persist at higher scopes
 
 the_number_eight = 8                          # Variables declared at lower scopes
 if the_number_eight == 8:                     #
   the_number_nine = 9                         #
 print('The number nine is:',the_number_nine)  # Persist at higher scopes
+
+# Function variables do not persist outside of the function scope
+
+def do_math(*a):
+  math_result = sum(a)    # math_result goes out of scope after the function call
+  return math_result      # You cannot use unless you return it to the caller
+
+# ###################################################### #
+#   Namespaces & External References                     #
+# ###################################################### #
+
+# Python defines everything you do in your base script as the local namespace
+
+i_like_bacon = True
+print(i_like_bacon)
+
+# In Python when you import a module it gets assigned a namespace name
+
+import math         # Here we import the math module
+math.sqrt(654.23)   # Then we use the math namespace to call the sqrt function
+
+# You can also alias the import of a module to avoid collisions
+
+import statistics as stat_man
+stat_man.mean([1,2,3,4,4,4,5,6,7,7,7,7,8,8])
+
+# Importing with the from keyword imports functions into the local namespace
+# Importing using from can be limited or unlimited
+
+from os import *         # This imports everything from the os module
+from json import dumps   # This only imports the dumps function from the json module
+dumps([1,2,3,4,5])       # When you import a single function from a module it
+                         # gets loaded into the local namespace
+
+from json import dumps as convert_to_json   # As such, individual functions imported into the local
+convert_to_json([1,2,3,4,5])                # namespace can be aliased to avoid conflicts
+
+# Python scripts in the same, current directory can be imported using their filename
+
+from python_primer_refs import three_blind_mice   # This is python_primer_ref.py in the current directory
+three_blind_mice()                                # We can import this function into the local namespace
 
 # ###################################################### #
 #   Variables, Primitives & Literals                     #
@@ -42,6 +93,17 @@ my_age = 43                   # Integer
 my_favorite_number = 7.0      # Float
 am_i_awesome = True           # Boolean
 this_is_null = None           # Null (Unassigned)
+                              # String (multiline), below
+my_life_story = """
+A long, long time ago...
+In an In'N'Out Burger far far away...
+"""
+
+# Python supports escape sequences in Strings
+
+'\n'  # Newline
+'\t'  # Tab
+'\"'  # Double Quotation Mark
 
 # Python supports collection literals
 
@@ -84,6 +146,19 @@ x = 12 - 1                                # Which becomes...
 x = 11                                    # x = 11
 
 # Division will cause the expression to become a float
+
+# ###################################################### #
+#   RANDOM NUMBERS                                       #
+# ###################################################### #
+
+# Python includes a random module with generators for random umbers
+
+import random
+random.choice([1,2,3,4,5,6])    # Choice picks a random item from the list
+random.randint(0,99)            # Create a random number between a and b
+
+# This List comprehension fills a List with random integers
+random_numbers = [random.randint(0,99999) for n in range(1000)]
 
 # ###################################################### #
 #   Boolean Logic                                        #
@@ -145,6 +220,42 @@ x = 'Christian'.join(['Holslin'])   # Append a List of Strings
 
 cash_on_hand = 32.75                              # Using a variable...
 print(f'You have {cash_on_hand} cash on hand.')   # embed that variable's value into a string
+
+# Python strings are Lists of characters, they are iterable and can be indexed
+
+my_name = 'Christian'                   # Here is my first name
+my_name_len = len(my_name)              # Get the length of my_name
+my_first_initial = my_name[0]           # Index the first letter for my first initial
+my_nick_name = my_name[0:5]             # Slice the first 5 letters for my nickname
+jibberish = my_name[-5:-1]              # Negative indeces also work on strings
+for letter in my_name: print(letter)    # Iterate the characters in my name
+my_list = []                            # Make an empty List
+my_list += my_name                      # Each letter in my name is added as an item in this List
+fav_quote = "\"Elementary, my dear.\""  # Escape special characters with '\'
+list(map(lambda x: x.upper(), 'test'))  # Strings can be mapped because they are iterable
+'Chris' in my_name                      # The in operator will test for a substring
+
+# Python strings are immutable, so changes are illegal
+# my_name[0] = 'F'   # This throws a TypeError
+
+# Python has methods for strings which perform actions on the string itself
+
+'Hello, world!'.find('world')      # Locate the index of a substring in a string
+'{}, {}!'.format('Hello','world')  # Creates a 'formatted' string => 'Hello, world!'
+':'.join(['hello','world'])        # Joins a List with a delimiter into a String => 'hello:world'
+'Hello World'.lower()              # Converts all letters to lowercase
+'Hello, world!'.replace('l','f')   # Replaces part of a string with another string
+'sauce cheese pesto'.split()       # Splits a string into a List using spaces as the delimeter
+'sauce:cheese:pesto'.split(':')    # Splits a string into a List using a specified delimeter
+' Hello, world! '.strip()          # Removes whitespace at the beginning and end of a string
+'*Hello, world!*'.strip('*')       # Removes leading and trailing '*'s from the string
+'enterprise architect'.title()     # Creates a Title Case string => 'Enterprise Architect'
+'Hello World'.upper()              # Converts all letters to UPPERCASE
+
+# Python string formatting supports keyword parameters
+
+def email_signature(n,t,pn):
+  return '{name}, {title} ({phone_number})'.format(name=n,title=t,phone_number=pn)
 
 # ###################################################### #
 #   List Operations                                      #
@@ -266,6 +377,21 @@ x = 0
 while x < len(backpack):
   print(f'Backpack item {x}:',backpack[x])
   x += 1
+
+# ###################################################### #
+#   Branching/Switching                                  #
+# ###################################################### #
+
+# Python uses the match statement to create a switch case branch
+
+letter = 'q'
+match letter:
+  case 'a':
+    print('a is for aardvark')
+  case 'b':
+    print('b is for boysenberry')
+  case default:
+    print(letter)
 
 # ################################################################################################# #
 #                                                                                                   #
