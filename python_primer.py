@@ -120,6 +120,17 @@ some_thing = 7.5
 some_thing = [1,1,2,2,3,4,5]
 some_thing = range(9)
 
+# Python also supports complex types called classes, such as the datetime
+
+from datetime import datetime                     # Datetimes are part of the datetime module
+back_then = datetime(2025,7,5,9,38,25)            # Construct a date time with its constituent parts
+right_now = datetime.now()                        # Get the current time and date
+right_now - back_then                             # Get the difference between two datetimes
+a_while_ago = \
+  datetime.strptime('Mar 10, 1993','%b %d, %Y')   # Parse a String into a datetime
+welcome_to_now = right_now.strftime('%d/%m/%Y')   # Format the current time and date into a String
+print(f'Welcome to {welcome_to_now}')
+
 # ###################################################### #
 #   Arithmetic                                           #
 # ###################################################### #
@@ -148,7 +159,7 @@ x = 11                                    # x = 11
 # Division will cause the expression to become a float
 
 # ###################################################### #
-#   RANDOM NUMBERS                                       #
+#   Random Numbers                                       #
 # ###################################################### #
 
 # Python includes a random module with generators for random umbers
@@ -335,6 +346,55 @@ print('Double Evens list:',double_evens)
 
 double_evens_generator = (num * 2 for num in positive_integers if num % 2 == 0)
 print('Double Evens generator:',double_evens_generator)
+
+# ###################################################### #
+#   Dictionary Operations                                #
+# ###################################################### #
+
+# Python dictionaries are hash tables with key: value pairs
+
+locations = {'orlando':'123 Brook Ln','boston':'442 Green Pl','houston':'12054 Industry Way'}
+boston_addy = locations['boston']       # We can get the address of the boston location with the index operator
+boston_addy = locations.get('boston')   # We can also get the address with the get method
+locations['orlando'] = '133 Brook Ln'   # We can update values with the assignment operator
+locations['madison'] = '890 State St'   # We can add new values with the assignment operator
+locations.update(                       # We can pass a dictionary to update to add multiple values
+  {'flagstaff':'7370 Crane Way','tempe':'9090 Locust St'}
+)
+locations.update(                       # We can pass a dictionary to update to update multiple values
+  {'boston':'443 Green Pl','houston':'12054 Industry Blvd'}
+)
+boston = locations.pop('boston')        # We can remove a key value pair with the pop method
+
+# Python will throw a KeyError if we attempt to access a non-existent pair
+
+if 'sarasota' in locations: print(locations['sarasota'])   # We can test for a key with the in keyword
+sarasota = locations.get('sarasota')                       # We can also test using the get method (returns None)
+sarasota = locations.get('sarasota','100 Nowhere Dr')      # We can also return a default value instead of None
+boston = locations.pop('boston','100 Nowhere Dr')          # Pop also supports default values
+list(locations)                                            # Gets a List of keys in the Dictionary
+locations.keys()                                           # Gets an immutable set of keys in the Dictionary
+locations.values()                                         # Gets an values iterator
+locations.items()                                          # Gets a (key,value) Tuple iterator
+
+for kvp in locations:                                      # Iterating the Dictionary returns the key strings
+  value = locations[kvp]
+for city,addr in locations.items():                        # Iterating the items returns key,value Tuples
+  print(f'{city}: {addr}')
+for city_addr in locations.items():                        # If you do not declare the Tuple parts, you can access
+  key = city_addr[0]                                       # each Tuple point by index number
+  value = city_addr[1]
+
+# Dictionaries, like Lists, have comprehensions which can be used to create Dictionaries from Lists
+
+students = ['Alice','Bob','Charlie','David','Ethan']
+test_scores = [99,98,99,91,92]
+student_scores = {key:value for key, value in zip(students,test_scores)}   # Merge two lists into a Dictionary
+
+# Dictionary comprehensions require Tuples rather than items since entries are key-value pairs
+
+score_list = [['Alice',99],['Bob',98],['Charlie',99]]
+student_scores = {n[0]:n[1] for n in score_list}         # Merge a two-dimensional array into a Dictionary
 
 # ################################################################################################# #
 #                                                                                                   #
