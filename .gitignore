@@ -8,3 +8,6 @@ inventory*.csv
 
 # Temporary staff information
 staff.csv
+
+# Ignore Python chache
+__pycache__/*
