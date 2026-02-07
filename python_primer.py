@@ -68,7 +68,7 @@ stat_man.mean([1,2,3,4,4,4,5,6,7,7,7,7,8,8])
 # Importing with the from keyword imports functions into the local namespace
 # Importing using from can be limited or unlimited
 
-from os import *         # This imports everything from the os module
+from base64 import *     # This imports everything from the base64 module
 from json import dumps   # This only imports the dumps function from the json module
 dumps([1,2,3,4,5])       # When you import a single function from a module it
                          # gets loaded into the local namespace
@@ -533,3 +533,87 @@ menu_prices = ['2.99','3.99','1.99','2.00']
 
 menu = list(map(lambda x, y: f'{x}: ${y}', menu_items, menu_prices))
 print(menu)
+
+# ################################################################################################# #
+#                                                                                                   #
+#  5. I/O                                                                                           #
+#                                                                                                   #
+# ################################################################################################# #
+
+# ###################################################### #
+#   File System                                          #
+# ###################################################### #
+
+# Let's setup some data we can use for these examples
+
+data_dump_text = 'Task,Estimate,Notes\nDo laundry,3,Three loads of lights darks and colds\nEat breakfast,1,Eggs and toast with coffee\nMake the bed,0.25,Change the sheets and fluff the pillows'
+data_dump_task = 'Drink water,8,Stay hydrated'
+
+# Python uses a simple function to access local text files on the file system
+
+with open('python_primer.py') as primer_file:
+  python_primer = primer_file.read()
+
+# Python has a readlines method for reading text files line by line
+
+with open('python_primer.py') as primer_file:
+  line_count = 0
+  for line in primer_file.readlines():
+    new_line = f': {line}'
+    line_count += 1
+
+# You'll notice that the variables declared inside the with block persist outside
+
+print(f'python_primer.py contains {line_count} lines')
+
+# Python supports writing to files with the same function
+
+with open('data_dump.csv', 'w') as primer_copy:
+  primer_copy.write(data_dump_text)
+
+# Python uses the mode parameter to determine how the file is opened:
+
+with open('data_dump.csv') as data_dump:       # No argument defaults to read
+  data = data_dump.read()
+with open('data_dump.csv','r') as data_dump:   # Passing r is for read
+  data = data_dump.read()
+with open('data_dump.csv','w') as data_dump:   # Passing w is for write (overwrite)
+  data_dump.write(data_dump_text)
+with open('data_dump.csv','a') as data_dump:   # Passing a is for append
+  data_dump.write(f'\n{data_dump_task}')
+
+# ###################################################### #
+#   File System: CSV Format                              #
+# ###################################################### #
+
+# Python has a clever way to read CSV data from the file system
+
+import csv
+with open('data_dump.csv',newline='') as data_dump:
+  reader = csv.DictReader(data_dump)
+  for dict in reader:
+    task = dict['Task']
+    estimate = dict['Estimate']
+    notes = dict['Notes']
+    print(f'{task}: ({estimate} hours) - {notes}')
+
+# In the example above the DictReader function from the CSV module returns an iterable
+# Dictionary reader for the CSV file which converts each line of the CSV file into a Dictionary
+# object which we can then use to access each value by name from the current line in the file
+
+# Let's make a PSV file (pipe-separated values) for our next example
+
+psv_data = 'Ingredient|Amount|Prep\nBeef|2 lbs|Thaw, cook then set aside\nPotatoes|12 large|Skin, boil, mash then let cool\nCream|2 cups|Warm then stir into beef and potatoes'
+with open('hotdish_recipe.psv','w') as psv: psv.write(psv_data)
+
+# What's nice about csv.DictReader is it will accept arbitrary delimeters so we do not have
+# to use commas to separate values in files, we can use less common text characters such as
+# pipes (|) or semicolons (;)
+
+with open('hotdish_recipe.psv',newline='') as recipe:
+  reader = csv.DictReader(recipe,delimiter='|')
+  for dict in reader:
+    ingredient = dict['Ingredient']
+    amount = dict['Amount']
+    prep = dict['Prep']
+    print(f'{ingredient}: ({amount}) - {prep}')
