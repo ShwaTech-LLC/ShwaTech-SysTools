@@ -9,5 +9,8 @@ inventory*.csv
 # Temporary staff information
 staff.csv
 
-# Ignore Python chache
+# Ignore Python primer temp
 __pycache__/*
+python_primer_copy.py
+data_dump.csv
+hotdish_recipe.psv
