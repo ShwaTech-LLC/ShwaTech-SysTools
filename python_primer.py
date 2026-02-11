@@ -33,13 +33,6 @@ the_number_seven = 7        # This is at the top scope
 if the_number_seven != 7:   # Conditional scopes like ifs...
   print('Oops!')            # Get indented with tab or spaces
 
-# Variables declared at lower scopes persist at higher scopes
-
-the_number_eight = 8                          # Variables declared at lower scopes
-if the_number_eight == 8:                     #
-  the_number_nine = 9                         #
-print('The number nine is:',the_number_nine)  # Persist at higher scopes
-
 # Function variables do not persist outside of the function scope
 
 def do_math(*a):
@@ -52,67 +45,68 @@ def do_math(*a):
 
 # Python defines everything you do in your base script as the local namespace
 
-i_like_bacon = True
-print(i_like_bacon)
+i_like_bacon = True    # i_like_bacon is defined in the local namespace
+print(i_like_bacon)    # So we can pass it to print as-in
 
 # In Python when you import a module it gets assigned a namespace name
 
-import math         # Here we import the math module
+import math         # Here we import the math module which keeps the same namespace name
 math.sqrt(654.23)   # Then we use the math namespace to call the sqrt function
+                    # sqrt() is not a method because math is a namespace, not an object
 
 # You can also alias the import of a module to avoid collisions
 
-import statistics as stat_man
-stat_man.mean([1,2,3,4,4,4,5,6,7,7,7,7,8,8])
+import statistics as stat_man                   # Here we import statistics with the alias stat_man
+stat_man.mean([1,2,3,4,4,4,5,6,7,7,7,7,8,8])    # We can call statistics functions with the stat_man prefix
 
 # Importing with the from keyword imports functions into the local namespace
-# Importing using from can be limited or unlimited
+# Importing using from can be limited or unlimited in scope
 
-from base64 import *     # This imports everything from the base64 module
-from json import dumps   # This only imports the dumps function from the json module
-dumps([1,2,3,4,5])       # When you import a single function from a module it
-                         # gets loaded into the local namespace
+from base64 import *     # This imports everything from the base64 module into the local namespace
+from json import dumps   # This however only imports the dumps function from the json module
+dumps([1,2,3,4,5])       # When you import a single function from a module it gets loaded into the local namespace
 
 from json import dumps as convert_to_json   # As such, individual functions imported into the local
-convert_to_json([1,2,3,4,5])                # namespace can be aliased to avoid conflicts
+convert_to_json([1,2,3,4,5])                # namespace can also be aliased to avoid conflicts
 
-# Python scripts in the same, current directory can be imported using their filename
+# Python scripts in the same, current directory can be imported using their filename without the extension
 
 from python_primer_refs import three_blind_mice   # This is python_primer_ref.py in the current directory
-three_blind_mice()                                # We can import this function into the local namespace
+three_blind_mice()                                # We can import this function into the local namespace and call it
 
 # ###################################################### #
-#   Variables, Primitives & Literals                     #
+#   Variables, Functions & Methods                       #
 # ###################################################### #
 
-# Python variables are simple tokens assigned with the assignment (=) operator
+# A variable is a name to which you assign a value using the assignment (=) operator
 
-my_name = 'Christian Holslin' # String
-my_company = "ShwaTech LLC"   # Also String
-my_age = 43                   # Integer
-my_favorite_number = 7.0      # Float
-am_i_awesome = True           # Boolean
-this_is_null = None           # Null (Unassigned)
-                              # String (multiline), below
-my_life_story = """
-A long, long time ago...
-In an In'N'Out Burger far far away...
-"""
+my_variable = 'Christian'
 
-# Python supports escape sequences in Strings
+# Variables cannot start with a number or token, they should generally start with a letter
 
-'\n'  # Newline
-'\t'  # Tab
-'\"'  # Double Quotation Mark
+one_more_time = 'One More Time'  # This is legal
+# 1_more_time = 'illegal'        # This is illegal, so we commented it out
+# $_in_pocket = 42.50            # This is also illegal
 
-# Python supports collection literals
+# Variables declared at lower scopes persist at higher scopes
 
-my_parents = ['Mom','Dad']            # List
-my_hobbies = ('Golf','Motorcycles')   # Tuple
-my_friends = {'Alice':29,'Bob':41}    # Dictionary
-my_skills = {'Python','C','C++','C#'} # Set
+the_number_eight = 8                          # Here we declare the_number_eight
+if the_number_eight == 8:                     #
+  the_number_nine = 9                         # Here we declare the_number_nine inside an if scope
+print('The number nine is:',the_number_nine)  # After the if we can still access the_number_nine
 
-# Variables can be assigned and reassigned to any value at run-time
+# Functions are invoked using parenthesis like this
+
+sum( [3,5,2,7] )   # Calculates the sum of the numbers in the List
+                   # sum() is called a built-in function
+
+# Functions that are part of an object are called methods, they are invoked with the dot (.) operator
+
+[3,5,2,7].append(4)           # Calling the append() method on a List literal
+'Hello, {}!'.format('world')  # Calling the format() method on a String literal
+one_more_time.count('One')    # Calling the count() method on a String variable
+
+# Variables can be assigned and reassigned to any value at run-time regardless of type
 
 some_thing = 12
 some_thing = 'Twelve'
@@ -120,16 +114,37 @@ some_thing = 7.5
 some_thing = [1,1,2,2,3,4,5]
 some_thing = range(9)
 
-# Python also supports complex types called classes, such as the datetime
+# ###################################################### #
+#   Primitives & Literals                                #
+# ###################################################### #
 
-from datetime import datetime                     # Datetimes are part of the datetime module
-back_then = datetime(2025,7,5,9,38,25)            # Construct a date time with its constituent parts
-right_now = datetime.now()                        # Get the current time and date
-right_now - back_then                             # Get the difference between two datetimes
-a_while_ago = \
-  datetime.strptime('Mar 10, 1993','%b %d, %Y')   # Parse a String into a datetime
-welcome_to_now = right_now.strftime('%d/%m/%Y')   # Format the current time and date into a String
-print(f'Welcome to {welcome_to_now}')
+# A primitive or literal in Python is a static value specified directly, such as the following:
+
+my_name = 'Christian Holslin' # String literal (word or words in single quotes)
+my_company = "ShwaTech LLC"   # Also String literal (word or words in double quotes)
+my_age = 43                   # Integer literal
+my_favorite_number = 7.0      # Float literal
+am_i_awesome = True           # Boolean literal (True/False)
+this_is_null = None           # Null (Unassigned) literal
+                              # Multiline String literal, below
+my_life_story = """
+A long, long time ago...
+In an In'N'Out Burger far far away...
+"""
+
+# Python supports escape sequences in String literals
+
+'\n'  # Newline
+'\t'  # Tab
+'\"'  # Double Quotation Mark
+'\''  # Single Quotation Mark
+
+# Python supports collection literals of four (4) different built-in types
+
+my_parents = ['Mom','Dad']             # List
+my_hobbies = ('Golf','Motorcycles')    # Tuple (immutable)
+my_friends = {'Alice':29,'Bob':41}     # Dictionary (all keys must be unique)
+my_skills = {'Python','C','C++','C#'}  # Set (immutable + all items MUST be unique)
 
 # ###################################################### #
 #   Arithmetic                                           #
@@ -393,8 +408,22 @@ student_scores = {key:value for key, value in zip(students,test_scores)}   # Mer
 
 # Dictionary comprehensions require Tuples rather than items since entries are key-value pairs
 
-score_list = [['Alice',99],['Bob',98],['Charlie',99]]
-student_scores = {n[0]:n[1] for n in score_list}         # Merge a two-dimensional array into a Dictionary
+score_list = [['Alice',99],['Bob',98],['Charlie',99]]    # Here we have a two-dimensional array
+student_scores = {n[0]:n[1] for n in score_list}         # Merge the two-dimensional array into a Dictionary
+
+# ###################################################### #
+#   Dates & Times                                        #
+# ###################################################### #
+
+# Python date and time operations are implemented in the datetime module
+
+from datetime import datetime                     # Datetimes are part of the datetime module
+back_then = datetime(2025,7,5,9,38,25)            # Construct a date time with its constituent parts
+right_now = datetime.now()                        # Get the current time and date
+right_now - back_then                             # Get the difference between two datetimes
+a_while_ago = \
+  datetime.strptime('Mar 10, 1993','%b %d, %Y')   # Parse a String into a datetime
+welcome_to_now = right_now.strftime('%d/%m/%Y')   # Format the current time and date into a String
 
 # ################################################################################################# #
 #                                                                                                   #
@@ -409,26 +438,26 @@ student_scores = {n[0]:n[1] for n in score_list}         # Merge a two-dimension
 # Python conditional control flow uses the if, elif, and else keywords
 
 my_name = 'Bob'
-if my_name == 'Christian':
-  print('My name is Christian')
+if my_name == 'Christian':            # If this is True
+  print('My name is Christian')       # Run this line
 
-if my_name == 'Christian':
-  print('My name is Christian')
-else:
-  print('My name is not Christian')
+if my_name == 'Christian':            # If this is True
+  print('My name is Christian')       # Run this line
+else:                                 # Otherwise...
+  print('My name is not Christian')   # Run this line instead
 
-if my_name == 'Christian':
-  print('My name is Christian')
-elif my_name == 'Bob':
-  print('My name is Bob')
-else:
-  print('Who am I?')
+if my_name == 'Christian':            # If this is True
+  print('My name is Christian')       # Run this
+elif my_name == 'Bob':                # Or if this is True, and the previous expression was False
+  print('My name is Bob')             # Run this line
+else:                                 # Otherwise...
+  print('Who am I?')                  # Run this line instead
 
 # ###################################################### #
 #   Loops                                                #
 # ###################################################### #
 
-# Python loop control include for loops and while loops
+# Python loop control includes for loops and while loops
 
 for item in backpack:
   print('Backpack item:',item)
@@ -438,8 +467,26 @@ while x < len(backpack):
   print(f'Backpack item {x}:',backpack[x])
   x += 1
 
+# Python loops support break and continue statements which will stop the loop or skip steps, respectively
+
+for item in backpack:    # This will loop through the backpack until we find paper
+  if item == 'paper':
+    break
+  else:
+    print(item)
+
+for item in backpack:    # This will loop through the entire backpack but will not print any paper
+  if item == 'paper':
+    continue
+  print(item)
+
+# The pass keyword is used for doing a no-op (No Operation)
+
+for item in backpack:    # This will loop through the entire backpack and do nothing with each item
+  pass
+
 # ###################################################### #
-#   Branching/Switching                                  #
+#   Branching / Switching                                #
 # ###################################################### #
 
 # Python uses the match statement to create a switch case branch
@@ -452,6 +499,8 @@ match letter:
     print('b is for boysenberry')
   case default:
     print(letter)
+
+# The match statement was added recently in Python 3.10, the above code will fail if you run this on older Python runtimes
 
 # ################################################################################################# #
 #                                                                                                   #
@@ -470,9 +519,9 @@ def my_function():
 
 # Python user-defined functions can return zero, one or more values
 
-def returns_nothing(): print('Hello, world!')
-def returns_something(): return 'Hello, world!'
-def returns_three_values(): return 'Hello', 'world', '!'
+def returns_nothing(): print('Hello, world!')             # Returns nothing
+def returns_something(): return 'Hello, world!'           # Returns a String
+def returns_three_values(): return 'Hello', 'world', '!'  # Returns three separate values
 
 # Return values are assigned to one or more variables using the assignment (=) operator
 
@@ -483,31 +532,36 @@ hello, world, exclaim = returns_three_values()
 # Function arguments and their parameters can be passed in positional or keyword format
 
 def calc_product(a, b, c): return a * b * c
-calc_product(1,2,3)
-calc_product(b = 2, c = 3, a = 1)
+calc_product(1,2,3)                            # These parameters are passed by position
+calc_product(b = 2, c = 3, a = 1)              # These parameters are passed by keyword
+calc_product(4, c = 12, b = 7)                 # These parameters are mixed between position and keyword
+                                               # This makes Python functions more versatile than many other languages
+                                               # You can specify only the parameters relevant to you
+print('No line break', end = '')               # For example, you can print text with no line break
 
 # Function definitions can have default argument values
 
-def say_my_name(name = 'Christian'): print(name)
-say_my_name()
-say_my_name('Alice')
-say_my_name(name = 'Bob')
+def say_my_name(name = 'Christian'): print(name)  # This function's name argument is defaulted
+
+say_my_name()                # Calling it this way prints the default value
+say_my_name('Alice')         # Calling it this way prints Alice
+say_my_name(name = 'Bob')    # Calling it this way prints Bob
 
 # Functions also support arbitrary positional arguments
 
-def add_numbers(*nums):
-  result = 0
-  for i in nums:
+def add_numbers(*nums):          # Using *nums means you can specify an unlimited number of nums
+  result = 0                     # as the first positional argument which will be passed as a List
+  for i in nums:                 # Here we iterate the nums List
     result += i
   return result
-add_numbers(3,7,4,2,8,3,4,5,6)
+add_numbers(3,7,4,2,8,3,4,5,6)   # We call the function with a bunch of numbers
 
 # Functions also support abritrary keyword arguments
 
-def print_brochure(**tags):
-  for key, value in tags.items():
+def print_brochure(**tags):        # The double asterisk (**) token means we accept arbitrary named parameters
+  for key, value in tags.items():  # The tags argument will come in as a Dictionary
     print(f"{key} = {value}")
-print_brochure( breakfast = 'eggs', lunch = 'salad', dinner = 'pasta')
+print_brochure( breakfast = 'eggs', lunch = 'salad', dinner = 'pasta')  # This is what they look like
 
 # ###################################################### #
 #   Anonymous Functions (Lambda)                         #
@@ -517,7 +571,9 @@ print_brochure( breakfast = 'eggs', lunch = 'salad', dinner = 'pasta')
 
 positive_integers = list(range(100))
 odd_numbers = [num for num in positive_integers if num % 2 == 1]
-odd_numbers = list(filter(lambda x: x % 2 == 1, positive_integers))
+odd_numbers = list(filter(lambda x: x % 2 == 1, positive_integers)) # Here we use a lambda function to find all the
+                                                                    # odd numbers in a list of numbers using the filter
+                                                                    # function which accepts a function as the first parameter
 
 # Lambda functions can have multiple arguments that can map into the caller parameters
 # In the example below we are passing two iterables to the map function thus our
@@ -531,7 +587,7 @@ products = list(map(lambda x, y: x * y, odd_numbers, odd_numbers))
 menu_items = ['Eggs','Sausage','Toast','Coffee']
 menu_prices = ['2.99','3.99','1.99','2.00']
 
-menu = list(map(lambda x, y: f'{x}: ${y}', menu_items, menu_prices))
+menu = list(map(lambda x, y: f'{x}: ${y}', menu_items, menu_prices)) # Makes a List of menu items by name and price
 print(menu)
 
 # ################################################################################################# #
@@ -549,14 +605,14 @@ print(menu)
 data_dump_text = 'Task,Estimate,Notes\nDo laundry,3,Three loads of lights darks and colds\nEat breakfast,1,Eggs and toast with coffee\nMake the bed,0.25,Change the sheets and fluff the pillows'
 data_dump_task = 'Drink water,8,Stay hydrated'
 
-# Python uses a simple function to access local text files on the file system
+# Python uses the open function to access local files on the file system
 
 with open('python_primer.py') as primer_file:
   python_primer = primer_file.read()
 
 # Python has a readlines method for reading text files line by line
 
-with open('python_primer.py') as primer_file:
+with open('python_primer.py') as primer_file:  # By default, files are opened in read mode
   line_count = 0
   for line in primer_file.readlines():
     new_line = f': {line}'
@@ -568,7 +624,7 @@ print(f'python_primer.py contains {line_count} lines')
 
 # Python supports writing to files with the same function
 
-with open('data_dump.csv', 'w') as primer_copy:
+with open('data_dump.csv', 'w') as primer_copy:  # The 'w' argument indicates write mode
   primer_copy.write(data_dump_text)
 
 # Python uses the mode parameter to determine how the file is opened:
@@ -590,8 +646,8 @@ with open('data_dump.csv','a') as data_dump:   # Passing a is for append
 
 import csv
 with open('data_dump.csv',newline='') as data_dump:
-  reader = csv.DictReader(data_dump)
-  for dict in reader:
+  reader = csv.DictReader(data_dump)                 # The DictReader parses the header and treats each line
+  for dict in reader:                                # of data as a Dictionary for access via named property
     task = dict['Task']
     estimate = dict['Estimate']
     notes = dict['Notes']
@@ -606,14 +662,218 @@ with open('data_dump.csv',newline='') as data_dump:
 psv_data = 'Ingredient|Amount|Prep\nBeef|2 lbs|Thaw, cook then set aside\nPotatoes|12 large|Skin, boil, mash then let cool\nCream|2 cups|Warm then stir into beef and potatoes'
 with open('hotdish_recipe.psv','w') as psv: psv.write(psv_data)
 
-# What's nice about csv.DictReader is it will accept arbitrary delimeters so we do not have
+# What's nice about csv.DictReader is it will accept arbitrary delimiters so we do not have
 # to use commas to separate values in files, we can use less common text characters such as
 # pipes (|) or semicolons (;)
 
 with open('hotdish_recipe.psv',newline='') as recipe:
-  reader = csv.DictReader(recipe,delimiter='|')
+  reader = csv.DictReader(recipe,delimiter='|')        # The delimiter keyword parameter lets us use the pipe character
   for dict in reader:
     ingredient = dict['Ingredient']
     amount = dict['Amount']
     prep = dict['Prep']
     print(f'{ingredient}: ({amount}) - {prep}')
+
+# Python allows us to write to CSV files just as easily with the csv module
+# Notice how we can use keyword parameters to set the delimiter to a pipe (|) instead of a comma
+
+with open('hotdish_recipe.psv','w') as output_file:
+  schema = ['Ingredient','Amount','Prep']
+  data = [
+    {'Ingredient':'beef','Amount':'2 lbs','Prep':'Thaw, cook then set aside'},
+    {'Ingredient':'Potatoes','Amount':'12 large','Prep':'Skin, boil, mash then let cool'},
+    {'Ingredient':'Cream','Amount':'2 cups','Prep':'Warm then stir into beef and potatoes'}
+  ]
+  csv_writer = csv.DictWriter(output_file,schema,delimiter='|',lineterminator='\n')
+  csv_writer.writeheader()
+  for item in data:
+    csv_writer.writerow(item)
+
+# This example above is not the most efficient method. The data variable is a List of Dictionaries which works well
+# but relies on the header values being duplicated on each row.
+
+# ###################################################### #
+#   File System: JSON Format                             #
+# ###################################################### #
+
+# Python also supports reading and writing JSON data with the json module
+# Let's create some sample data for the next examples
+
+def json_payload(data: str) -> None:                 # : str and -> None are called type hints
+  with open('python_primer.json','w') as json_file:
+    json_file.write(data)
+
+# Python's json module has a load function which will read JSON from disk and output a data
+# structure for us from the contents
+
+json_payload('{"hello":"world"}')              # Save some JSON to disk
+from json import load as json_load             # Import the load function from json as json_load
+with open('python_primer.json') as json_file:  # Open the JSON file in read mode
+  json_data = json_load(json_file)             # Load the JSON into a variable
+
+# Python's json module returns JSON data in a list or dictionary format depending on the
+# schema of the JSON itself
+
+print('Hello, {}!'.format(json_data['hello']))
+
+# Let's define json_get so we don't have to copy the JSON read code over and over again for the next examples
+
+def json_get():
+  with open('python_primer.json') as json_file:
+    return json_load(json_file)
+
+# Let's show some other examples of how Python processes JSON
+
+json_payload('[{"hello":"world"}]')            # This JSON is an array of objects
+json_output = json_get()                       # Python returns a List with one Dictonary item
+json_output[0]['hello']
+
+json_payload('{"hello":{"place":"world"}}')    # This JSON is an object with a subobject
+json_output = json_get()                       # Python returns a Dictionary with one Dictionary value
+json_output['hello']['place']
+
+json_payload('{"hello":[{"place":"world"}]}')  # This JSON is an object with a subarray of objects
+json_output = json_get()                       # Python returns a Dictionary with one List value of Dictionary type
+json_output['hello'][0]['place']
+
+# What you'll notice about Python and JSON is how Python deserializes native JSON into native Python
+# data structures. Any JSON can be expressed as a Dictionary, List, or Dictionary of Lists or
+# List of Dictionaries.
+
+# Conversely, the JSON module let's us serialize native Python Dictionary and List types to JSON
+
+from json import dump
+def json_out(data,filename: str = 'python_primer.json'):
+  with open(filename,'w') as json_file:
+    dump(data,json_file)                                  # The dump function writes JSON to a file from an object
+
+# We can now write various Python data structures out to native JSON
+
+list_of_letters = ['a','b','c','d','e','f','g','h','i','j','k','l']        # Serialized as-is
+list_of_tuples = [('a','b'),('c','d'),('e','f'),('g','h')]                 # Tuples are serialized as arrays
+list_of_dictionaries = [{'a':'b'},{'c':'d'},{'e':'f'},{'g':'h'}]           # Serialized as a list of objects
+dictionary_of_lists = {'a':['b','c','d'],'e':['f','g','h']}                # Serialized as an object with array properties
+dictionary_of_dictionaries = {'a':{'b':'c'},'d':{'e':'f'},'g':{'h':'i'}}   # Serialized as an object with object properties
+
+json_out(list_of_letters,'py_list_of_letters.json')
+json_out(list_of_tuples,'py_list_of_tuples.json')
+json_out(list_of_dictionaries,'py_list_of_dictionaries.json')
+json_out(dictionary_of_lists,'py_dictionary_of_lists.json')
+json_out(dictionary_of_dictionaries,'py_dictionary_of_dictionaries.json')
+
+# In Python, any serializable object can be written into JSON
+
+# ################################################################################################# #
+#                                                                                                   #
+#  6. Classes                                                                                       #
+#                                                                                                   #
+# ################################################################################################# #
+
+# Python is a typed language, every object in Python has a type which you can get using the type function
+
+type(5)                       # 5 is an int
+type('five')                  # 'five is an str (String)
+type([5,'five'])              # [] is a List
+type({5:'five'})              # {} is a Dictionary
+type(('five',5))              # () is a Tuple
+type({'five','six','seven'})  # {1,2,3} is a Set
+
+# Python allows you to check run-time types using the is keyword
+
+if type(5) is int: print(f'5 is an int')
+
+# In Python, like in many languages, every object has a type and the class keyword lets you define your own
+
+class Person:                                                  # The class keyword defines a class by name
+
+  name = 'George Costanza'                                     # This is an attribute for a class
+
+  def __init__(self,name):                                     # The __init__ function defines the constructor
+    self.name = name                                           # Itself must always be the first argument
+
+  def __repr__(self):                                          # The dunder method that converts this to a string
+    return self.name                                           # Python classes have many dunder methods (built-ins)
+
+  def greet(self,greeter: Person) -> str:                      # This is an instance method, note how self is an argument
+    return f'Hello, {greeter.name}. My name is {self.name}.'   # self is not an ephemeral variable like 'this' in other
+                                                               # object-oriented languages, it must be declared
+
+  def sayhello(this):                                          # The fun part is that 'self' is not a keyword, it's only
+    return f'Hello, my name is {this.name}.'                   # a convention, so you can technically use any name for
+                                                               # the argument that references the current instance
+
+  def echo():         # Every instance method of a class is required to have 1 argument and that one first argument will
+    return 'Hello'    # always be set to the instance of the class itself calling the method. This method definition, while
+                      # it can be defined, will actually throw a TypeError if you try to invoke it because the run-time is
+                      # passing the instance of itself as the first argument automatically, but this definition does not
+                      # accept any arguments at all.
+
+# The class definition ends when we outdent back to the local namespace
+# Let's instantiate some instances of our new class and do things with them
+
+alice = Person('Alice')   # Make a new Person named Alice
+bob = Person('Bob')       # Make a new Person named Bob
+
+print(alice.sayhello())   # Make Alice say Hello
+print(bob.sayhello())     # Make Bob say Hello
+
+print(alice.greet(bob))   # Have Alice greet Bob
+print(bob.greet(alice))   # Have Bob greet Alice
+
+# alice.echo()              # If you try to run this, you'll generate a TypeError because echo() has no arguments
+
+# ###################################################### #
+#   Attribute Testing                                    #
+# ###################################################### #
+
+# Python run-time allows you to test objects for their attributes to avoid run-time errors
+
+alice.name = 'Alice'    # Our class Person has a name attribute
+hasattr(alice,'name')   # We can test for it using the hasattr function
+getattr(alice,'name')   # We can use the getattr function to get alice.name
+getattr(alice,'name','Alice')   # This is useful if we don't know if alice has a name, we can get a default value instead
+
+# Python provides a directory list using the dir function allowing you to get every attribute in a List
+
+scope_list = dir()         # Gets every attribute in the current scope
+person_list = dir(alice)   # Gets every attribute of the alice instance of Person
+
+print([a for a in dir(alice) if a.find('__') < 0])  # A List Comprehension removing dunder methods so we can find all the
+                                                    # user-defined attributes and methods of a Person
+
+# ################################################################################################# #
+#                                                                                                   #
+#  7. Error Handling                                                                                #
+#                                                                                                   #
+# ################################################################################################# #
+
+# Python, like most languages, allows you to trap run-time errors at run-time using the try/except syntax
+
+try:
+  alice.echo()                                         # Let's call our broken method on the Person class
+except TypeError:                                      # Here we define the expected error TypeError
+  print('alice.echo() generated expected TypeError')   # This will run if alice.echo() generates a TypeError
+                                                       # and the TypeError will not stop our script
+
+# Your code can also raise errors using the raise keyword if you need to halt execution
+
+try:
+  raise NameError(name='kwyjibo')
+except:
+  print('Caught error')
+
+# Finally, here is an example of a full try/except block with all possible operations
+# Except blocks are not mutually exclusive, both except blocks below will execute because
+# the error raised is a NameError, so the NameError block runs, and the any error block
+# also runs. This is by design.
+
+try:                              # Here we initiate the error trap
+  print(kwyjibo)
+except NameError:                 # Here we trap a specific NameError
+  print('Caught NameError')
+except:                           # Here we trap any error, regardless of type
+  print('Caught error')
+else:                             # Here we run some code if there were no errors
+  print('No error')
+finally:                          # And finally, we always run this code to make sure everything is cleaned up
+  print('Always runs, for cleanup of issues/open handles, etc.')
