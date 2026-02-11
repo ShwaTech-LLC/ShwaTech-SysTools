@@ -5,6 +5,8 @@
 # ################################################################################################# #
 
 # Welcome to the ShwaTech Python Primer!
+# This primer was authored by hand by Christian Holslin and was last updated on February 10, 2026.
+# 
 # We will start with the basic syntax of the language and work our way up
 # You will notice these lines that start with a hashtag
 # These are comments in Python, they will be ignored by the interpreter
