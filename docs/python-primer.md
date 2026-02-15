@@ -1,940 +1,965 @@
-```python
-# ################################################################################################# #
-#                                                                                                   #
-#  1. Getting Started                                                                               #
-#                                                                                                   #
-# ################################################################################################# #
+<style>
+:root {
+  --bg: #1e1e1e;
+  --fg: #d4d4d4;
+  --comment: #6A9955;
+  --string: #CE9178;
+  --number: #B5CEA8;
+  --keyword: #C586C0;
+  --builtin: #DCDCAA;
+  --name: #9CDCFE;
+  --operator: #d4d4d4;
+  --punct: #d4d4d4;
+}
+body { background: var(--bg); color: var(--fg); margin: 0; padding: 16px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+pre { background: var(--bg); color: var(--fg); padding: 16px; border-radius: 8px; overflow: auto; line-height: 1.45; font-size: 13px; }
+.tok-comment  { color: var(--comment); }
+.tok-string   { color: var(--string); }
+.tok-number   { color: var(--number); }
+.tok-keyword  { color: var(--keyword); }
+.tok-builtin  { color: var(--builtin); }
+.tok-name     { color: var(--name); }
+.tok-operator { color: var(--operator); }
+.tok-punct    { color: var(--punct); }
+</style>
 
-# Welcome to the ShwaTech Python Primer!
-# This primer was authored by hand by Christian Holslin and was last updated on February 15, 2026.
-# 
-# We will start with the basic syntax of the language and work our way up
-# You will notice these lines that start with a hashtag
-# These are comments in Python, they will be ignored by the interpreter
-# Comments allow you to explain what your code is doing
+<pre>
+<code><span class="tok-comment"># ################################################################################################# #</span>
+<span class="tok-comment">#                                                                                                   #</span>
+<span class="tok-comment">#  1. Getting Started                                                                               #</span>
+<span class="tok-comment">#                                                                                                   #</span>
+<span class="tok-comment"># ################################################################################################# #</span>
 
-# ###################################################### #
-#   Syntax & Scope                                       #
-# ###################################################### #
+<span class="tok-comment"># Welcome to the ShwaTech Python Primer!</span>
+<span class="tok-comment"># This primer was authored by hand by Christian Holslin and was last updated on February 15, 2026.</span>
+<span class="tok-comment"># </span>
+<span class="tok-comment"># We will start with the basic syntax of the language and work our way up</span>
+<span class="tok-comment"># You will notice these lines that start with a hashtag</span>
+<span class="tok-comment"># These are comments in Python, they will be ignored by the interpreter</span>
+<span class="tok-comment"># Comments allow you to explain what your code is doing</span>
 
-hello_world = 'Hello, world!'   # Python is a script language
-print(hello_world)              # Each line is an instruction to the interpreter
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   Syntax &amp; Scope                                       #</span>
+<span class="tok-comment"># ###################################################### #</span>
 
-# Python allows you to combine instructions onto a single line using the ; operator
+<span class="tok-name">hello_world</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;Hello, world!&#x27;</span>   <span class="tok-comment"># Python is a script language</span>
+<span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-name">hello_world</span><span class="tok-punct">)</span>              <span class="tok-comment"># Each line is an instruction to the interpreter</span>
 
-hello_world = 'Hello again, world!'; print(hello_world)
+<span class="tok-comment"># Python allows you to combine instructions onto a single line using the ; operator</span>
 
-# Python allows you to carry instructions onto subsequent lines with the \ operator
+<span class="tok-name">hello_world</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;Hello again, world!&#x27;</span><span class="tok-punct">;</span> <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-name">hello_world</span><span class="tok-punct">)</span>
 
-hello_world = \
-'Hello again there, world!'
-print(hello_world)
+<span class="tok-comment"># Python allows you to carry instructions onto subsequent lines with the \ operator</span>
 
-# Scope in Python is defined by indentation
+<span class="tok-name">hello_world</span> <span class="tok-operator">=</span> \
+<span class="tok-string">&#x27;Hello again there, world!&#x27;</span>
+<span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-name">hello_world</span><span class="tok-punct">)</span>
 
-the_number_seven = 7        # This is at the top scope
-if the_number_seven != 7:   # Conditional scopes like ifs...
-  print('Oops!')            # Get indented with tab or spaces
+<span class="tok-comment"># Scope in Python is defined by indentation</span>
 
-# Function variables do not persist outside of the function scope
+<span class="tok-name">the_number_seven</span> <span class="tok-operator">=</span> <span class="tok-number">7</span>        <span class="tok-comment"># This is at the top scope</span>
+<span class="tok-keyword">if</span> <span class="tok-name">the_number_seven</span> <span class="tok-operator">!=</span> <span class="tok-number">7</span><span class="tok-punct">:</span>   <span class="tok-comment"># Conditional scopes like ifs...</span>
+  <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;Oops!&#x27;</span><span class="tok-punct">)</span>            <span class="tok-comment"># Get indented with tab or spaces</span>
 
-def do_math(*a):
-  math_result = sum(a)    # math_result goes out of scope after the function call
-  return math_result      # Therefore we must return it to the caller
+<span class="tok-comment"># Function variables do not persist outside of the function scope</span>
 
-# ###################################################### #
-#   Namespaces & External References                     #
-# ###################################################### #
+<span class="tok-keyword">def</span> <span class="tok-name">do_math</span><span class="tok-punct">(</span><span class="tok-operator">*</span><span class="tok-name">a</span><span class="tok-punct">)</span><span class="tok-punct">:</span>
+  <span class="tok-name">math_result</span> <span class="tok-operator">=</span> <span class="tok-builtin">sum</span><span class="tok-punct">(</span><span class="tok-name">a</span><span class="tok-punct">)</span>    <span class="tok-comment"># math_result goes out of scope after the function call</span>
+  <span class="tok-keyword">return</span> <span class="tok-name">math_result</span>      <span class="tok-comment"># Therefore we must return it to the caller</span>
 
-# Python defines everything you do in your base script as the local namespace
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   Namespaces &amp; External References                     #</span>
+<span class="tok-comment"># ###################################################### #</span>
 
-i_like_bacon = True    # i_like_bacon is defined in the local namespace
-print(i_like_bacon)    # So we can pass it to print as-is
+<span class="tok-comment"># Python defines everything you do in your base script as the local namespace</span>
 
-# When you import a module it gets assigned a namespace name
+<span class="tok-name">i_like_bacon</span> <span class="tok-operator">=</span> <span class="tok-keyword">True</span>    <span class="tok-comment"># i_like_bacon is defined in the local namespace</span>
+<span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-name">i_like_bacon</span><span class="tok-punct">)</span>    <span class="tok-comment"># So we can pass it to print as-is</span>
 
-import math         # Here we import the math module which keeps the same namespace name
-math.sqrt(654.23)   # Then we use the math namespace to call the sqrt function
-                    # sqrt() is not a method because math is a namespace, not an object
+<span class="tok-comment"># When you import a module it gets assigned a namespace name</span>
 
-# You can also alias the import of a module to avoid collisions
+<span class="tok-keyword">import</span> <span class="tok-name">math</span>         <span class="tok-comment"># Here we import the math module which keeps the same namespace name</span>
+<span class="tok-name">math</span><span class="tok-punct">.</span><span class="tok-name">sqrt</span><span class="tok-punct">(</span><span class="tok-number">654.23</span><span class="tok-punct">)</span>   <span class="tok-comment"># Then we use the math namespace to call the sqrt function</span>
+                    <span class="tok-comment"># sqrt() is not a method because math is a namespace, not an object</span>
 
-import statistics as stat_man                   # Here we import statistics with the alias stat_man
-stat_man.mean([1,2,3,4,4,4,5,6,7,7,7,7,8,8])    # We can call statistics functions with the stat_man prefix
+<span class="tok-comment"># You can also alias the import of a module to avoid collisions</span>
 
-# Importing with the from keyword imports functions into the local namespace
-# Importing using from can be limited or unlimited in scope
+<span class="tok-keyword">import</span> <span class="tok-name">statistics</span> <span class="tok-keyword">as</span> <span class="tok-name">stat_man</span>                   <span class="tok-comment"># Here we import statistics with the alias stat_man</span>
+<span class="tok-name">stat_man</span><span class="tok-punct">.</span><span class="tok-name">mean</span><span class="tok-punct">(</span><span class="tok-punct">[</span><span class="tok-number">1</span><span class="tok-punct">,</span><span class="tok-number">2</span><span class="tok-punct">,</span><span class="tok-number">3</span><span class="tok-punct">,</span><span class="tok-number">4</span><span class="tok-punct">,</span><span class="tok-number">4</span><span class="tok-punct">,</span><span class="tok-number">4</span><span class="tok-punct">,</span><span class="tok-number">5</span><span class="tok-punct">,</span><span class="tok-number">6</span><span class="tok-punct">,</span><span class="tok-number">7</span><span class="tok-punct">,</span><span class="tok-number">7</span><span class="tok-punct">,</span><span class="tok-number">7</span><span class="tok-punct">,</span><span class="tok-number">7</span><span class="tok-punct">,</span><span class="tok-number">8</span><span class="tok-punct">,</span><span class="tok-number">8</span><span class="tok-punct">]</span><span class="tok-punct">)</span>    <span class="tok-comment"># We can call statistics functions with the stat_man prefix</span>
 
-from base64 import *     # This imports everything from the base64 module into the local namespace
-                         # Generally you would avoid doing this because it's almost always unnecessary
+<span class="tok-comment"># Importing with the from keyword imports functions into the local namespace</span>
+<span class="tok-comment"># Importing using from can be limited or unlimited in scope</span>
 
-from json import dumps   # This imports only the dumps function from the json module
-dumps([1,2,3,4,5])       # When you import a single function from a module it gets loaded into the local namespace
+<span class="tok-keyword">from</span> <span class="tok-name">base64</span> <span class="tok-keyword">import</span> <span class="tok-operator">*</span>     <span class="tok-comment"># This imports everything from the base64 module into the local namespace</span>
+                         <span class="tok-comment"># Generally you would avoid doing this because it&#x27;s almost always unnecessary</span>
 
-from json import dumps as convert_to_json   # As such, individual functions imported into the local
-convert_to_json([1,2,3,4,5])                # namespace can also be aliased to avoid conflicts
+<span class="tok-keyword">from</span> <span class="tok-name">json</span> <span class="tok-keyword">import</span> <span class="tok-name">dumps</span>   <span class="tok-comment"># This imports only the dumps function from the json module</span>
+<span class="tok-name">dumps</span><span class="tok-punct">(</span><span class="tok-punct">[</span><span class="tok-number">1</span><span class="tok-punct">,</span><span class="tok-number">2</span><span class="tok-punct">,</span><span class="tok-number">3</span><span class="tok-punct">,</span><span class="tok-number">4</span><span class="tok-punct">,</span><span class="tok-number">5</span><span class="tok-punct">]</span><span class="tok-punct">)</span>       <span class="tok-comment"># When you import a single function from a module it gets loaded into the local namespace</span>
 
-from json import load, detect_encoding  # You can import multiple items with a single import statement
+<span class="tok-keyword">from</span> <span class="tok-name">json</span> <span class="tok-keyword">import</span> <span class="tok-name">dumps</span> <span class="tok-keyword">as</span> <span class="tok-name">convert_to_json</span>   <span class="tok-comment"># As such, individual functions imported into the local</span>
+<span class="tok-name">convert_to_json</span><span class="tok-punct">(</span><span class="tok-punct">[</span><span class="tok-number">1</span><span class="tok-punct">,</span><span class="tok-number">2</span><span class="tok-punct">,</span><span class="tok-number">3</span><span class="tok-punct">,</span><span class="tok-number">4</span><span class="tok-punct">,</span><span class="tok-number">5</span><span class="tok-punct">]</span><span class="tok-punct">)</span>                <span class="tok-comment"># namespace can also be aliased to avoid conflicts</span>
 
-# Python scripts in the same directory can be imported using their filename without the file extension
+<span class="tok-keyword">from</span> <span class="tok-name">json</span> <span class="tok-keyword">import</span> <span class="tok-name">load</span><span class="tok-punct">,</span> <span class="tok-name">detect_encoding</span>  <span class="tok-comment"># You can import multiple items with a single import statement</span>
 
-from python_primer_refs import three_blind_mice   # This is python_primer_ref.py in the current directory
-three_blind_mice()                                # We can import this function into the local namespace and call it
+<span class="tok-comment"># Python scripts in the same directory can be imported using their filename without the file extension</span>
 
-# ###################################################### #
-#   Variables, Functions & Methods                       #
-# ###################################################### #
+<span class="tok-keyword">from</span> <span class="tok-name">python_primer_refs</span> <span class="tok-keyword">import</span> <span class="tok-name">three_blind_mice</span>   <span class="tok-comment"># This is python_primer_ref.py in the current directory</span>
+<span class="tok-name">three_blind_mice</span><span class="tok-punct">(</span><span class="tok-punct">)</span>                                <span class="tok-comment"># We can import this function into the local namespace and call it</span>
 
-# A variable is a name to which you assign a value using the assignment (=) operator
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   Variables, Functions &amp; Methods                       #</span>
+<span class="tok-comment"># ###################################################### #</span>
 
-my_variable = 'Christian'
+<span class="tok-comment"># A variable is a name to which you assign a value using the assignment (=) operator</span>
 
-# Variables cannot start with a number or token, they should generally start with a letter
+<span class="tok-name">my_variable</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;Christian&#x27;</span>
 
-one_more_time = 'One More Time'  # This is legal
-# 1_more_time = 'illegal'        # This is illegal, so we commented it out
-# $_in_pocket = 42.50            # This is also illegal
+<span class="tok-comment"># Variables cannot start with a number or token, they should generally start with a letter</span>
 
-# Variables declared at lower scopes persist at higher scopes
+<span class="tok-name">one_more_time</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;One More Time&#x27;</span>  <span class="tok-comment"># This is legal</span>
+<span class="tok-comment"># 1_more_time = &#x27;illegal&#x27;        # This is illegal, so we commented it out</span>
+<span class="tok-comment"># $_in_pocket = 42.50            # This is also illegal</span>
 
-the_number_eight = 8                          # Here we declare the_number_eight
-if the_number_eight == 8:                     #
-  the_number_nine = 9                         # Here we declare the_number_nine inside an if scope
-print('The number nine is:',the_number_nine)  # After the if we can still access the_number_nine
+<span class="tok-comment"># Variables declared at lower scopes persist at higher scopes</span>
 
-# This, however, does not apply to function scopes
+<span class="tok-name">the_number_eight</span> <span class="tok-operator">=</span> <span class="tok-number">8</span>                          <span class="tok-comment"># Here we declare the_number_eight</span>
+<span class="tok-keyword">if</span> <span class="tok-name">the_number_eight</span> <span class="tok-operator">==</span> <span class="tok-number">8</span><span class="tok-punct">:</span>                     <span class="tok-comment">#</span>
+  <span class="tok-name">the_number_nine</span> <span class="tok-operator">=</span> <span class="tok-number">9</span>                         <span class="tok-comment"># Here we declare the_number_nine inside an if scope</span>
+<span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;The number nine is:&#x27;</span><span class="tok-punct">,</span><span class="tok-name">the_number_nine</span><span class="tok-punct">)</span>  <span class="tok-comment"># After the if we can still access the_number_nine</span>
 
-def goes_out_of_scope(my_name):
-  also_my_name = my_name
-# print(also_my_name)             # also_my_name does out of scope because it was declared in a function scope
+<span class="tok-comment"># This, however, does not apply to function scopes</span>
 
-# Functions are invoked using parenthesis like this
+<span class="tok-keyword">def</span> <span class="tok-name">goes_out_of_scope</span><span class="tok-punct">(</span><span class="tok-name">my_name</span><span class="tok-punct">)</span><span class="tok-punct">:</span>
+  <span class="tok-name">also_my_name</span> <span class="tok-operator">=</span> <span class="tok-name">my_name</span>
+<span class="tok-comment"># print(also_my_name)             # also_my_name does out of scope because it was declared in a function scope</span>
 
-sum( [3,5,2,7] )   # Calculates the sum of the numbers in the List
-                   # sum() is called a built-in function
+<span class="tok-comment"># Functions are invoked using parenthesis like this</span>
 
-# Functions that are part of an object are called methods, they are invoked with the dot (.) operator
+<span class="tok-builtin">sum</span><span class="tok-punct">(</span> <span class="tok-punct">[</span><span class="tok-number">3</span><span class="tok-punct">,</span><span class="tok-number">5</span><span class="tok-punct">,</span><span class="tok-number">2</span><span class="tok-punct">,</span><span class="tok-number">7</span><span class="tok-punct">]</span> <span class="tok-punct">)</span>   <span class="tok-comment"># Calculates the sum of the numbers in the List</span>
+                   <span class="tok-comment"># sum() is called a built-in function</span>
 
-[3,5,2,7].append(4)           # Calling the append() method on a List literal
-'Hello, {}!'.format('world')  # Calling the format() method on a String literal
-one_more_time.count('One')    # Calling the count() method on a String variable
+<span class="tok-comment"># Functions that are part of an object are called methods, they are invoked with the dot (.) operator</span>
 
-# Variables can be assigned and reassigned to any value at run-time regardless of type
+<span class="tok-punct">[</span><span class="tok-number">3</span><span class="tok-punct">,</span><span class="tok-number">5</span><span class="tok-punct">,</span><span class="tok-number">2</span><span class="tok-punct">,</span><span class="tok-number">7</span><span class="tok-punct">]</span><span class="tok-punct">.</span><span class="tok-name">append</span><span class="tok-punct">(</span><span class="tok-number">4</span><span class="tok-punct">)</span>           <span class="tok-comment"># Calling the append() method on a List literal</span>
+<span class="tok-string">&#x27;Hello, {}!&#x27;</span><span class="tok-punct">.</span><span class="tok-builtin">format</span><span class="tok-punct">(</span><span class="tok-string">&#x27;world&#x27;</span><span class="tok-punct">)</span>  <span class="tok-comment"># Calling the format() method on a String literal</span>
+<span class="tok-name">one_more_time</span><span class="tok-punct">.</span><span class="tok-name">count</span><span class="tok-punct">(</span><span class="tok-string">&#x27;One&#x27;</span><span class="tok-punct">)</span>    <span class="tok-comment"># Calling the count() method on a String variable</span>
 
-some_thing = 12
-some_thing = 'Twelve'
-some_thing = 7.5
-some_thing = [1,1,2,2,3,4,5]
-some_thing = range(9)
+<span class="tok-comment"># Variables can be assigned and reassigned to any value at run-time regardless of type</span>
 
-# ###################################################### #
-#   Primitives & Literals                                #
-# ###################################################### #
+<span class="tok-name">some_thing</span> <span class="tok-operator">=</span> <span class="tok-number">12</span>
+<span class="tok-name">some_thing</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;Twelve&#x27;</span>
+<span class="tok-name">some_thing</span> <span class="tok-operator">=</span> <span class="tok-number">7.5</span>
+<span class="tok-name">some_thing</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-number">1</span><span class="tok-punct">,</span><span class="tok-number">1</span><span class="tok-punct">,</span><span class="tok-number">2</span><span class="tok-punct">,</span><span class="tok-number">2</span><span class="tok-punct">,</span><span class="tok-number">3</span><span class="tok-punct">,</span><span class="tok-number">4</span><span class="tok-punct">,</span><span class="tok-number">5</span><span class="tok-punct">]</span>
+<span class="tok-name">some_thing</span> <span class="tok-operator">=</span> <span class="tok-builtin">range</span><span class="tok-punct">(</span><span class="tok-number">9</span><span class="tok-punct">)</span>
 
-# A primitive or literal in Python is a static value specified directly, such as the following:
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   Primitives &amp; Literals                                #</span>
+<span class="tok-comment"># ###################################################### #</span>
 
-my_name = 'Christian Holslin' # String literal (word or words in single quotes)
-my_company = "ShwaTech LLC"   # String literal (word or words in double quotes)
-my_age = 43                   # Integer literal
-my_favorite_number = 7.0      # Float literal
-am_i_awesome = True           # Boolean literal (True/False)
-this_is_null = None           # Null (Unassigned) literal
-                              # Multiline String literal, below
-my_life_story = """
+<span class="tok-comment"># A primitive or literal in Python is a static value specified directly, such as the following:</span>
+
+<span class="tok-name">my_name</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;Christian Holslin&#x27;</span> <span class="tok-comment"># String literal (word or words in single quotes)</span>
+<span class="tok-name">my_company</span> <span class="tok-operator">=</span> <span class="tok-string">&quot;ShwaTech LLC&quot;</span>   <span class="tok-comment"># String literal (word or words in double quotes)</span>
+<span class="tok-name">my_age</span> <span class="tok-operator">=</span> <span class="tok-number">43</span>                   <span class="tok-comment"># Integer literal</span>
+<span class="tok-name">my_favorite_number</span> <span class="tok-operator">=</span> <span class="tok-number">7.0</span>      <span class="tok-comment"># Float literal</span>
+<span class="tok-name">am_i_awesome</span> <span class="tok-operator">=</span> <span class="tok-keyword">True</span>           <span class="tok-comment"># Boolean literal (True/False)</span>
+<span class="tok-name">this_is_null</span> <span class="tok-operator">=</span> <span class="tok-keyword">None</span>           <span class="tok-comment"># Null (Unassigned) literal</span>
+                              <span class="tok-comment"># Multiline String literal, below</span>
+<span class="tok-name">my_life_story</span> <span class="tok-operator">=</span> <span class="tok-string">&quot;&quot;&quot;
 A long, long time ago...
-In an In'N'Out Burger far far away...
-"""
+In an In&#x27;N&#x27;Out Burger far far away...
+&quot;&quot;&quot;</span>
 
-# Python supports escape sequences in String literals
+<span class="tok-comment"># Python supports escape sequences in String literals</span>
 
-'\n'  # Newline
-'\t'  # Tab
-'\"'  # Double Quotation Mark
-'\''  # Single Quotation Mark
+<span class="tok-string">&#x27;\n&#x27;</span>  <span class="tok-comment"># Newline</span>
+<span class="tok-string">&#x27;\t&#x27;</span>  <span class="tok-comment"># Tab</span>
+<span class="tok-string">&#x27;\&quot;&#x27;</span>  <span class="tok-comment"># Double Quotation Mark</span>
+<span class="tok-string">&#x27;\&#x27;&#x27;</span>  <span class="tok-comment"># Single Quotation Mark</span>
 
-# Python supports collection literals of four (4) different built-in types
+<span class="tok-comment"># Python supports collection literals of four (4) different built-in types</span>
 
-my_parents = ['Mom','Dad']             # List (indexable & iterable)
-my_hobbies = ('Golf','Motorcycles')    # Tuple (immutable, indexable & iterable)
-my_friends = {'Alice':29,'Bob':41}     # Dictionary (key/value pairs, all keys must be unique)
-my_skills = {'Python','C','C++','C#'}  # Set (immutable + all items MUST be unique)
+<span class="tok-name">my_parents</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-string">&#x27;Mom&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Dad&#x27;</span><span class="tok-punct">]</span>             <span class="tok-comment"># List (indexable &amp; iterable)</span>
+<span class="tok-name">my_hobbies</span> <span class="tok-operator">=</span> <span class="tok-punct">(</span><span class="tok-string">&#x27;Golf&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Motorcycles&#x27;</span><span class="tok-punct">)</span>    <span class="tok-comment"># Tuple (immutable, indexable &amp; iterable)</span>
+<span class="tok-name">my_friends</span> <span class="tok-operator">=</span> <span class="tok-punct">{</span><span class="tok-string">&#x27;Alice&#x27;</span><span class="tok-punct">:</span><span class="tok-number">29</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Bob&#x27;</span><span class="tok-punct">:</span><span class="tok-number">41</span><span class="tok-punct">}</span>     <span class="tok-comment"># Dictionary (key/value pairs, all keys must be unique)</span>
+<span class="tok-name">my_skills</span> <span class="tok-operator">=</span> <span class="tok-punct">{</span><span class="tok-string">&#x27;Python&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;C&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;C++&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;C#&#x27;</span><span class="tok-punct">}</span>  <span class="tok-comment"># Set (immutable + all items MUST be unique)</span>
 
-# Collection literals can be combined into complex collections
+<span class="tok-comment"># Collection literals can be combined into complex collections</span>
 
-my_parents = [{'Mom':'Alice','Age':65},{'Dad':'Bob','Age':67}]  # List of Dictionaries
-my_parents = {'Mom':['Alice',65],'Dad':['Bob',67]}              # Dictionary of Lists
+<span class="tok-name">my_parents</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-punct">{</span><span class="tok-string">&#x27;Mom&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;Alice&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Age&#x27;</span><span class="tok-punct">:</span><span class="tok-number">65</span><span class="tok-punct">}</span><span class="tok-punct">,</span><span class="tok-punct">{</span><span class="tok-string">&#x27;Dad&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;Bob&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Age&#x27;</span><span class="tok-punct">:</span><span class="tok-number">67</span><span class="tok-punct">}</span><span class="tok-punct">]</span>  <span class="tok-comment"># List of Dictionaries</span>
+<span class="tok-name">my_parents</span> <span class="tok-operator">=</span> <span class="tok-punct">{</span><span class="tok-string">&#x27;Mom&#x27;</span><span class="tok-punct">:</span><span class="tok-punct">[</span><span class="tok-string">&#x27;Alice&#x27;</span><span class="tok-punct">,</span><span class="tok-number">65</span><span class="tok-punct">]</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Dad&#x27;</span><span class="tok-punct">:</span><span class="tok-punct">[</span><span class="tok-string">&#x27;Bob&#x27;</span><span class="tok-punct">,</span><span class="tok-number">67</span><span class="tok-punct">]</span><span class="tok-punct">}</span>              <span class="tok-comment"># Dictionary of Lists</span>
 
-# Not all combinations are compatible
-# You cannot create a Set of Lists or Dictionaries because neither a List nor Dictionary can be hashed
-# my_skills = {['Python','C','C++','C#'],['Cooking','Baking','Sauce Prep']}
-# my_skills = {{'Mom':'Alice','Age':65},{'Dad':'Bob','Age':67}}
+<span class="tok-comment"># Not all combinations are compatible</span>
+<span class="tok-comment"># You cannot create a Set of Lists or Dictionaries because neither a List nor Dictionary can be hashed</span>
+<span class="tok-comment"># my_skills = {[&#x27;Python&#x27;,&#x27;C&#x27;,&#x27;C++&#x27;,&#x27;C#&#x27;],[&#x27;Cooking&#x27;,&#x27;Baking&#x27;,&#x27;Sauce Prep&#x27;]}</span>
+<span class="tok-comment"># my_skills = {{&#x27;Mom&#x27;:&#x27;Alice&#x27;,&#x27;Age&#x27;:65},{&#x27;Dad&#x27;:&#x27;Bob&#x27;,&#x27;Age&#x27;:67}}</span>
 
-# But you can create a Set of Tuples
-my_skills = {('Python','C','C++','C#'),('Cooking','Baking','Sauce Prep')}
+<span class="tok-comment"># But you can create a Set of Tuples</span>
+<span class="tok-name">my_skills</span> <span class="tok-operator">=</span> <span class="tok-punct">{</span><span class="tok-punct">(</span><span class="tok-string">&#x27;Python&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;C&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;C++&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;C#&#x27;</span><span class="tok-punct">)</span><span class="tok-punct">,</span><span class="tok-punct">(</span><span class="tok-string">&#x27;Cooking&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Baking&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Sauce Prep&#x27;</span><span class="tok-punct">)</span><span class="tok-punct">}</span>
 
-# ###################################################### #
-#   Arithmetic                                           #
-# ###################################################### #
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   Arithmetic                                           #</span>
+<span class="tok-comment"># ###################################################### #</span>
 
-# Common arithmetic operators include
+<span class="tok-comment"># Common arithmetic operators include</span>
 
-x = 1 + 1   # Addition
-x = 1 - 1   # Subtraction
-x = 1 * 1   # Multiplication
-x = 1 / 1   # Division
-x = 1 % 1   # Modulo
-x = 1 ** 1  # Exponentiation
-x = 1 // 1  # Division with Floor
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-number">1</span> <span class="tok-operator">+</span> <span class="tok-number">1</span>   <span class="tok-comment"># Addition</span>
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-number">1</span> <span class="tok-operator">-</span> <span class="tok-number">1</span>   <span class="tok-comment"># Subtraction</span>
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-number">1</span> <span class="tok-operator">*</span> <span class="tok-number">1</span>   <span class="tok-comment"># Multiplication</span>
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-number">1</span> <span class="tok-operator">/</span> <span class="tok-number">1</span>   <span class="tok-comment"># Division</span>
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-number">1</span> <span class="tok-operator">%</span> <span class="tok-number">1</span>   <span class="tok-comment"># Modulo</span>
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-number">1</span> <span class="tok-operator">**</span> <span class="tok-number">1</span>  <span class="tok-comment"># Exponentiation</span>
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-number">1</span> <span class="tok-operator">//</span> <span class="tok-number">1</span>  <span class="tok-comment"># Division with Floor</span>
 
-# The Python interpreter obeys PEMDAS
+<span class="tok-comment"># The Python interpreter obeys PEMDAS</span>
 
-x = 2 * (2 + 2) + 2 + 2 - 2 * 2 / 2 ** 2  # This operation
-x = 2 * 4 + 2 + 2 - 2 * 2 / 2 ** 2        # Simplfies to this
-x = 8 + 2 + 2 - 2 * 2 / 2 ** 2            # Which simplifies to this
-x = 12 - 2 * 2 / 2 ** 2                   # Which simplifies to this
-x = 12 - 2 * 2 / 4                        # Which simplifies to...
-x = 12 - 4 / 4                            # Which simplifies to...
-x = 12 - 1                                # Which becomes...
-x = 11                                    # x = 11
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-number">2</span> <span class="tok-operator">*</span> <span class="tok-punct">(</span><span class="tok-number">2</span> <span class="tok-operator">+</span> <span class="tok-number">2</span><span class="tok-punct">)</span> <span class="tok-operator">+</span> <span class="tok-number">2</span> <span class="tok-operator">+</span> <span class="tok-number">2</span> <span class="tok-operator">-</span> <span class="tok-number">2</span> <span class="tok-operator">*</span> <span class="tok-number">2</span> <span class="tok-operator">/</span> <span class="tok-number">2</span> <span class="tok-operator">**</span> <span class="tok-number">2</span>  <span class="tok-comment"># This operation</span>
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-number">2</span> <span class="tok-operator">*</span> <span class="tok-number">4</span> <span class="tok-operator">+</span> <span class="tok-number">2</span> <span class="tok-operator">+</span> <span class="tok-number">2</span> <span class="tok-operator">-</span> <span class="tok-number">2</span> <span class="tok-operator">*</span> <span class="tok-number">2</span> <span class="tok-operator">/</span> <span class="tok-number">2</span> <span class="tok-operator">**</span> <span class="tok-number">2</span>        <span class="tok-comment"># Simplfies to this</span>
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-number">8</span> <span class="tok-operator">+</span> <span class="tok-number">2</span> <span class="tok-operator">+</span> <span class="tok-number">2</span> <span class="tok-operator">-</span> <span class="tok-number">2</span> <span class="tok-operator">*</span> <span class="tok-number">2</span> <span class="tok-operator">/</span> <span class="tok-number">2</span> <span class="tok-operator">**</span> <span class="tok-number">2</span>            <span class="tok-comment"># Which simplifies to this</span>
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-number">12</span> <span class="tok-operator">-</span> <span class="tok-number">2</span> <span class="tok-operator">*</span> <span class="tok-number">2</span> <span class="tok-operator">/</span> <span class="tok-number">2</span> <span class="tok-operator">**</span> <span class="tok-number">2</span>                   <span class="tok-comment"># Which simplifies to this</span>
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-number">12</span> <span class="tok-operator">-</span> <span class="tok-number">2</span> <span class="tok-operator">*</span> <span class="tok-number">2</span> <span class="tok-operator">/</span> <span class="tok-number">4</span>                        <span class="tok-comment"># Which simplifies to...</span>
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-number">12</span> <span class="tok-operator">-</span> <span class="tok-number">4</span> <span class="tok-operator">/</span> <span class="tok-number">4</span>                            <span class="tok-comment"># Which simplifies to...</span>
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-number">12</span> <span class="tok-operator">-</span> <span class="tok-number">1</span>                                <span class="tok-comment"># Which becomes...</span>
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-number">11</span>                                    <span class="tok-comment"># x = 11</span>
 
-# Division will cause the expression to become a float
+<span class="tok-comment"># Division will cause the expression to become a float</span>
 
-# ###################################################### #
-#   Random Numbers                                       #
-# ###################################################### #
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   Random Numbers                                       #</span>
+<span class="tok-comment"># ###################################################### #</span>
 
-# Python includes a random module with generators for random umbers
-
-import random
-random.choice([1,2,3,4,5,6])    # Choice picks a random item from the list
-random.randint(0,99)            # Randint creates a random number between a and b
+<span class="tok-comment"># Python includes a random module with generators for random umbers</span>
+
+<span class="tok-keyword">import</span> <span class="tok-name">random</span>
+<span class="tok-name">random</span><span class="tok-punct">.</span><span class="tok-name">choice</span><span class="tok-punct">(</span><span class="tok-punct">[</span><span class="tok-number">1</span><span class="tok-punct">,</span><span class="tok-number">2</span><span class="tok-punct">,</span><span class="tok-number">3</span><span class="tok-punct">,</span><span class="tok-number">4</span><span class="tok-punct">,</span><span class="tok-number">5</span><span class="tok-punct">,</span><span class="tok-number">6</span><span class="tok-punct">]</span><span class="tok-punct">)</span>    <span class="tok-comment"># Choice picks a random item from the list</span>
+<span class="tok-name">random</span><span class="tok-punct">.</span><span class="tok-name">randint</span><span class="tok-punct">(</span><span class="tok-number">0</span><span class="tok-punct">,</span><span class="tok-number">99</span><span class="tok-punct">)</span>            <span class="tok-comment"># Randint creates a random number between a and b</span>
 
-# This List comprehension fills a List with 1000 random integers between 0 and 99999
-random_numbers = [random.randint(0,99999) for n in range(1000)]
+<span class="tok-comment"># This List comprehension fills a List with 1000 random integers between 0 and 99999</span>
+<span class="tok-name">random_numbers</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-name">random</span><span class="tok-punct">.</span><span class="tok-name">randint</span><span class="tok-punct">(</span><span class="tok-number">0</span><span class="tok-punct">,</span><span class="tok-number">99999</span><span class="tok-punct">)</span> <span class="tok-keyword">for</span> <span class="tok-name">n</span> <span class="tok-keyword">in</span> <span class="tok-builtin">range</span><span class="tok-punct">(</span><span class="tok-number">1000</span><span class="tok-punct">)</span><span class="tok-punct">]</span>
 
-# ###################################################### #
-#   Boolean Logic                                        #
-# ###################################################### #
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   Boolean Logic                                        #</span>
+<span class="tok-comment"># ###################################################### #</span>
 
-# Python supports standard arithmetic boolean comparion operators
+<span class="tok-comment"># Python supports standard arithmetic boolean comparion operators</span>
 
-5 == 1   # Equality
-5 > 1    # Greater than
-5 < 1    # Less than
-5 <= 5   # Less than or equal
-5 >= 5   # Greater than or equal
-5 != 5   # Not equal
+<span class="tok-number">5</span> <span class="tok-operator">==</span> <span class="tok-number">1</span>   <span class="tok-comment"># Equality</span>
+<span class="tok-number">5</span> <span class="tok-operator">&gt;</span> <span class="tok-number">1</span>    <span class="tok-comment"># Greater than</span>
+<span class="tok-number">5</span> <span class="tok-operator">&lt;</span> <span class="tok-number">1</span>    <span class="tok-comment"># Less than</span>
+<span class="tok-number">5</span> <span class="tok-operator">&lt;=</span> <span class="tok-number">5</span>   <span class="tok-comment"># Less than or equal</span>
+<span class="tok-number">5</span> <span class="tok-operator">&gt;=</span> <span class="tok-number">5</span>   <span class="tok-comment"># Greater than or equal</span>
+<span class="tok-number">5</span> <span class="tok-operator">!=</span> <span class="tok-number">5</span>   <span class="tok-comment"># Not equal</span>
 
-# Python supports standard boolean logic operators and, or and not
+<span class="tok-comment"># Python supports standard boolean logic operators and, or and not</span>
 
-(2 < 3) and (5 < 4)   # x is False
-(2 < 3) or (5 < 4)    # x is True
-not (2 < 3)           # x is False
+<span class="tok-punct">(</span><span class="tok-number">2</span> <span class="tok-operator">&lt;</span> <span class="tok-number">3</span><span class="tok-punct">)</span> <span class="tok-keyword">and</span> <span class="tok-punct">(</span><span class="tok-number">5</span> <span class="tok-operator">&lt;</span> <span class="tok-number">4</span><span class="tok-punct">)</span>   <span class="tok-comment"># x is False</span>
+<span class="tok-punct">(</span><span class="tok-number">2</span> <span class="tok-operator">&lt;</span> <span class="tok-number">3</span><span class="tok-punct">)</span> <span class="tok-keyword">or</span> <span class="tok-punct">(</span><span class="tok-number">5</span> <span class="tok-operator">&lt;</span> <span class="tok-number">4</span><span class="tok-punct">)</span>    <span class="tok-comment"># x is True</span>
+<span class="tok-keyword">not</span> <span class="tok-punct">(</span><span class="tok-number">2</span> <span class="tok-operator">&lt;</span> <span class="tok-number">3</span><span class="tok-punct">)</span>           <span class="tok-comment"># x is False</span>
 
-# Comparison operators work on primitives and collections
-
-5 == 5                   # Compare two Ints
-'Christian' == 'Peter'   # Compare two Strings
-['a','b'] == ['a','b']   # Compare two Lists
-('a','b') == ('a','b')   # Compare two Tuples
-
-# String comparisons are case-sensitive
-
-'Christian' == 'cHrisTian'   # This is False
-'Christian' == 'Christian'   # This is True
-
-# Boolean expressions are evaluted conditionally from left to right
-
-empty_list = []
-if len(empty_list) > 0 and empty_list[0] % 2 == 0:   # There are two Boolean expressions here.
-  print('empty_list should be empty')                # empty_list[0] is normally illegal, but because
-                                                     # the first expression is False and the condition is
-                                                     # 'and' then the right-hand expression is not
-                                                     # evaluated, avoiding an IndexError
-
-# ################################################################################################# #
-#                                                                                                   #
-#  2. Basic Operations                                                                              #
-#                                                                                                   #
-# ################################################################################################# #
-
-# ###################################################### #
-#   String Manipulation                                  #
-# ###################################################### #
-
-# Python allows you to combine strings together with concatenation
-
-x = 'Christian' + ' Holslin'        # Concatenante two Strings
-x += ' is awesome'                  # Append a String to a String
-x = 'Christian'.join(['Holslin'])   # Append a List of Strings using the first String as the delimiter
-x = '.'.join(['a','b','c'])         #   Results in 'a.b.c'
-
-# Python has a syntax called f strings which are formatted strings
-
-cash_on_hand = 32.75                               # Using a variable...
-print(f'You have ${cash_on_hand} cash on hand.')   # embed that variable's value into a string using curly braces
-
-# Python strings are Lists of characters, they are iterable and can be indexed
-
-my_name = 'Christian'                   # Here is my first name
-my_name_len = len(my_name)              # Get the length of my_name
-my_first_initial = my_name[0]           # Index the first letter for my first initial
-my_nick_name = my_name[0:5]             # Slice the first 5 letters for my nickname
-jibberish = my_name[-5:-1]              # Negative indeces also work on strings
-for letter in my_name: print(letter)    # Iterate the characters in my name
-my_list = []                            # Make an empty List
-my_list += my_name                      # Each letter in my name is added as an item in this List
-fav_quote = "\"Elementary, my dear.\""  # Escape special characters with '\'
-list(map(lambda x: x.upper(), 'test'))  # Strings can be mapped because they are iterable
-'Chris' in my_name                      # The in operator will test for a substring
-
-# Python strings are immutable, so changes are illegal
-# my_name[0] = 'F'   # This throws a TypeError
-
-# Python has methods for strings which perform actions on the string itself
-
-'Hello, world!'.find('world')      # Find locates the index of a substring in a String
-'{}, {}!'.format('Hello','world')  # Format creates a 'formatted' string => 'Hello, world!'
-':'.join(['hello','world'])        # Join a List with a delimiter into a String => 'hello:world'
-'Hello World'.lower()              # Lower converts all letters to lowercase
-'Hello, world!'.replace('l','f')   # Replace replaces part of a String with another String
-'sauce cheese pesto'.split()       # Split breaks a string into a List using spaces as the delimeter
-'sauce:cheese:pesto'.split(':')    # Split accepts a delimiter to break a String into a List
-' Hello, world! '.strip()          # Strip removes whitespace at the beginning and end of a string
-'*Hello, world!*'.strip('*')       # Strip also accepts a String for leading and trailing removal
-'enterprise architect'.title()     # Title creates a Title Case string => 'Enterprise Architect'
-'Hello World'.upper()              # Upper converts all letters to UPPERCASE
-
-# Python string formatting supports keyword parameters
-
-def email_signature(n,t,pn):
-  return '{name}, {title} ({phone_number})'.format(name=n,title=t,phone_number=pn)
-
-# ###################################################### #
-#   List Operations                                      #
-# ###################################################### #
-
-# Python Lists are dynamic collections of any item
-
-backpack = ['laptop','charger',23.50,['gum','mints']]   # Make a List of stuff in my backpack
-backpack = backpack + ['pen']                           # Add a pen to my backpack, note the pen is in a List
-backpack += ['paper','phone']                           # Add two more things
-backpack += ('earbuds','cashews')                       # Add two more things from a Tuple
-backpack += {"breakfast":"eggs","lunch":"noodles"}      # Add the lunch menu, NOTE: Only the keys are added (not the values)
-backpack += {'glasses','sweater','watch'}               # Add three more things from a Set
-# backpack += 5                                         # Illegal: append operator only works with collections
-
-# Python Lists use the index operator to fetch items or Lists of items
-
-backpack[0]        # Get the first item in the List
-backpack[3][0]     # Get the first item of the fourth item in the List
-backpack[0:3]      # Get a new List with the first three items at indexes 0, 1, and 2
-backpack[:3]       # Same as above, note the leading 0 is optional
-backpack[:]        # Gets every item in the List
-backpack[4:]       # Get the fifth item and all items after it in the List
-backpack[-1]       # Get the last item in the List
-backpack[-2]       # Get the second to last item in the List
-backpack[-4:-2]    # Get the fourth-to-last and third-to-last items in the List
-backpack[-3:]      # Get the third-to-last item and all subsequent items in the List
-
-# Python Lists use methods to add, remove and find items. backpack is our List.
-
-backpack.append(5)                                # Append will add anything to the backpack
-how_many_pens = backpack.count('pen')             # Count will count how many pens are in the backpack
-where_is_my_paper = backpack.index('paper')       # Index will find the first paper in the backpack
-find_my_watch = backpack.index('watch',4)         # Index can find the watch but skip the first 4 items
-find_my_earbuds = backpack.index('earbuds',5,8)   # Index will find earbuds but skip the first 5 items and only check the next 3 items
-backpack.insert(4,'pen')                          # Insert will add another pen next to the current pen at index 4
-backpack.insert(-2,'glasses')                     # Insert can add glasses next to the other glasses and the end of the List
-five_bucks = backpack.pop()                       # Pop will take the 5 bucks back out of the backpack since they are the last item
-laptop = backpack.pop(0)                          # Pop can also take the first (or any) item out of the backpack
-backpack.remove('sweater')                        # Remove will delete the sweater from the backpack
-
-# Python Lists can be sorted forwards or backwards
-
-primes = [11,7,13,2,5,3]         # Create an unsorted List of prime numbers
-primes.sort()                    # Sort the List in ascending order
-primes.sort(reverse = True)      # Sort the List in descending order
-sorted(primes)                   # Use the built-in function sorted to sort the List instead
-sorted(primes, reverse = True)   # Use the built-in function sorted to sort the List in reverse order
-
-# Python has built-in functions for List arithmetic
-
-digits = [2,5,8,3,7,2,4,5,5,6,7]   # Make a List of some numbers
-sum(digits)                        # Calculate the sum of the List of numbers
-max(digits)                        # Find the largest (max) number in the List
-min(digits)                        # Find the smallest (min) number is the List
-
-# Python has a statistics module for complex statistical analysis beyond simple arithmetic
-
-from statistics import covariance,fmean,geometric_mean,harmonic_mean,kde   # Among others
-
-# Python allows you to combine Lists and Tuples together with concatenantion
-
-x = ['a','b','c'] + ['d','e','f']   # Concatenante two Lists
-x = ('a','b','c') + ('d','e','f')   # Concatenante two Tuples
-
-# ###################################################### #
-#   List Comprehensions & Generators                     #
-# ###################################################### #
-
-# Python has a unique way to create a List of items from another List called comprehensions
-
-positive_integers = list(range(100))                                    # Make a List of positive integers from a range
-odd_numbers = [num for num in positive_integers if num % 2 == 1]        # Use a List comprehension to extract the odd numbers
-doubles = [num * 2 for num in positive_integers]                        # Use a List comprehension to double each number
-double_evens = [num * 2 for num in positive_integers if num % 2 == 0]   # Find all the even numbers and multiple them by 2
-
-# Generators are useful for creating an iterator over a List especially in cases where the List is very large
-
-double_evens_generator = (num * 2 for num in positive_integers if num % 2 == 0)
-
-# ###################################################### #
-#   Dictionary Operations                                #
-# ###################################################### #
-
-# Python dictionaries are hash tables with key: value pairs
-
-locations = {'orlando':'123 Brook Ln','boston':'442 Green Pl','houston':'12054 Industry Way'}  # Address book Dictionary
-
-boston_addy = locations['boston']       # Get the address of the boston location with the index operator
-boston_addy = locations.get('boston')   # Get the address with the get method
-locations['orlando'] = '133 Brook Ln'   # Update values with the assignment operator
-locations['madison'] = '890 State St'   # Add new values with the assignment operator
-locations.update(                       # Pass a Dictionary to update to add multiple values
-  {'flagstaff':'7370 Crane Way','tempe':'9090 Locust St'}
-)
-locations.update(                       # We can pass a dictionary to update to change multiple values
-  {'boston':'443 Green Pl','houston':'12054 Industry Blvd'}
-)
-boston = locations.pop('boston')        # We can remove a key value pair with the pop method fetching the value
-
-# Python will throw a KeyError if we attempt to access a non-existent pair
-
-if 'sarasota' in locations: print(locations['sarasota'])   # We can test for a key with the in keyword
-sarasota = locations.get('sarasota')                       # We can also test using the get method (returns None)
-sarasota = locations.get('sarasota','100 Nowhere Dr')      # We can also return a default value instead of None
-boston = locations.pop('boston','100 Nowhere Dr')          # Pop also supports default values
-list(locations)                                            # Gets a List of keys in the Dictionary
-locations.keys()                                           # Gets an immutable set of keys in the Dictionary
-locations.values()                                         # Gets an values iterator
-locations.items()                                          # Gets a (key,value) Tuple iterator
-
-for kvp in locations:                                      # Iterating the Dictionary returns the key strings
-  value = locations[kvp]
-for city,addr in locations.items():                        # Iterating the items returns key,value Tuples
-  text = f'{city}: {addr}'
-for city_addr in locations.items():                        # If you do not declare the Tuple parts, you can access
-  key = city_addr[0]                                       # each Tuple point by index number
-  value = city_addr[1]
-
-# Dictionaries, like Lists, have comprehensions which can be used to create Dictionaries from Lists
-
-students = ['Alice','Bob','Charlie','David','Ethan']
-test_scores = [99,98,99,91,92]
-zipped = zip(students,test_scores)                      # Zip is a class which can merge Lists into Tuples
-student_scores = {key:value for key, value in zipped}   # Using a Dictionary comprehension we can merge students with test_scores
-
-# Dictionary comprehensions require Tuples rather than items since Dictionary entries are key-value pairs
-
-score_list = [['Alice',99],['Bob',98],['Charlie',99]]    # Here we have a two-dimensional array
-student_scores = {n[0]:n[1] for n in score_list}         # Merge the two-dimensional array into a Dictionary
-
-# ###################################################### #
-#   Dates & Times                                        #
-# ###################################################### #
-
-# Python date and time operations are implemented in the datetime module
-
-from datetime import datetime                     # Datetime is a class in the datetime module
-back_then = datetime(2025,7,5,9,38,25)            # Construct a datetime with its constituent parts
-right_now = datetime.now()                        # Get the current time and date
-right_now - back_then                             # Get the difference between two datetimes
-a_while_ago = \
-  datetime.strptime('Mar 10, 1993','%b %d, %Y')   # Parse a String into a datetime
-welcome_to_now = right_now.strftime('%d/%m/%Y')   # Format the current time and date into a String
-
-# ################################################################################################# #
-#                                                                                                   #
-#  3. Control Flow                                                                                  #
-#                                                                                                   #
-# ################################################################################################# #
-
-# ###################################################### #
-#   If Statements                                        #
-# ###################################################### #
-
-# Python conditional control flow uses the if, elif, and else keywords where indentation tells the Python
-# interpreter which instructions to run if the condition is met
-
-my_name = 'Bob'
-if my_name == 'Christian':            # If this is True
-  print('My name is Christian')       # Run this line
-
-if my_name == 'Christian':            # If this is True
-  print('My name is Christian')       # Run this line
-else:                                 # Otherwise...
-  print('My name is not Christian')   # Run this line instead
-
-if my_name == 'Christian':            # If this is True
-  print('My name is Christian')       # Run this
-elif my_name == 'Bob':                # Or if this is True, and the previous expression was False
-  print('My name is Bob')             # Run this line
-else:                                 # Otherwise...
-  print('Who am I?')                  # Run this line instead
-
-# ###################################################### #
-#   Loops                                                #
-# ###################################################### #
-
-# Python loop control includes for loops and while loops
-
-for item in backpack:                # Iterate over all items in a collection
-  my_item = item
-
-x = 0
-while x < len(backpack):             # Loop while a condition is True
-  x += 1
-
-# Python loops support break and continue statements which will stop the loop or skip steps, respectively
-
-for item in backpack:    # This will loop through the backpack until we find paper
-  if item == 'paper':
-    break
-  else:
-    not_paper = item
-
-for item in backpack:    # This will loop through the entire backpack but will not print any paper
-  if item == 'paper':
-    continue
-  print(item)
-
-# The pass keyword is used for doing a no-op (No Operation)
-
-for item in backpack:    # This will loop through the entire backpack and do nothing with each item
-  pass
-
-# ###################################################### #
-#   Branching / Switching                                #
-# ###################################################### #
-
-# Python uses the match statement to create a switch case branch
-
-letter = 'q'                         # The letter is q
-match letter:                        # Create a 'ladder' of matches for what the letter might be
-  case 'a':                          # If letter is a ...
-    print('a is for aardvark')
-  case 'b':                          # If letter is b ...
-    print('b is for boysenberry')
-  case default:                      # Use default to do something if there is no match
-    print(letter)
-
-# The match statement was added recently in Python 3.10, the above code will fail if you run this on older Python runtimes
-
-# ################################################################################################# #
-#                                                                                                   #
-#  4. Functions                                                                                     #
-#                                                                                                   #
-# ################################################################################################# #
+<span class="tok-comment"># Comparison operators work on primitives and collections</span>
+
+<span class="tok-number">5</span> <span class="tok-operator">==</span> <span class="tok-number">5</span>                   <span class="tok-comment"># Compare two Ints</span>
+<span class="tok-string">&#x27;Christian&#x27;</span> <span class="tok-operator">==</span> <span class="tok-string">&#x27;Peter&#x27;</span>   <span class="tok-comment"># Compare two Strings</span>
+<span class="tok-punct">[</span><span class="tok-string">&#x27;a&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;b&#x27;</span><span class="tok-punct">]</span> <span class="tok-operator">==</span> <span class="tok-punct">[</span><span class="tok-string">&#x27;a&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;b&#x27;</span><span class="tok-punct">]</span>   <span class="tok-comment"># Compare two Lists</span>
+<span class="tok-punct">(</span><span class="tok-string">&#x27;a&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;b&#x27;</span><span class="tok-punct">)</span> <span class="tok-operator">==</span> <span class="tok-punct">(</span><span class="tok-string">&#x27;a&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;b&#x27;</span><span class="tok-punct">)</span>   <span class="tok-comment"># Compare two Tuples</span>
+
+<span class="tok-comment"># String comparisons are case-sensitive</span>
+
+<span class="tok-string">&#x27;Christian&#x27;</span> <span class="tok-operator">==</span> <span class="tok-string">&#x27;cHrisTian&#x27;</span>   <span class="tok-comment"># This is False</span>
+<span class="tok-string">&#x27;Christian&#x27;</span> <span class="tok-operator">==</span> <span class="tok-string">&#x27;Christian&#x27;</span>   <span class="tok-comment"># This is True</span>
+
+<span class="tok-comment"># Boolean expressions are evaluted conditionally from left to right</span>
+
+<span class="tok-name">empty_list</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-punct">]</span>
+<span class="tok-keyword">if</span> <span class="tok-builtin">len</span><span class="tok-punct">(</span><span class="tok-name">empty_list</span><span class="tok-punct">)</span> <span class="tok-operator">&gt;</span> <span class="tok-number">0</span> <span class="tok-keyword">and</span> <span class="tok-name">empty_list</span><span class="tok-punct">[</span><span class="tok-number">0</span><span class="tok-punct">]</span> <span class="tok-operator">%</span> <span class="tok-number">2</span> <span class="tok-operator">==</span> <span class="tok-number">0</span><span class="tok-punct">:</span>   <span class="tok-comment"># There are two Boolean expressions here.</span>
+  <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;empty_list should be empty&#x27;</span><span class="tok-punct">)</span>                <span class="tok-comment"># empty_list[0] is normally illegal, but because</span>
+                                                     <span class="tok-comment"># the first expression is False and the condition is</span>
+                                                     <span class="tok-comment"># &#x27;and&#x27; then the right-hand expression is not</span>
+                                                     <span class="tok-comment"># evaluated, avoiding an IndexError</span>
+
+<span class="tok-comment"># ################################################################################################# #</span>
+<span class="tok-comment">#                                                                                                   #</span>
+<span class="tok-comment">#  2. Basic Operations                                                                              #</span>
+<span class="tok-comment">#                                                                                                   #</span>
+<span class="tok-comment"># ################################################################################################# #</span>
+
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   String Manipulation                                  #</span>
+<span class="tok-comment"># ###################################################### #</span>
+
+<span class="tok-comment"># Python allows you to combine strings together with concatenation</span>
+
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;Christian&#x27;</span> <span class="tok-operator">+</span> <span class="tok-string">&#x27; Holslin&#x27;</span>        <span class="tok-comment"># Concatenante two Strings</span>
+<span class="tok-name">x</span> <span class="tok-operator">+=</span> <span class="tok-string">&#x27; is awesome&#x27;</span>                  <span class="tok-comment"># Append a String to a String</span>
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;Christian&#x27;</span><span class="tok-punct">.</span><span class="tok-name">join</span><span class="tok-punct">(</span><span class="tok-punct">[</span><span class="tok-string">&#x27;Holslin&#x27;</span><span class="tok-punct">]</span><span class="tok-punct">)</span>   <span class="tok-comment"># Append a List of Strings using the first String as the delimiter</span>
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;.&#x27;</span><span class="tok-punct">.</span><span class="tok-name">join</span><span class="tok-punct">(</span><span class="tok-punct">[</span><span class="tok-string">&#x27;a&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;b&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;c&#x27;</span><span class="tok-punct">]</span><span class="tok-punct">)</span>         <span class="tok-comment">#   Results in &#x27;a.b.c&#x27;</span>
+
+<span class="tok-comment"># Python has a syntax called f strings which are formatted strings</span>
+
+<span class="tok-name">cash_on_hand</span> <span class="tok-operator">=</span> <span class="tok-number">32.75</span>                               <span class="tok-comment"># Using a variable...</span>
+<span class="tok-builtin">print</span><span class="tok-punct">(</span>f&#x27;You have $<span class="tok-punct">{</span><span class="tok-name">cash_on_hand</span><span class="tok-punct">}</span> cash on hand.&#x27;<span class="tok-punct">)</span>   <span class="tok-comment"># embed that variable&#x27;s value into a string using curly braces</span>
+
+<span class="tok-comment"># Python strings are Lists of characters, they are iterable and can be indexed</span>
+
+<span class="tok-name">my_name</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;Christian&#x27;</span>                   <span class="tok-comment"># Here is my first name</span>
+<span class="tok-name">my_name_len</span> <span class="tok-operator">=</span> <span class="tok-builtin">len</span><span class="tok-punct">(</span><span class="tok-name">my_name</span><span class="tok-punct">)</span>              <span class="tok-comment"># Get the length of my_name</span>
+<span class="tok-name">my_first_initial</span> <span class="tok-operator">=</span> <span class="tok-name">my_name</span><span class="tok-punct">[</span><span class="tok-number">0</span><span class="tok-punct">]</span>           <span class="tok-comment"># Index the first letter for my first initial</span>
+<span class="tok-name">my_nick_name</span> <span class="tok-operator">=</span> <span class="tok-name">my_name</span><span class="tok-punct">[</span><span class="tok-number">0</span><span class="tok-punct">:</span><span class="tok-number">5</span><span class="tok-punct">]</span>             <span class="tok-comment"># Slice the first 5 letters for my nickname</span>
+<span class="tok-name">jibberish</span> <span class="tok-operator">=</span> <span class="tok-name">my_name</span><span class="tok-punct">[</span><span class="tok-operator">-</span><span class="tok-number">5</span><span class="tok-punct">:</span><span class="tok-operator">-</span><span class="tok-number">1</span><span class="tok-punct">]</span>              <span class="tok-comment"># Negative indeces also work on strings</span>
+<span class="tok-keyword">for</span> <span class="tok-name">letter</span> <span class="tok-keyword">in</span> <span class="tok-name">my_name</span><span class="tok-punct">:</span> <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-name">letter</span><span class="tok-punct">)</span>    <span class="tok-comment"># Iterate the characters in my name</span>
+<span class="tok-name">my_list</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-punct">]</span>                            <span class="tok-comment"># Make an empty List</span>
+<span class="tok-name">my_list</span> <span class="tok-operator">+=</span> <span class="tok-name">my_name</span>                      <span class="tok-comment"># Each letter in my name is added as an item in this List</span>
+<span class="tok-name">fav_quote</span> <span class="tok-operator">=</span> <span class="tok-string">&quot;\&quot;Elementary, my dear.\&quot;&quot;</span>  <span class="tok-comment"># Escape special characters with &#x27;\&#x27;</span>
+<span class="tok-builtin">list</span><span class="tok-punct">(</span><span class="tok-builtin">map</span><span class="tok-punct">(</span><span class="tok-keyword">lambda</span> <span class="tok-name">x</span><span class="tok-punct">:</span> <span class="tok-name">x</span><span class="tok-punct">.</span><span class="tok-name">upper</span><span class="tok-punct">(</span><span class="tok-punct">)</span><span class="tok-punct">,</span> <span class="tok-string">&#x27;test&#x27;</span><span class="tok-punct">)</span><span class="tok-punct">)</span>  <span class="tok-comment"># Strings can be mapped because they are iterable</span>
+<span class="tok-string">&#x27;Chris&#x27;</span> <span class="tok-keyword">in</span> <span class="tok-name">my_name</span>                      <span class="tok-comment"># The in operator will test for a substring</span>
+
+<span class="tok-comment"># Python strings are immutable, so changes are illegal</span>
+<span class="tok-comment"># my_name[0] = &#x27;F&#x27;   # This throws a TypeError</span>
+
+<span class="tok-comment"># Python has methods for strings which perform actions on the string itself</span>
+
+<span class="tok-string">&#x27;Hello, world!&#x27;</span><span class="tok-punct">.</span><span class="tok-name">find</span><span class="tok-punct">(</span><span class="tok-string">&#x27;world&#x27;</span><span class="tok-punct">)</span>      <span class="tok-comment"># Find locates the index of a substring in a String</span>
+<span class="tok-string">&#x27;{}, {}!&#x27;</span><span class="tok-punct">.</span><span class="tok-builtin">format</span><span class="tok-punct">(</span><span class="tok-string">&#x27;Hello&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;world&#x27;</span><span class="tok-punct">)</span>  <span class="tok-comment"># Format creates a &#x27;formatted&#x27; string =&gt; &#x27;Hello, world!&#x27;</span>
+<span class="tok-string">&#x27;:&#x27;</span><span class="tok-punct">.</span><span class="tok-name">join</span><span class="tok-punct">(</span><span class="tok-punct">[</span><span class="tok-string">&#x27;hello&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;world&#x27;</span><span class="tok-punct">]</span><span class="tok-punct">)</span>        <span class="tok-comment"># Join a List with a delimiter into a String =&gt; &#x27;hello:world&#x27;</span>
+<span class="tok-string">&#x27;Hello World&#x27;</span><span class="tok-punct">.</span><span class="tok-name">lower</span><span class="tok-punct">(</span><span class="tok-punct">)</span>              <span class="tok-comment"># Lower converts all letters to lowercase</span>
+<span class="tok-string">&#x27;Hello, world!&#x27;</span><span class="tok-punct">.</span><span class="tok-name">replace</span><span class="tok-punct">(</span><span class="tok-string">&#x27;l&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;f&#x27;</span><span class="tok-punct">)</span>   <span class="tok-comment"># Replace replaces part of a String with another String</span>
+<span class="tok-string">&#x27;sauce cheese pesto&#x27;</span><span class="tok-punct">.</span><span class="tok-name">split</span><span class="tok-punct">(</span><span class="tok-punct">)</span>       <span class="tok-comment"># Split breaks a string into a List using spaces as the delimeter</span>
+<span class="tok-string">&#x27;sauce:cheese:pesto&#x27;</span><span class="tok-punct">.</span><span class="tok-name">split</span><span class="tok-punct">(</span><span class="tok-string">&#x27;:&#x27;</span><span class="tok-punct">)</span>    <span class="tok-comment"># Split accepts a delimiter to break a String into a List</span>
+<span class="tok-string">&#x27; Hello, world! &#x27;</span><span class="tok-punct">.</span><span class="tok-name">strip</span><span class="tok-punct">(</span><span class="tok-punct">)</span>          <span class="tok-comment"># Strip removes whitespace at the beginning and end of a string</span>
+<span class="tok-string">&#x27;*Hello, world!*&#x27;</span><span class="tok-punct">.</span><span class="tok-name">strip</span><span class="tok-punct">(</span><span class="tok-string">&#x27;*&#x27;</span><span class="tok-punct">)</span>       <span class="tok-comment"># Strip also accepts a String for leading and trailing removal</span>
+<span class="tok-string">&#x27;enterprise architect&#x27;</span><span class="tok-punct">.</span><span class="tok-name">title</span><span class="tok-punct">(</span><span class="tok-punct">)</span>     <span class="tok-comment"># Title creates a Title Case string =&gt; &#x27;Enterprise Architect&#x27;</span>
+<span class="tok-string">&#x27;Hello World&#x27;</span><span class="tok-punct">.</span><span class="tok-name">upper</span><span class="tok-punct">(</span><span class="tok-punct">)</span>              <span class="tok-comment"># Upper converts all letters to UPPERCASE</span>
+
+<span class="tok-comment"># Python string formatting supports keyword parameters</span>
+
+<span class="tok-keyword">def</span> <span class="tok-name">email_signature</span><span class="tok-punct">(</span><span class="tok-name">n</span><span class="tok-punct">,</span><span class="tok-name">t</span><span class="tok-punct">,</span><span class="tok-name">pn</span><span class="tok-punct">)</span><span class="tok-punct">:</span>
+  <span class="tok-keyword">return</span> <span class="tok-string">&#x27;{name}, {title} ({phone_number})&#x27;</span><span class="tok-punct">.</span><span class="tok-builtin">format</span><span class="tok-punct">(</span><span class="tok-name">name</span><span class="tok-operator">=</span><span class="tok-name">n</span><span class="tok-punct">,</span><span class="tok-name">title</span><span class="tok-operator">=</span><span class="tok-name">t</span><span class="tok-punct">,</span><span class="tok-name">phone_number</span><span class="tok-operator">=</span><span class="tok-name">pn</span><span class="tok-punct">)</span>
+
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   List Operations                                      #</span>
+<span class="tok-comment"># ###################################################### #</span>
+
+<span class="tok-comment"># Python Lists are dynamic collections of any item</span>
+
+<span class="tok-name">backpack</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-string">&#x27;laptop&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;charger&#x27;</span><span class="tok-punct">,</span><span class="tok-number">23.50</span><span class="tok-punct">,</span><span class="tok-punct">[</span><span class="tok-string">&#x27;gum&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;mints&#x27;</span><span class="tok-punct">]</span><span class="tok-punct">]</span>   <span class="tok-comment"># Make a List of stuff in my backpack</span>
+<span class="tok-name">backpack</span> <span class="tok-operator">=</span> <span class="tok-name">backpack</span> <span class="tok-operator">+</span> <span class="tok-punct">[</span><span class="tok-string">&#x27;pen&#x27;</span><span class="tok-punct">]</span>                           <span class="tok-comment"># Add a pen to my backpack, note the pen is in a List</span>
+<span class="tok-name">backpack</span> <span class="tok-operator">+=</span> <span class="tok-punct">[</span><span class="tok-string">&#x27;paper&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;phone&#x27;</span><span class="tok-punct">]</span>                           <span class="tok-comment"># Add two more things</span>
+<span class="tok-name">backpack</span> <span class="tok-operator">+=</span> <span class="tok-punct">(</span><span class="tok-string">&#x27;earbuds&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;cashews&#x27;</span><span class="tok-punct">)</span>                       <span class="tok-comment"># Add two more things from a Tuple</span>
+<span class="tok-name">backpack</span> <span class="tok-operator">+=</span> <span class="tok-punct">{</span><span class="tok-string">&quot;breakfast&quot;</span><span class="tok-punct">:</span><span class="tok-string">&quot;eggs&quot;</span><span class="tok-punct">,</span><span class="tok-string">&quot;lunch&quot;</span><span class="tok-punct">:</span><span class="tok-string">&quot;noodles&quot;</span><span class="tok-punct">}</span>      <span class="tok-comment"># Add the lunch menu, NOTE: Only the keys are added (not the values)</span>
+<span class="tok-name">backpack</span> <span class="tok-operator">+=</span> <span class="tok-punct">{</span><span class="tok-string">&#x27;glasses&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;sweater&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;watch&#x27;</span><span class="tok-punct">}</span>               <span class="tok-comment"># Add three more things from a Set</span>
+<span class="tok-comment"># backpack += 5                                         # Illegal: append operator only works with collections</span>
+
+<span class="tok-comment"># Python Lists use the index operator to fetch items or Lists of items</span>
+
+<span class="tok-name">backpack</span><span class="tok-punct">[</span><span class="tok-number">0</span><span class="tok-punct">]</span>        <span class="tok-comment"># Get the first item in the List</span>
+<span class="tok-name">backpack</span><span class="tok-punct">[</span><span class="tok-number">3</span><span class="tok-punct">]</span><span class="tok-punct">[</span><span class="tok-number">0</span><span class="tok-punct">]</span>     <span class="tok-comment"># Get the first item of the fourth item in the List</span>
+<span class="tok-name">backpack</span><span class="tok-punct">[</span><span class="tok-number">0</span><span class="tok-punct">:</span><span class="tok-number">3</span><span class="tok-punct">]</span>      <span class="tok-comment"># Get a new List with the first three items at indexes 0, 1, and 2</span>
+<span class="tok-name">backpack</span><span class="tok-punct">[</span><span class="tok-punct">:</span><span class="tok-number">3</span><span class="tok-punct">]</span>       <span class="tok-comment"># Same as above, note the leading 0 is optional</span>
+<span class="tok-name">backpack</span><span class="tok-punct">[</span><span class="tok-punct">:</span><span class="tok-punct">]</span>        <span class="tok-comment"># Gets every item in the List</span>
+<span class="tok-name">backpack</span><span class="tok-punct">[</span><span class="tok-number">4</span><span class="tok-punct">:</span><span class="tok-punct">]</span>       <span class="tok-comment"># Get the fifth item and all items after it in the List</span>
+<span class="tok-name">backpack</span><span class="tok-punct">[</span><span class="tok-operator">-</span><span class="tok-number">1</span><span class="tok-punct">]</span>       <span class="tok-comment"># Get the last item in the List</span>
+<span class="tok-name">backpack</span><span class="tok-punct">[</span><span class="tok-operator">-</span><span class="tok-number">2</span><span class="tok-punct">]</span>       <span class="tok-comment"># Get the second to last item in the List</span>
+<span class="tok-name">backpack</span><span class="tok-punct">[</span><span class="tok-operator">-</span><span class="tok-number">4</span><span class="tok-punct">:</span><span class="tok-operator">-</span><span class="tok-number">2</span><span class="tok-punct">]</span>    <span class="tok-comment"># Get the fourth-to-last and third-to-last items in the List</span>
+<span class="tok-name">backpack</span><span class="tok-punct">[</span><span class="tok-operator">-</span><span class="tok-number">3</span><span class="tok-punct">:</span><span class="tok-punct">]</span>      <span class="tok-comment"># Get the third-to-last item and all subsequent items in the List</span>
+
+<span class="tok-comment"># Python Lists use methods to add, remove and find items. backpack is our List.</span>
+
+<span class="tok-name">backpack</span><span class="tok-punct">.</span><span class="tok-name">append</span><span class="tok-punct">(</span><span class="tok-number">5</span><span class="tok-punct">)</span>                                <span class="tok-comment"># Append will add anything to the backpack</span>
+<span class="tok-name">how_many_pens</span> <span class="tok-operator">=</span> <span class="tok-name">backpack</span><span class="tok-punct">.</span><span class="tok-name">count</span><span class="tok-punct">(</span><span class="tok-string">&#x27;pen&#x27;</span><span class="tok-punct">)</span>             <span class="tok-comment"># Count will count how many pens are in the backpack</span>
+<span class="tok-name">where_is_my_paper</span> <span class="tok-operator">=</span> <span class="tok-name">backpack</span><span class="tok-punct">.</span><span class="tok-name">index</span><span class="tok-punct">(</span><span class="tok-string">&#x27;paper&#x27;</span><span class="tok-punct">)</span>       <span class="tok-comment"># Index will find the first paper in the backpack</span>
+<span class="tok-name">find_my_watch</span> <span class="tok-operator">=</span> <span class="tok-name">backpack</span><span class="tok-punct">.</span><span class="tok-name">index</span><span class="tok-punct">(</span><span class="tok-string">&#x27;watch&#x27;</span><span class="tok-punct">,</span><span class="tok-number">4</span><span class="tok-punct">)</span>         <span class="tok-comment"># Index can find the watch but skip the first 4 items</span>
+<span class="tok-name">find_my_earbuds</span> <span class="tok-operator">=</span> <span class="tok-name">backpack</span><span class="tok-punct">.</span><span class="tok-name">index</span><span class="tok-punct">(</span><span class="tok-string">&#x27;earbuds&#x27;</span><span class="tok-punct">,</span><span class="tok-number">5</span><span class="tok-punct">,</span><span class="tok-number">8</span><span class="tok-punct">)</span>   <span class="tok-comment"># Index will find earbuds but skip the first 5 items and only check the next 3 items</span>
+<span class="tok-name">backpack</span><span class="tok-punct">.</span><span class="tok-name">insert</span><span class="tok-punct">(</span><span class="tok-number">4</span><span class="tok-punct">,</span><span class="tok-string">&#x27;pen&#x27;</span><span class="tok-punct">)</span>                          <span class="tok-comment"># Insert will add another pen next to the current pen at index 4</span>
+<span class="tok-name">backpack</span><span class="tok-punct">.</span><span class="tok-name">insert</span><span class="tok-punct">(</span><span class="tok-operator">-</span><span class="tok-number">2</span><span class="tok-punct">,</span><span class="tok-string">&#x27;glasses&#x27;</span><span class="tok-punct">)</span>                     <span class="tok-comment"># Insert can add glasses next to the other glasses and the end of the List</span>
+<span class="tok-name">five_bucks</span> <span class="tok-operator">=</span> <span class="tok-name">backpack</span><span class="tok-punct">.</span><span class="tok-name">pop</span><span class="tok-punct">(</span><span class="tok-punct">)</span>                       <span class="tok-comment"># Pop will take the 5 bucks back out of the backpack since they are the last item</span>
+<span class="tok-name">laptop</span> <span class="tok-operator">=</span> <span class="tok-name">backpack</span><span class="tok-punct">.</span><span class="tok-name">pop</span><span class="tok-punct">(</span><span class="tok-number">0</span><span class="tok-punct">)</span>                          <span class="tok-comment"># Pop can also take the first (or any) item out of the backpack</span>
+<span class="tok-name">backpack</span><span class="tok-punct">.</span><span class="tok-name">remove</span><span class="tok-punct">(</span><span class="tok-string">&#x27;sweater&#x27;</span><span class="tok-punct">)</span>                        <span class="tok-comment"># Remove will delete the sweater from the backpack</span>
+
+<span class="tok-comment"># Python Lists can be sorted forwards or backwards</span>
+
+<span class="tok-name">primes</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-number">11</span><span class="tok-punct">,</span><span class="tok-number">7</span><span class="tok-punct">,</span><span class="tok-number">13</span><span class="tok-punct">,</span><span class="tok-number">2</span><span class="tok-punct">,</span><span class="tok-number">5</span><span class="tok-punct">,</span><span class="tok-number">3</span><span class="tok-punct">]</span>         <span class="tok-comment"># Create an unsorted List of prime numbers</span>
+<span class="tok-name">primes</span><span class="tok-punct">.</span><span class="tok-name">sort</span><span class="tok-punct">(</span><span class="tok-punct">)</span>                    <span class="tok-comment"># Sort the List in ascending order</span>
+<span class="tok-name">primes</span><span class="tok-punct">.</span><span class="tok-name">sort</span><span class="tok-punct">(</span><span class="tok-name">reverse</span> <span class="tok-operator">=</span> <span class="tok-keyword">True</span><span class="tok-punct">)</span>      <span class="tok-comment"># Sort the List in descending order</span>
+<span class="tok-builtin">sorted</span><span class="tok-punct">(</span><span class="tok-name">primes</span><span class="tok-punct">)</span>                   <span class="tok-comment"># Use the built-in function sorted to sort the List instead</span>
+<span class="tok-builtin">sorted</span><span class="tok-punct">(</span><span class="tok-name">primes</span><span class="tok-punct">,</span> <span class="tok-name">reverse</span> <span class="tok-operator">=</span> <span class="tok-keyword">True</span><span class="tok-punct">)</span>   <span class="tok-comment"># Use the built-in function sorted to sort the List in reverse order</span>
+
+<span class="tok-comment"># Python has built-in functions for List arithmetic</span>
+
+<span class="tok-name">digits</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-number">2</span><span class="tok-punct">,</span><span class="tok-number">5</span><span class="tok-punct">,</span><span class="tok-number">8</span><span class="tok-punct">,</span><span class="tok-number">3</span><span class="tok-punct">,</span><span class="tok-number">7</span><span class="tok-punct">,</span><span class="tok-number">2</span><span class="tok-punct">,</span><span class="tok-number">4</span><span class="tok-punct">,</span><span class="tok-number">5</span><span class="tok-punct">,</span><span class="tok-number">5</span><span class="tok-punct">,</span><span class="tok-number">6</span><span class="tok-punct">,</span><span class="tok-number">7</span><span class="tok-punct">]</span>   <span class="tok-comment"># Make a List of some numbers</span>
+<span class="tok-builtin">sum</span><span class="tok-punct">(</span><span class="tok-name">digits</span><span class="tok-punct">)</span>                        <span class="tok-comment"># Calculate the sum of the List of numbers</span>
+<span class="tok-builtin">max</span><span class="tok-punct">(</span><span class="tok-name">digits</span><span class="tok-punct">)</span>                        <span class="tok-comment"># Find the largest (max) number in the List</span>
+<span class="tok-builtin">min</span><span class="tok-punct">(</span><span class="tok-name">digits</span><span class="tok-punct">)</span>                        <span class="tok-comment"># Find the smallest (min) number is the List</span>
+
+<span class="tok-comment"># Python has a statistics module for complex statistical analysis beyond simple arithmetic</span>
+
+<span class="tok-keyword">from</span> <span class="tok-name">statistics</span> <span class="tok-keyword">import</span> <span class="tok-name">covariance</span><span class="tok-punct">,</span><span class="tok-name">fmean</span><span class="tok-punct">,</span><span class="tok-name">geometric_mean</span><span class="tok-punct">,</span><span class="tok-name">harmonic_mean</span><span class="tok-punct">,</span><span class="tok-name">kde</span>   <span class="tok-comment"># Among others</span>
+
+<span class="tok-comment"># Python allows you to combine Lists and Tuples together with concatenantion</span>
+
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-string">&#x27;a&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;b&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;c&#x27;</span><span class="tok-punct">]</span> <span class="tok-operator">+</span> <span class="tok-punct">[</span><span class="tok-string">&#x27;d&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;e&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;f&#x27;</span><span class="tok-punct">]</span>   <span class="tok-comment"># Concatenante two Lists</span>
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-punct">(</span><span class="tok-string">&#x27;a&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;b&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;c&#x27;</span><span class="tok-punct">)</span> <span class="tok-operator">+</span> <span class="tok-punct">(</span><span class="tok-string">&#x27;d&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;e&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;f&#x27;</span><span class="tok-punct">)</span>   <span class="tok-comment"># Concatenante two Tuples</span>
+
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   List Comprehensions &amp; Generators                     #</span>
+<span class="tok-comment"># ###################################################### #</span>
+
+<span class="tok-comment"># Python has a unique way to create a List of items from another List called comprehensions</span>
+
+<span class="tok-name">positive_integers</span> <span class="tok-operator">=</span> <span class="tok-builtin">list</span><span class="tok-punct">(</span><span class="tok-builtin">range</span><span class="tok-punct">(</span><span class="tok-number">100</span><span class="tok-punct">)</span><span class="tok-punct">)</span>                                    <span class="tok-comment"># Make a List of positive integers from a range</span>
+<span class="tok-name">odd_numbers</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-name">num</span> <span class="tok-keyword">for</span> <span class="tok-name">num</span> <span class="tok-keyword">in</span> <span class="tok-name">positive_integers</span> <span class="tok-keyword">if</span> <span class="tok-name">num</span> <span class="tok-operator">%</span> <span class="tok-number">2</span> <span class="tok-operator">==</span> <span class="tok-number">1</span><span class="tok-punct">]</span>        <span class="tok-comment"># Use a List comprehension to extract the odd numbers</span>
+<span class="tok-name">doubles</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-name">num</span> <span class="tok-operator">*</span> <span class="tok-number">2</span> <span class="tok-keyword">for</span> <span class="tok-name">num</span> <span class="tok-keyword">in</span> <span class="tok-name">positive_integers</span><span class="tok-punct">]</span>                        <span class="tok-comment"># Use a List comprehension to double each number</span>
+<span class="tok-name">double_evens</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-name">num</span> <span class="tok-operator">*</span> <span class="tok-number">2</span> <span class="tok-keyword">for</span> <span class="tok-name">num</span> <span class="tok-keyword">in</span> <span class="tok-name">positive_integers</span> <span class="tok-keyword">if</span> <span class="tok-name">num</span> <span class="tok-operator">%</span> <span class="tok-number">2</span> <span class="tok-operator">==</span> <span class="tok-number">0</span><span class="tok-punct">]</span>   <span class="tok-comment"># Find all the even numbers and multiple them by 2</span>
+
+<span class="tok-comment"># Generators are useful for creating an iterator over a List especially in cases where the List is very large</span>
+
+<span class="tok-name">double_evens_generator</span> <span class="tok-operator">=</span> <span class="tok-punct">(</span><span class="tok-name">num</span> <span class="tok-operator">*</span> <span class="tok-number">2</span> <span class="tok-keyword">for</span> <span class="tok-name">num</span> <span class="tok-keyword">in</span> <span class="tok-name">positive_integers</span> <span class="tok-keyword">if</span> <span class="tok-name">num</span> <span class="tok-operator">%</span> <span class="tok-number">2</span> <span class="tok-operator">==</span> <span class="tok-number">0</span><span class="tok-punct">)</span>
+
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   Dictionary Operations                                #</span>
+<span class="tok-comment"># ###################################################### #</span>
+
+<span class="tok-comment"># Python dictionaries are hash tables with key: value pairs</span>
+
+<span class="tok-name">locations</span> <span class="tok-operator">=</span> <span class="tok-punct">{</span><span class="tok-string">&#x27;orlando&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;123 Brook Ln&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;boston&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;442 Green Pl&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;houston&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;12054 Industry Way&#x27;</span><span class="tok-punct">}</span>  <span class="tok-comment"># Address book Dictionary</span>
+
+<span class="tok-name">boston_addy</span> <span class="tok-operator">=</span> <span class="tok-name">locations</span><span class="tok-punct">[</span><span class="tok-string">&#x27;boston&#x27;</span><span class="tok-punct">]</span>       <span class="tok-comment"># Get the address of the boston location with the index operator</span>
+<span class="tok-name">boston_addy</span> <span class="tok-operator">=</span> <span class="tok-name">locations</span><span class="tok-punct">.</span><span class="tok-name">get</span><span class="tok-punct">(</span><span class="tok-string">&#x27;boston&#x27;</span><span class="tok-punct">)</span>   <span class="tok-comment"># Get the address with the get method</span>
+<span class="tok-name">locations</span><span class="tok-punct">[</span><span class="tok-string">&#x27;orlando&#x27;</span><span class="tok-punct">]</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;133 Brook Ln&#x27;</span>   <span class="tok-comment"># Update values with the assignment operator</span>
+<span class="tok-name">locations</span><span class="tok-punct">[</span><span class="tok-string">&#x27;madison&#x27;</span><span class="tok-punct">]</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;890 State St&#x27;</span>   <span class="tok-comment"># Add new values with the assignment operator</span>
+<span class="tok-name">locations</span><span class="tok-punct">.</span><span class="tok-name">update</span><span class="tok-punct">(</span>                       <span class="tok-comment"># Pass a Dictionary to update to add multiple values</span>
+  <span class="tok-punct">{</span><span class="tok-string">&#x27;flagstaff&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;7370 Crane Way&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;tempe&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;9090 Locust St&#x27;</span><span class="tok-punct">}</span>
+<span class="tok-punct">)</span>
+<span class="tok-name">locations</span><span class="tok-punct">.</span><span class="tok-name">update</span><span class="tok-punct">(</span>                       <span class="tok-comment"># We can pass a dictionary to update to change multiple values</span>
+  <span class="tok-punct">{</span><span class="tok-string">&#x27;boston&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;443 Green Pl&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;houston&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;12054 Industry Blvd&#x27;</span><span class="tok-punct">}</span>
+<span class="tok-punct">)</span>
+<span class="tok-name">boston</span> <span class="tok-operator">=</span> <span class="tok-name">locations</span><span class="tok-punct">.</span><span class="tok-name">pop</span><span class="tok-punct">(</span><span class="tok-string">&#x27;boston&#x27;</span><span class="tok-punct">)</span>        <span class="tok-comment"># We can remove a key value pair with the pop method fetching the value</span>
+
+<span class="tok-comment"># Python will throw a KeyError if we attempt to access a non-existent pair</span>
+
+<span class="tok-keyword">if</span> <span class="tok-string">&#x27;sarasota&#x27;</span> <span class="tok-keyword">in</span> <span class="tok-name">locations</span><span class="tok-punct">:</span> <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-name">locations</span><span class="tok-punct">[</span><span class="tok-string">&#x27;sarasota&#x27;</span><span class="tok-punct">]</span><span class="tok-punct">)</span>   <span class="tok-comment"># We can test for a key with the in keyword</span>
+<span class="tok-name">sarasota</span> <span class="tok-operator">=</span> <span class="tok-name">locations</span><span class="tok-punct">.</span><span class="tok-name">get</span><span class="tok-punct">(</span><span class="tok-string">&#x27;sarasota&#x27;</span><span class="tok-punct">)</span>                       <span class="tok-comment"># We can also test using the get method (returns None)</span>
+<span class="tok-name">sarasota</span> <span class="tok-operator">=</span> <span class="tok-name">locations</span><span class="tok-punct">.</span><span class="tok-name">get</span><span class="tok-punct">(</span><span class="tok-string">&#x27;sarasota&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;100 Nowhere Dr&#x27;</span><span class="tok-punct">)</span>      <span class="tok-comment"># We can also return a default value instead of None</span>
+<span class="tok-name">boston</span> <span class="tok-operator">=</span> <span class="tok-name">locations</span><span class="tok-punct">.</span><span class="tok-name">pop</span><span class="tok-punct">(</span><span class="tok-string">&#x27;boston&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;100 Nowhere Dr&#x27;</span><span class="tok-punct">)</span>          <span class="tok-comment"># Pop also supports default values</span>
+<span class="tok-builtin">list</span><span class="tok-punct">(</span><span class="tok-name">locations</span><span class="tok-punct">)</span>                                            <span class="tok-comment"># Gets a List of keys in the Dictionary</span>
+<span class="tok-name">locations</span><span class="tok-punct">.</span><span class="tok-name">keys</span><span class="tok-punct">(</span><span class="tok-punct">)</span>                                           <span class="tok-comment"># Gets an immutable set of keys in the Dictionary</span>
+<span class="tok-name">locations</span><span class="tok-punct">.</span><span class="tok-name">values</span><span class="tok-punct">(</span><span class="tok-punct">)</span>                                         <span class="tok-comment"># Gets an values iterator</span>
+<span class="tok-name">locations</span><span class="tok-punct">.</span><span class="tok-name">items</span><span class="tok-punct">(</span><span class="tok-punct">)</span>                                          <span class="tok-comment"># Gets a (key,value) Tuple iterator</span>
+
+<span class="tok-keyword">for</span> <span class="tok-name">kvp</span> <span class="tok-keyword">in</span> <span class="tok-name">locations</span><span class="tok-punct">:</span>                                      <span class="tok-comment"># Iterating the Dictionary returns the key strings</span>
+  <span class="tok-name">value</span> <span class="tok-operator">=</span> <span class="tok-name">locations</span><span class="tok-punct">[</span><span class="tok-name">kvp</span><span class="tok-punct">]</span>
+<span class="tok-keyword">for</span> <span class="tok-name">city</span><span class="tok-punct">,</span><span class="tok-name">addr</span> <span class="tok-keyword">in</span> <span class="tok-name">locations</span><span class="tok-punct">.</span><span class="tok-name">items</span><span class="tok-punct">(</span><span class="tok-punct">)</span><span class="tok-punct">:</span>                        <span class="tok-comment"># Iterating the items returns key,value Tuples</span>
+  <span class="tok-name">text</span> <span class="tok-operator">=</span> f&#x27;<span class="tok-punct">{</span><span class="tok-name">city</span><span class="tok-punct">}</span>: <span class="tok-punct">{</span><span class="tok-name">addr</span><span class="tok-punct">}</span>&#x27;
+<span class="tok-keyword">for</span> <span class="tok-name">city_addr</span> <span class="tok-keyword">in</span> <span class="tok-name">locations</span><span class="tok-punct">.</span><span class="tok-name">items</span><span class="tok-punct">(</span><span class="tok-punct">)</span><span class="tok-punct">:</span>                        <span class="tok-comment"># If you do not declare the Tuple parts, you can access</span>
+  <span class="tok-name">key</span> <span class="tok-operator">=</span> <span class="tok-name">city_addr</span><span class="tok-punct">[</span><span class="tok-number">0</span><span class="tok-punct">]</span>                                       <span class="tok-comment"># each Tuple point by index number</span>
+  <span class="tok-name">value</span> <span class="tok-operator">=</span> <span class="tok-name">city_addr</span><span class="tok-punct">[</span><span class="tok-number">1</span><span class="tok-punct">]</span>
+
+<span class="tok-comment"># Dictionaries, like Lists, have comprehensions which can be used to create Dictionaries from Lists</span>
+
+<span class="tok-name">students</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-string">&#x27;Alice&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Bob&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Charlie&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;David&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Ethan&#x27;</span><span class="tok-punct">]</span>
+<span class="tok-name">test_scores</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-number">99</span><span class="tok-punct">,</span><span class="tok-number">98</span><span class="tok-punct">,</span><span class="tok-number">99</span><span class="tok-punct">,</span><span class="tok-number">91</span><span class="tok-punct">,</span><span class="tok-number">92</span><span class="tok-punct">]</span>
+<span class="tok-name">zipped</span> <span class="tok-operator">=</span> <span class="tok-builtin">zip</span><span class="tok-punct">(</span><span class="tok-name">students</span><span class="tok-punct">,</span><span class="tok-name">test_scores</span><span class="tok-punct">)</span>                      <span class="tok-comment"># Zip is a class which can merge Lists into Tuples</span>
+<span class="tok-name">student_scores</span> <span class="tok-operator">=</span> <span class="tok-punct">{</span><span class="tok-name">key</span><span class="tok-punct">:</span><span class="tok-name">value</span> <span class="tok-keyword">for</span> <span class="tok-name">key</span><span class="tok-punct">,</span> <span class="tok-name">value</span> <span class="tok-keyword">in</span> <span class="tok-name">zipped</span><span class="tok-punct">}</span>   <span class="tok-comment"># Using a Dictionary comprehension we can merge students with test_scores</span>
+
+<span class="tok-comment"># Dictionary comprehensions require Tuples rather than items since Dictionary entries are key-value pairs</span>
+
+<span class="tok-name">score_list</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-punct">[</span><span class="tok-string">&#x27;Alice&#x27;</span><span class="tok-punct">,</span><span class="tok-number">99</span><span class="tok-punct">]</span><span class="tok-punct">,</span><span class="tok-punct">[</span><span class="tok-string">&#x27;Bob&#x27;</span><span class="tok-punct">,</span><span class="tok-number">98</span><span class="tok-punct">]</span><span class="tok-punct">,</span><span class="tok-punct">[</span><span class="tok-string">&#x27;Charlie&#x27;</span><span class="tok-punct">,</span><span class="tok-number">99</span><span class="tok-punct">]</span><span class="tok-punct">]</span>    <span class="tok-comment"># Here we have a two-dimensional array</span>
+<span class="tok-name">student_scores</span> <span class="tok-operator">=</span> <span class="tok-punct">{</span><span class="tok-name">n</span><span class="tok-punct">[</span><span class="tok-number">0</span><span class="tok-punct">]</span><span class="tok-punct">:</span><span class="tok-name">n</span><span class="tok-punct">[</span><span class="tok-number">1</span><span class="tok-punct">]</span> <span class="tok-keyword">for</span> <span class="tok-name">n</span> <span class="tok-keyword">in</span> <span class="tok-name">score_list</span><span class="tok-punct">}</span>         <span class="tok-comment"># Merge the two-dimensional array into a Dictionary</span>
+
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   Dates &amp; Times                                        #</span>
+<span class="tok-comment"># ###################################################### #</span>
+
+<span class="tok-comment"># Python date and time operations are implemented in the datetime module</span>
+
+<span class="tok-keyword">from</span> <span class="tok-name">datetime</span> <span class="tok-keyword">import</span> <span class="tok-name">datetime</span>                     <span class="tok-comment"># Datetime is a class in the datetime module</span>
+<span class="tok-name">back_then</span> <span class="tok-operator">=</span> <span class="tok-name">datetime</span><span class="tok-punct">(</span><span class="tok-number">2025</span><span class="tok-punct">,</span><span class="tok-number">7</span><span class="tok-punct">,</span><span class="tok-number">5</span><span class="tok-punct">,</span><span class="tok-number">9</span><span class="tok-punct">,</span><span class="tok-number">38</span><span class="tok-punct">,</span><span class="tok-number">25</span><span class="tok-punct">)</span>            <span class="tok-comment"># Construct a datetime with its constituent parts</span>
+<span class="tok-name">right_now</span> <span class="tok-operator">=</span> <span class="tok-name">datetime</span><span class="tok-punct">.</span><span class="tok-name">now</span><span class="tok-punct">(</span><span class="tok-punct">)</span>                        <span class="tok-comment"># Get the current time and date</span>
+<span class="tok-name">right_now</span> <span class="tok-operator">-</span> <span class="tok-name">back_then</span>                             <span class="tok-comment"># Get the difference between two datetimes</span>
+<span class="tok-name">a_while_ago</span> <span class="tok-operator">=</span> \
+  <span class="tok-name">datetime</span><span class="tok-punct">.</span><span class="tok-name">strptime</span><span class="tok-punct">(</span><span class="tok-string">&#x27;Mar 10, 1993&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;%b %d, %Y&#x27;</span><span class="tok-punct">)</span>   <span class="tok-comment"># Parse a String into a datetime</span>
+<span class="tok-name">welcome_to_now</span> <span class="tok-operator">=</span> <span class="tok-name">right_now</span><span class="tok-punct">.</span><span class="tok-name">strftime</span><span class="tok-punct">(</span><span class="tok-string">&#x27;%d/%m/%Y&#x27;</span><span class="tok-punct">)</span>   <span class="tok-comment"># Format the current time and date into a String</span>
+
+<span class="tok-comment"># ################################################################################################# #</span>
+<span class="tok-comment">#                                                                                                   #</span>
+<span class="tok-comment">#  3. Control Flow                                                                                  #</span>
+<span class="tok-comment">#                                                                                                   #</span>
+<span class="tok-comment"># ################################################################################################# #</span>
+
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   If Statements                                        #</span>
+<span class="tok-comment"># ###################################################### #</span>
+
+<span class="tok-comment"># Python conditional control flow uses the if, elif, and else keywords where indentation tells the Python</span>
+<span class="tok-comment"># interpreter which instructions to run if the condition is met</span>
+
+<span class="tok-name">my_name</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;Bob&#x27;</span>
+<span class="tok-keyword">if</span> <span class="tok-name">my_name</span> <span class="tok-operator">==</span> <span class="tok-string">&#x27;Christian&#x27;</span><span class="tok-punct">:</span>            <span class="tok-comment"># If this is True</span>
+  <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;My name is Christian&#x27;</span><span class="tok-punct">)</span>       <span class="tok-comment"># Run this line</span>
+
+<span class="tok-keyword">if</span> <span class="tok-name">my_name</span> <span class="tok-operator">==</span> <span class="tok-string">&#x27;Christian&#x27;</span><span class="tok-punct">:</span>            <span class="tok-comment"># If this is True</span>
+  <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;My name is Christian&#x27;</span><span class="tok-punct">)</span>       <span class="tok-comment"># Run this line</span>
+<span class="tok-keyword">else</span><span class="tok-punct">:</span>                                 <span class="tok-comment"># Otherwise...</span>
+  <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;My name is not Christian&#x27;</span><span class="tok-punct">)</span>   <span class="tok-comment"># Run this line instead</span>
+
+<span class="tok-keyword">if</span> <span class="tok-name">my_name</span> <span class="tok-operator">==</span> <span class="tok-string">&#x27;Christian&#x27;</span><span class="tok-punct">:</span>            <span class="tok-comment"># If this is True</span>
+  <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;My name is Christian&#x27;</span><span class="tok-punct">)</span>       <span class="tok-comment"># Run this</span>
+<span class="tok-keyword">elif</span> <span class="tok-name">my_name</span> <span class="tok-operator">==</span> <span class="tok-string">&#x27;Bob&#x27;</span><span class="tok-punct">:</span>                <span class="tok-comment"># Or if this is True, and the previous expression was False</span>
+  <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;My name is Bob&#x27;</span><span class="tok-punct">)</span>             <span class="tok-comment"># Run this line</span>
+<span class="tok-keyword">else</span><span class="tok-punct">:</span>                                 <span class="tok-comment"># Otherwise...</span>
+  <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;Who am I?&#x27;</span><span class="tok-punct">)</span>                  <span class="tok-comment"># Run this line instead</span>
+
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   Loops                                                #</span>
+<span class="tok-comment"># ###################################################### #</span>
+
+<span class="tok-comment"># Python loop control includes for loops and while loops</span>
+
+<span class="tok-keyword">for</span> <span class="tok-name">item</span> <span class="tok-keyword">in</span> <span class="tok-name">backpack</span><span class="tok-punct">:</span>                <span class="tok-comment"># Iterate over all items in a collection</span>
+  <span class="tok-name">my_item</span> <span class="tok-operator">=</span> <span class="tok-name">item</span>
+
+<span class="tok-name">x</span> <span class="tok-operator">=</span> <span class="tok-number">0</span>
+<span class="tok-keyword">while</span> <span class="tok-name">x</span> <span class="tok-operator">&lt;</span> <span class="tok-builtin">len</span><span class="tok-punct">(</span><span class="tok-name">backpack</span><span class="tok-punct">)</span><span class="tok-punct">:</span>             <span class="tok-comment"># Loop while a condition is True</span>
+  <span class="tok-name">x</span> <span class="tok-operator">+=</span> <span class="tok-number">1</span>
+
+<span class="tok-comment"># Python loops support break and continue statements which will stop the loop or skip steps, respectively</span>
+
+<span class="tok-keyword">for</span> <span class="tok-name">item</span> <span class="tok-keyword">in</span> <span class="tok-name">backpack</span><span class="tok-punct">:</span>    <span class="tok-comment"># This will loop through the backpack until we find paper</span>
+  <span class="tok-keyword">if</span> <span class="tok-name">item</span> <span class="tok-operator">==</span> <span class="tok-string">&#x27;paper&#x27;</span><span class="tok-punct">:</span>
+    <span class="tok-keyword">break</span>
+  <span class="tok-keyword">else</span><span class="tok-punct">:</span>
+    <span class="tok-name">not_paper</span> <span class="tok-operator">=</span> <span class="tok-name">item</span>
+
+<span class="tok-keyword">for</span> <span class="tok-name">item</span> <span class="tok-keyword">in</span> <span class="tok-name">backpack</span><span class="tok-punct">:</span>    <span class="tok-comment"># This will loop through the entire backpack but will not print any paper</span>
+  <span class="tok-keyword">if</span> <span class="tok-name">item</span> <span class="tok-operator">==</span> <span class="tok-string">&#x27;paper&#x27;</span><span class="tok-punct">:</span>
+    <span class="tok-keyword">continue</span>
+  <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-name">item</span><span class="tok-punct">)</span>
+
+<span class="tok-comment"># The pass keyword is used for doing a no-op (No Operation)</span>
+
+<span class="tok-keyword">for</span> <span class="tok-name">item</span> <span class="tok-keyword">in</span> <span class="tok-name">backpack</span><span class="tok-punct">:</span>    <span class="tok-comment"># This will loop through the entire backpack and do nothing with each item</span>
+  <span class="tok-keyword">pass</span>
+
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   Branching / Switching                                #</span>
+<span class="tok-comment"># ###################################################### #</span>
+
+<span class="tok-comment"># Python uses the match statement to create a switch case branch</span>
+
+<span class="tok-name">letter</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;q&#x27;</span>                         <span class="tok-comment"># The letter is q</span>
+<span class="tok-name">match</span> <span class="tok-name">letter</span><span class="tok-punct">:</span>                        <span class="tok-comment"># Create a &#x27;ladder&#x27; of matches for what the letter might be</span>
+  <span class="tok-name">case</span> <span class="tok-string">&#x27;a&#x27;</span><span class="tok-punct">:</span>                          <span class="tok-comment"># If letter is a ...</span>
+    <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;a is for aardvark&#x27;</span><span class="tok-punct">)</span>
+  <span class="tok-name">case</span> <span class="tok-string">&#x27;b&#x27;</span><span class="tok-punct">:</span>                          <span class="tok-comment"># If letter is b ...</span>
+    <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;b is for boysenberry&#x27;</span><span class="tok-punct">)</span>
+  <span class="tok-name">case</span> <span class="tok-name">default</span><span class="tok-punct">:</span>                      <span class="tok-comment"># Use default to do something if there is no match</span>
+    <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-name">letter</span><span class="tok-punct">)</span>
+
+<span class="tok-comment"># The match statement was added recently in Python 3.10, the above code will fail if you run this on older Python runtimes</span>
+
+<span class="tok-comment"># ################################################################################################# #</span>
+<span class="tok-comment">#                                                                                                   #</span>
+<span class="tok-comment">#  4. Functions                                                                                     #</span>
+<span class="tok-comment">#                                                                                                   #</span>
+<span class="tok-comment"># ################################################################################################# #</span>
 
-# ###################################################### #
-#   User-Defined Functions                               #
-# ###################################################### #
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   User-Defined Functions                               #</span>
+<span class="tok-comment"># ###################################################### #</span>
 
-# Python allows you to define your own functions which are blocks of reusable code
+<span class="tok-comment"># Python allows you to define your own functions which are blocks of reusable code</span>
 
-def my_function():
-  print('Hello, world!')
+<span class="tok-keyword">def</span> <span class="tok-name">my_function</span><span class="tok-punct">(</span><span class="tok-punct">)</span><span class="tok-punct">:</span>
+  <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;Hello, world!&#x27;</span><span class="tok-punct">)</span>
 
-# Python user-defined functions can return zero, one or more values
+<span class="tok-comment"># Python user-defined functions can return zero, one or more values</span>
 
-def returns_nothing(): print('Hello, world!')             # Returns nothing
-def returns_something(): return 'Hello, world!'           # Returns a String
-def returns_three_values(): return 'Hello', 'world', '!'  # Returns three separate values
+<span class="tok-keyword">def</span> <span class="tok-name">returns_nothing</span><span class="tok-punct">(</span><span class="tok-punct">)</span><span class="tok-punct">:</span> <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;Hello, world!&#x27;</span><span class="tok-punct">)</span>             <span class="tok-comment"># Returns nothing</span>
+<span class="tok-keyword">def</span> <span class="tok-name">returns_something</span><span class="tok-punct">(</span><span class="tok-punct">)</span><span class="tok-punct">:</span> <span class="tok-keyword">return</span> <span class="tok-string">&#x27;Hello, world!&#x27;</span>           <span class="tok-comment"># Returns a String</span>
+<span class="tok-keyword">def</span> <span class="tok-name">returns_three_values</span><span class="tok-punct">(</span><span class="tok-punct">)</span><span class="tok-punct">:</span> <span class="tok-keyword">return</span> <span class="tok-string">&#x27;Hello&#x27;</span><span class="tok-punct">,</span> <span class="tok-string">&#x27;world&#x27;</span><span class="tok-punct">,</span> <span class="tok-string">&#x27;!&#x27;</span>  <span class="tok-comment"># Returns three separate values</span>
 
-# Return values are assigned to one or more variables using the assignment (=) operator
+<span class="tok-comment"># Return values are assigned to one or more variables using the assignment (=) operator</span>
 
-returns_nothing()
-hello_world = returns_something()
-hello, world, exclaim = returns_three_values()
+<span class="tok-name">returns_nothing</span><span class="tok-punct">(</span><span class="tok-punct">)</span>
+<span class="tok-name">hello_world</span> <span class="tok-operator">=</span> <span class="tok-name">returns_something</span><span class="tok-punct">(</span><span class="tok-punct">)</span>
+<span class="tok-name">hello</span><span class="tok-punct">,</span> <span class="tok-name">world</span><span class="tok-punct">,</span> <span class="tok-name">exclaim</span> <span class="tok-operator">=</span> <span class="tok-name">returns_three_values</span><span class="tok-punct">(</span><span class="tok-punct">)</span>
 
-# Function arguments and their parameters can be passed in positional or keyword format
+<span class="tok-comment"># Function arguments and their parameters can be passed in positional or keyword format</span>
 
-def calc_product(a, b, c): return a * b * c
-calc_product(1,2,3)                            # These parameters are passed by position
-calc_product(b = 2, c = 3, a = 1)              # These parameters are passed by keyword
-calc_product(4, c = 12, b = 7)                 # These parameters are mixed between position and keyword
-                                               # This makes Python functions more versatile than many other languages
-                                               # You can specify only the parameters relevant to you
-print('No line break', end = '')               # For example, you can print text with no line break
+<span class="tok-keyword">def</span> <span class="tok-name">calc_product</span><span class="tok-punct">(</span><span class="tok-name">a</span><span class="tok-punct">,</span> <span class="tok-name">b</span><span class="tok-punct">,</span> <span class="tok-name">c</span><span class="tok-punct">)</span><span class="tok-punct">:</span> <span class="tok-keyword">return</span> <span class="tok-name">a</span> <span class="tok-operator">*</span> <span class="tok-name">b</span> <span class="tok-operator">*</span> <span class="tok-name">c</span>
+<span class="tok-name">calc_product</span><span class="tok-punct">(</span><span class="tok-number">1</span><span class="tok-punct">,</span><span class="tok-number">2</span><span class="tok-punct">,</span><span class="tok-number">3</span><span class="tok-punct">)</span>                            <span class="tok-comment"># These parameters are passed by position</span>
+<span class="tok-name">calc_product</span><span class="tok-punct">(</span><span class="tok-name">b</span> <span class="tok-operator">=</span> <span class="tok-number">2</span><span class="tok-punct">,</span> <span class="tok-name">c</span> <span class="tok-operator">=</span> <span class="tok-number">3</span><span class="tok-punct">,</span> <span class="tok-name">a</span> <span class="tok-operator">=</span> <span class="tok-number">1</span><span class="tok-punct">)</span>              <span class="tok-comment"># These parameters are passed by keyword</span>
+<span class="tok-name">calc_product</span><span class="tok-punct">(</span><span class="tok-number">4</span><span class="tok-punct">,</span> <span class="tok-name">c</span> <span class="tok-operator">=</span> <span class="tok-number">12</span><span class="tok-punct">,</span> <span class="tok-name">b</span> <span class="tok-operator">=</span> <span class="tok-number">7</span><span class="tok-punct">)</span>                 <span class="tok-comment"># These parameters are mixed between position and keyword</span>
+                                               <span class="tok-comment"># This makes Python functions more versatile than many other languages</span>
+                                               <span class="tok-comment"># You can specify only the parameters relevant to you</span>
+<span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;No line break&#x27;</span><span class="tok-punct">,</span> <span class="tok-name">end</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;&#x27;</span><span class="tok-punct">)</span>               <span class="tok-comment"># For example, you can print text with no line break</span>
 
-# Function definitions can have default argument values
+<span class="tok-comment"># Function definitions can have default argument values</span>
 
-def say_my_name(name = 'Christian'): print(name)  # This function's name argument is defaulted
+<span class="tok-keyword">def</span> <span class="tok-name">say_my_name</span><span class="tok-punct">(</span><span class="tok-name">name</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;Christian&#x27;</span><span class="tok-punct">)</span><span class="tok-punct">:</span> <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-name">name</span><span class="tok-punct">)</span>  <span class="tok-comment"># This function&#x27;s name argument is defaulted</span>
 
-say_my_name()                # Calling it this way prints the default value
-say_my_name('Alice')         # Calling it this way prints Alice
-say_my_name(name = 'Bob')    # Calling it this way prints Bob
+<span class="tok-name">say_my_name</span><span class="tok-punct">(</span><span class="tok-punct">)</span>                <span class="tok-comment"># Calling it this way prints the default value</span>
+<span class="tok-name">say_my_name</span><span class="tok-punct">(</span><span class="tok-string">&#x27;Alice&#x27;</span><span class="tok-punct">)</span>         <span class="tok-comment"># Calling it this way prints Alice</span>
+<span class="tok-name">say_my_name</span><span class="tok-punct">(</span><span class="tok-name">name</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;Bob&#x27;</span><span class="tok-punct">)</span>    <span class="tok-comment"># Calling it this way prints Bob</span>
 
-# Functions also support arbitrary positional arguments
+<span class="tok-comment"># Functions also support arbitrary positional arguments</span>
 
-def add_numbers(*nums):          # Using *nums means you can specify an unlimited number of nums
-  result = 0                     # as the first positional argument which will be passed as a List
-  for i in nums:                 # Here we iterate the nums List
-    result += i
-  return result
-add_numbers(3,7,4,2,8,3,4,5,6)   # We call the function with a bunch of numbers
+<span class="tok-keyword">def</span> <span class="tok-name">add_numbers</span><span class="tok-punct">(</span><span class="tok-operator">*</span><span class="tok-name">nums</span><span class="tok-punct">)</span><span class="tok-punct">:</span>          <span class="tok-comment"># Using *nums means you can specify an unlimited number of nums</span>
+  <span class="tok-name">result</span> <span class="tok-operator">=</span> <span class="tok-number">0</span>                     <span class="tok-comment"># as the first positional argument which will be passed as a List</span>
+  <span class="tok-keyword">for</span> <span class="tok-name">i</span> <span class="tok-keyword">in</span> <span class="tok-name">nums</span><span class="tok-punct">:</span>                 <span class="tok-comment"># Here we iterate the nums List</span>
+    <span class="tok-name">result</span> <span class="tok-operator">+=</span> <span class="tok-name">i</span>
+  <span class="tok-keyword">return</span> <span class="tok-name">result</span>
+<span class="tok-name">add_numbers</span><span class="tok-punct">(</span><span class="tok-number">3</span><span class="tok-punct">,</span><span class="tok-number">7</span><span class="tok-punct">,</span><span class="tok-number">4</span><span class="tok-punct">,</span><span class="tok-number">2</span><span class="tok-punct">,</span><span class="tok-number">8</span><span class="tok-punct">,</span><span class="tok-number">3</span><span class="tok-punct">,</span><span class="tok-number">4</span><span class="tok-punct">,</span><span class="tok-number">5</span><span class="tok-punct">,</span><span class="tok-number">6</span><span class="tok-punct">)</span>   <span class="tok-comment"># We call the function with a bunch of numbers</span>
 
-# Functions also support abritrary keyword arguments
+<span class="tok-comment"># Functions also support abritrary keyword arguments</span>
 
-def print_brochure(**tags):        # The double asterisk (**) token means we accept arbitrary named parameters
-  for key, value in tags.items():  # The tags argument will come in as a Dictionary
-    print(f"{key} = {value}")
-print_brochure( breakfast = 'eggs', lunch = 'salad', dinner = 'pasta')  # This is what they look like
+<span class="tok-keyword">def</span> <span class="tok-name">print_brochure</span><span class="tok-punct">(</span><span class="tok-operator">**</span><span class="tok-name">tags</span><span class="tok-punct">)</span><span class="tok-punct">:</span>        <span class="tok-comment"># The double asterisk (**) token means we accept arbitrary named parameters</span>
+  <span class="tok-keyword">for</span> <span class="tok-name">key</span><span class="tok-punct">,</span> <span class="tok-name">value</span> <span class="tok-keyword">in</span> <span class="tok-name">tags</span><span class="tok-punct">.</span><span class="tok-name">items</span><span class="tok-punct">(</span><span class="tok-punct">)</span><span class="tok-punct">:</span>  <span class="tok-comment"># The tags argument will come in as a Dictionary</span>
+    <span class="tok-builtin">print</span><span class="tok-punct">(</span>f&quot;<span class="tok-punct">{</span><span class="tok-name">key</span><span class="tok-punct">}</span> = <span class="tok-punct">{</span><span class="tok-name">value</span><span class="tok-punct">}</span>&quot;<span class="tok-punct">)</span>
+<span class="tok-name">print_brochure</span><span class="tok-punct">(</span> <span class="tok-name">breakfast</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;eggs&#x27;</span><span class="tok-punct">,</span> <span class="tok-name">lunch</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;salad&#x27;</span><span class="tok-punct">,</span> <span class="tok-name">dinner</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;pasta&#x27;</span><span class="tok-punct">)</span>  <span class="tok-comment"># This is what they look like</span>
 
-# ###################################################### #
-#   Anonymous Functions (Lambda)                         #
-# ###################################################### #
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   Anonymous Functions (Lambda)                         #</span>
+<span class="tok-comment"># ###################################################### #</span>
 
-# Python supports anonymous functions called lambda functions
+<span class="tok-comment"># Python supports anonymous functions called lambda functions</span>
 
-positive_integers = list(range(100))
-odd_numbers = [num for num in positive_integers if num % 2 == 1]
-odd_numbers = list(filter(lambda x: x % 2 == 1, positive_integers)) # Here we use a lambda function to find all the
-                                                                    # odd numbers in a list of numbers using the filter
-                                                                    # function which accepts a function as the first parameter
+<span class="tok-name">positive_integers</span> <span class="tok-operator">=</span> <span class="tok-builtin">list</span><span class="tok-punct">(</span><span class="tok-builtin">range</span><span class="tok-punct">(</span><span class="tok-number">100</span><span class="tok-punct">)</span><span class="tok-punct">)</span>
+<span class="tok-name">odd_numbers</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-name">num</span> <span class="tok-keyword">for</span> <span class="tok-name">num</span> <span class="tok-keyword">in</span> <span class="tok-name">positive_integers</span> <span class="tok-keyword">if</span> <span class="tok-name">num</span> <span class="tok-operator">%</span> <span class="tok-number">2</span> <span class="tok-operator">==</span> <span class="tok-number">1</span><span class="tok-punct">]</span>
+<span class="tok-name">odd_numbers</span> <span class="tok-operator">=</span> <span class="tok-builtin">list</span><span class="tok-punct">(</span><span class="tok-builtin">filter</span><span class="tok-punct">(</span><span class="tok-keyword">lambda</span> <span class="tok-name">x</span><span class="tok-punct">:</span> <span class="tok-name">x</span> <span class="tok-operator">%</span> <span class="tok-number">2</span> <span class="tok-operator">==</span> <span class="tok-number">1</span><span class="tok-punct">,</span> <span class="tok-name">positive_integers</span><span class="tok-punct">)</span><span class="tok-punct">)</span> <span class="tok-comment"># Here we use a lambda function to find all the</span>
+                                                                    <span class="tok-comment"># odd numbers in a list of numbers using the filter</span>
+                                                                    <span class="tok-comment"># function which accepts a function as the first parameter</span>
 
-# Lambda functions can have multiple arguments that can map into the caller parameters
-# In the example below we are passing two iterables to the map function thus our
-# Lambda function will be defined with two arguments, in order, one for the first
-# And one for the second iterable
+<span class="tok-comment"># Lambda functions can have multiple arguments that can map into the caller parameters</span>
+<span class="tok-comment"># In the example below we are passing two iterables to the map function thus our</span>
+<span class="tok-comment"># Lambda function will be defined with two arguments, in order, one for the first</span>
+<span class="tok-comment"># And one for the second iterable</span>
 
-products = list(map(lambda x, y: x * y, odd_numbers, odd_numbers))
+<span class="tok-name">products</span> <span class="tok-operator">=</span> <span class="tok-builtin">list</span><span class="tok-punct">(</span><span class="tok-builtin">map</span><span class="tok-punct">(</span><span class="tok-keyword">lambda</span> <span class="tok-name">x</span><span class="tok-punct">,</span> <span class="tok-name">y</span><span class="tok-punct">:</span> <span class="tok-name">x</span> <span class="tok-operator">*</span> <span class="tok-name">y</span><span class="tok-punct">,</span> <span class="tok-name">odd_numbers</span><span class="tok-punct">,</span> <span class="tok-name">odd_numbers</span><span class="tok-punct">)</span><span class="tok-punct">)</span>
 
-# Here is another examples with two different lists
-
-menu_items = ['Eggs','Sausage','Toast','Coffee']
-menu_prices = ['2.99','3.99','1.99','2.00']
-
-menu = list(map(lambda x, y: f'{x}: ${y}', menu_items, menu_prices)) # Makes a List of menu items by name and price
-print(menu)
-
-# ################################################################################################# #
-#                                                                                                   #
-#  5. I/O                                                                                           #
-#                                                                                                   #
-# ################################################################################################# #
-
-# ###################################################### #
-#   File System                                          #
-# ###################################################### #
-
-# Let's setup some data we can use for these examples
-
-data_dump_text = 'Task,Estimate,Notes\nDo laundry,3,Three loads of lights darks and colds\nEat breakfast,1,Eggs and toast with coffee\nMake the bed,0.25,Change the sheets and fluff the pillows'
-data_dump_task = 'Drink water,8,Stay hydrated'
-
-# Python uses the open function to access local files on the file system
-
-with open('python_primer.py') as primer_file:
-  python_primer = primer_file.read()
-
-# Python has a readlines method for reading text files line by line
-
-with open('python_primer.py') as primer_file:  # By default, files are opened in read mode
-  line_count = 0
-  for line in primer_file.readlines():
-    new_line = f': {line}'
-    line_count += 1
+<span class="tok-comment"># Here is another examples with two different lists</span>
+
+<span class="tok-name">menu_items</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-string">&#x27;Eggs&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Sausage&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Toast&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Coffee&#x27;</span><span class="tok-punct">]</span>
+<span class="tok-name">menu_prices</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-string">&#x27;2.99&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;3.99&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;1.99&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;2.00&#x27;</span><span class="tok-punct">]</span>
+
+<span class="tok-name">menu</span> <span class="tok-operator">=</span> <span class="tok-builtin">list</span><span class="tok-punct">(</span><span class="tok-builtin">map</span><span class="tok-punct">(</span><span class="tok-keyword">lambda</span> <span class="tok-name">x</span><span class="tok-punct">,</span> <span class="tok-name">y</span><span class="tok-punct">:</span> f&#x27;<span class="tok-punct">{</span><span class="tok-name">x</span><span class="tok-punct">}</span>: $<span class="tok-punct">{</span><span class="tok-name">y</span><span class="tok-punct">}</span>&#x27;<span class="tok-punct">,</span> <span class="tok-name">menu_items</span><span class="tok-punct">,</span> <span class="tok-name">menu_prices</span><span class="tok-punct">)</span><span class="tok-punct">)</span> <span class="tok-comment"># Makes a List of menu items by name and price</span>
+<span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-name">menu</span><span class="tok-punct">)</span>
+
+<span class="tok-comment"># ################################################################################################# #</span>
+<span class="tok-comment">#                                                                                                   #</span>
+<span class="tok-comment">#  5. I/O                                                                                           #</span>
+<span class="tok-comment">#                                                                                                   #</span>
+<span class="tok-comment"># ################################################################################################# #</span>
+
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   File System                                          #</span>
+<span class="tok-comment"># ###################################################### #</span>
+
+<span class="tok-comment"># Let&#x27;s setup some data we can use for these examples</span>
+
+<span class="tok-name">data_dump_text</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;Task,Estimate,Notes\nDo laundry,3,Three loads of lights darks and colds\nEat breakfast,1,Eggs and toast with coffee\nMake the bed,0.25,Change the sheets and fluff the pillows&#x27;</span>
+<span class="tok-name">data_dump_task</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;Drink water,8,Stay hydrated&#x27;</span>
+
+<span class="tok-comment"># Python uses the open function to access local files on the file system</span>
+
+<span class="tok-keyword">with</span> <span class="tok-builtin">open</span><span class="tok-punct">(</span><span class="tok-string">&#x27;python_primer.py&#x27;</span><span class="tok-punct">)</span> <span class="tok-keyword">as</span> <span class="tok-name">primer_file</span><span class="tok-punct">:</span>
+  <span class="tok-name">python_primer</span> <span class="tok-operator">=</span> <span class="tok-name">primer_file</span><span class="tok-punct">.</span><span class="tok-name">read</span><span class="tok-punct">(</span><span class="tok-punct">)</span>
+
+<span class="tok-comment"># Python has a readlines method for reading text files line by line</span>
+
+<span class="tok-keyword">with</span> <span class="tok-builtin">open</span><span class="tok-punct">(</span><span class="tok-string">&#x27;python_primer.py&#x27;</span><span class="tok-punct">)</span> <span class="tok-keyword">as</span> <span class="tok-name">primer_file</span><span class="tok-punct">:</span>  <span class="tok-comment"># By default, files are opened in read mode</span>
+  <span class="tok-name">line_count</span> <span class="tok-operator">=</span> <span class="tok-number">0</span>
+  <span class="tok-keyword">for</span> <span class="tok-name">line</span> <span class="tok-keyword">in</span> <span class="tok-name">primer_file</span><span class="tok-punct">.</span><span class="tok-name">readlines</span><span class="tok-punct">(</span><span class="tok-punct">)</span><span class="tok-punct">:</span>
+    <span class="tok-name">new_line</span> <span class="tok-operator">=</span> f&#x27;: <span class="tok-punct">{</span><span class="tok-name">line</span><span class="tok-punct">}</span>&#x27;
+    <span class="tok-name">line_count</span> <span class="tok-operator">+=</span> <span class="tok-number">1</span>
 
-# You'll notice that the variables declared inside the with block persist outside
+<span class="tok-comment"># You&#x27;ll notice that the variables declared inside the with block persist outside</span>
 
-print(f'python_primer.py contains {line_count} lines')
+<span class="tok-builtin">print</span><span class="tok-punct">(</span>f&#x27;python_primer.py contains <span class="tok-punct">{</span><span class="tok-name">line_count</span><span class="tok-punct">}</span> lines&#x27;<span class="tok-punct">)</span>
 
-# Python supports writing to files with the same function
+<span class="tok-comment"># Python supports writing to files with the same function</span>
 
-with open('data_dump.csv', 'w') as primer_copy:  # The 'w' argument indicates write mode
-  primer_copy.write(data_dump_text)
+<span class="tok-keyword">with</span> <span class="tok-builtin">open</span><span class="tok-punct">(</span><span class="tok-string">&#x27;data_dump.csv&#x27;</span><span class="tok-punct">,</span> <span class="tok-string">&#x27;w&#x27;</span><span class="tok-punct">)</span> <span class="tok-keyword">as</span> <span class="tok-name">primer_copy</span><span class="tok-punct">:</span>  <span class="tok-comment"># The &#x27;w&#x27; argument indicates write mode</span>
+  <span class="tok-name">primer_copy</span><span class="tok-punct">.</span><span class="tok-name">write</span><span class="tok-punct">(</span><span class="tok-name">data_dump_text</span><span class="tok-punct">)</span>
 
-# Python uses the mode parameter to determine how the file is opened:
+<span class="tok-comment"># Python uses the mode parameter to determine how the file is opened:</span>
 
-with open('data_dump.csv') as data_dump:       # No argument defaults to read
-  data = data_dump.read()
-with open('data_dump.csv','r') as data_dump:   # Passing r is for read
-  data = data_dump.read()
-with open('data_dump.csv','w') as data_dump:   # Passing w is for write (overwrite)
-  data_dump.write(data_dump_text)
-with open('data_dump.csv','a') as data_dump:   # Passing a is for append
-  data_dump.write(f'\n{data_dump_task}')
+<span class="tok-keyword">with</span> <span class="tok-builtin">open</span><span class="tok-punct">(</span><span class="tok-string">&#x27;data_dump.csv&#x27;</span><span class="tok-punct">)</span> <span class="tok-keyword">as</span> <span class="tok-name">data_dump</span><span class="tok-punct">:</span>       <span class="tok-comment"># No argument defaults to read</span>
+  <span class="tok-name">data</span> <span class="tok-operator">=</span> <span class="tok-name">data_dump</span><span class="tok-punct">.</span><span class="tok-name">read</span><span class="tok-punct">(</span><span class="tok-punct">)</span>
+<span class="tok-keyword">with</span> <span class="tok-builtin">open</span><span class="tok-punct">(</span><span class="tok-string">&#x27;data_dump.csv&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;r&#x27;</span><span class="tok-punct">)</span> <span class="tok-keyword">as</span> <span class="tok-name">data_dump</span><span class="tok-punct">:</span>   <span class="tok-comment"># Passing r is for read</span>
+  <span class="tok-name">data</span> <span class="tok-operator">=</span> <span class="tok-name">data_dump</span><span class="tok-punct">.</span><span class="tok-name">read</span><span class="tok-punct">(</span><span class="tok-punct">)</span>
+<span class="tok-keyword">with</span> <span class="tok-builtin">open</span><span class="tok-punct">(</span><span class="tok-string">&#x27;data_dump.csv&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;w&#x27;</span><span class="tok-punct">)</span> <span class="tok-keyword">as</span> <span class="tok-name">data_dump</span><span class="tok-punct">:</span>   <span class="tok-comment"># Passing w is for write (overwrite)</span>
+  <span class="tok-name">data_dump</span><span class="tok-punct">.</span><span class="tok-name">write</span><span class="tok-punct">(</span><span class="tok-name">data_dump_text</span><span class="tok-punct">)</span>
+<span class="tok-keyword">with</span> <span class="tok-builtin">open</span><span class="tok-punct">(</span><span class="tok-string">&#x27;data_dump.csv&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;a&#x27;</span><span class="tok-punct">)</span> <span class="tok-keyword">as</span> <span class="tok-name">data_dump</span><span class="tok-punct">:</span>   <span class="tok-comment"># Passing a is for append</span>
+  <span class="tok-name">data_dump</span><span class="tok-punct">.</span><span class="tok-name">write</span><span class="tok-punct">(</span>f&#x27;\n<span class="tok-punct">{</span><span class="tok-name">data_dump_task</span><span class="tok-punct">}</span>&#x27;<span class="tok-punct">)</span>
 
-# ###################################################### #
-#   File System: CSV Format                              #
-# ###################################################### #
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   File System: CSV Format                              #</span>
+<span class="tok-comment"># ###################################################### #</span>
 
-# Python has a clever way to read CSV data from the file system
+<span class="tok-comment"># Python has a clever way to read CSV data from the file system</span>
 
-import csv
-with open('data_dump.csv',newline='') as data_dump:
-  reader = csv.DictReader(data_dump)                 # The DictReader parses the header and treats each line
-  for dict in reader:                                # of data as a Dictionary for access via named property
-    task = dict['Task']
-    estimate = dict['Estimate']
-    notes = dict['Notes']
-    print(f'{task}: ({estimate} hours) - {notes}')
+<span class="tok-keyword">import</span> <span class="tok-name">csv</span>
+<span class="tok-keyword">with</span> <span class="tok-builtin">open</span><span class="tok-punct">(</span><span class="tok-string">&#x27;data_dump.csv&#x27;</span><span class="tok-punct">,</span><span class="tok-name">newline</span><span class="tok-operator">=</span><span class="tok-string">&#x27;&#x27;</span><span class="tok-punct">)</span> <span class="tok-keyword">as</span> <span class="tok-name">data_dump</span><span class="tok-punct">:</span>
+  <span class="tok-name">reader</span> <span class="tok-operator">=</span> <span class="tok-name">csv</span><span class="tok-punct">.</span><span class="tok-name">DictReader</span><span class="tok-punct">(</span><span class="tok-name">data_dump</span><span class="tok-punct">)</span>                 <span class="tok-comment"># The DictReader parses the header and treats each line</span>
+  <span class="tok-keyword">for</span> <span class="tok-builtin">dict</span> <span class="tok-keyword">in</span> <span class="tok-name">reader</span><span class="tok-punct">:</span>                                <span class="tok-comment"># of data as a Dictionary for access via named property</span>
+    <span class="tok-name">task</span> <span class="tok-operator">=</span> <span class="tok-builtin">dict</span><span class="tok-punct">[</span><span class="tok-string">&#x27;Task&#x27;</span><span class="tok-punct">]</span>
+    <span class="tok-name">estimate</span> <span class="tok-operator">=</span> <span class="tok-builtin">dict</span><span class="tok-punct">[</span><span class="tok-string">&#x27;Estimate&#x27;</span><span class="tok-punct">]</span>
+    <span class="tok-name">notes</span> <span class="tok-operator">=</span> <span class="tok-builtin">dict</span><span class="tok-punct">[</span><span class="tok-string">&#x27;Notes&#x27;</span><span class="tok-punct">]</span>
+    <span class="tok-builtin">print</span><span class="tok-punct">(</span>f&#x27;<span class="tok-punct">{</span><span class="tok-name">task</span><span class="tok-punct">}</span>: (<span class="tok-punct">{</span><span class="tok-name">estimate</span><span class="tok-punct">}</span> hours) - <span class="tok-punct">{</span><span class="tok-name">notes</span><span class="tok-punct">}</span>&#x27;<span class="tok-punct">)</span>
 
-# In the example above the DictReader function from the CSV module returns an iterable
-# Dictionary reader for the CSV file which converts each line of the CSV file into a Dictionary
-# object which we can then use to access each value by name from the current line in the file
+<span class="tok-comment"># In the example above the DictReader function from the CSV module returns an iterable</span>
+<span class="tok-comment"># Dictionary reader for the CSV file which converts each line of the CSV file into a Dictionary</span>
+<span class="tok-comment"># object which we can then use to access each value by name from the current line in the file</span>
 
-# Let's make a PSV file (pipe-separated values) for our next example
+<span class="tok-comment"># Let&#x27;s make a PSV file (pipe-separated values) for our next example</span>
 
-psv_data = 'Ingredient|Amount|Prep\nBeef|2 lbs|Thaw, cook then set aside\nPotatoes|12 large|Skin, boil, mash then let cool\nCream|2 cups|Warm then stir into beef and potatoes'
-with open('hotdish_recipe.psv','w') as psv: psv.write(psv_data)
+<span class="tok-name">psv_data</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;Ingredient|Amount|Prep\nBeef|2 lbs|Thaw, cook then set aside\nPotatoes|12 large|Skin, boil, mash then let cool\nCream|2 cups|Warm then stir into beef and potatoes&#x27;</span>
+<span class="tok-keyword">with</span> <span class="tok-builtin">open</span><span class="tok-punct">(</span><span class="tok-string">&#x27;hotdish_recipe.psv&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;w&#x27;</span><span class="tok-punct">)</span> <span class="tok-keyword">as</span> <span class="tok-name">psv</span><span class="tok-punct">:</span> <span class="tok-name">psv</span><span class="tok-punct">.</span><span class="tok-name">write</span><span class="tok-punct">(</span><span class="tok-name">psv_data</span><span class="tok-punct">)</span>
 
-# What's nice about csv.DictReader is it will accept arbitrary delimiters so we do not have
-# to use commas to separate values in files, we can use less common text characters such as
-# pipes (|) or semicolons (;)
+<span class="tok-comment"># What&#x27;s nice about csv.DictReader is it will accept arbitrary delimiters so we do not have</span>
+<span class="tok-comment"># to use commas to separate values in files, we can use less common text characters such as</span>
+<span class="tok-comment"># pipes (|) or semicolons (;)</span>
 
-with open('hotdish_recipe.psv',newline='') as recipe:
-  reader = csv.DictReader(recipe,delimiter='|')        # The delimiter keyword parameter lets us use the pipe character
-  for dict in reader:
-    ingredient = dict['Ingredient']
-    amount = dict['Amount']
-    prep = dict['Prep']
-    print(f'{ingredient}: ({amount}) - {prep}')
+<span class="tok-keyword">with</span> <span class="tok-builtin">open</span><span class="tok-punct">(</span><span class="tok-string">&#x27;hotdish_recipe.psv&#x27;</span><span class="tok-punct">,</span><span class="tok-name">newline</span><span class="tok-operator">=</span><span class="tok-string">&#x27;&#x27;</span><span class="tok-punct">)</span> <span class="tok-keyword">as</span> <span class="tok-name">recipe</span><span class="tok-punct">:</span>
+  <span class="tok-name">reader</span> <span class="tok-operator">=</span> <span class="tok-name">csv</span><span class="tok-punct">.</span><span class="tok-name">DictReader</span><span class="tok-punct">(</span><span class="tok-name">recipe</span><span class="tok-punct">,</span><span class="tok-name">delimiter</span><span class="tok-operator">=</span><span class="tok-string">&#x27;|&#x27;</span><span class="tok-punct">)</span>        <span class="tok-comment"># The delimiter keyword parameter lets us use the pipe character</span>
+  <span class="tok-keyword">for</span> <span class="tok-builtin">dict</span> <span class="tok-keyword">in</span> <span class="tok-name">reader</span><span class="tok-punct">:</span>
+    <span class="tok-name">ingredient</span> <span class="tok-operator">=</span> <span class="tok-builtin">dict</span><span class="tok-punct">[</span><span class="tok-string">&#x27;Ingredient&#x27;</span><span class="tok-punct">]</span>
+    <span class="tok-name">amount</span> <span class="tok-operator">=</span> <span class="tok-builtin">dict</span><span class="tok-punct">[</span><span class="tok-string">&#x27;Amount&#x27;</span><span class="tok-punct">]</span>
+    <span class="tok-name">prep</span> <span class="tok-operator">=</span> <span class="tok-builtin">dict</span><span class="tok-punct">[</span><span class="tok-string">&#x27;Prep&#x27;</span><span class="tok-punct">]</span>
+    <span class="tok-builtin">print</span><span class="tok-punct">(</span>f&#x27;<span class="tok-punct">{</span><span class="tok-name">ingredient</span><span class="tok-punct">}</span>: (<span class="tok-punct">{</span><span class="tok-name">amount</span><span class="tok-punct">}</span>) - <span class="tok-punct">{</span><span class="tok-name">prep</span><span class="tok-punct">}</span>&#x27;<span class="tok-punct">)</span>
 
-# Python allows us to write to CSV files just as easily with the csv module
-# Notice how we can use keyword parameters to set the delimiter to a pipe (|) instead of a comma
+<span class="tok-comment"># Python allows us to write to CSV files just as easily with the csv module</span>
+<span class="tok-comment"># Notice how we can use keyword parameters to set the delimiter to a pipe (|) instead of a comma</span>
 
-with open('hotdish_recipe.psv','w') as output_file:
-  schema = ['Ingredient','Amount','Prep']
-  data = [
-    {'Ingredient':'beef','Amount':'2 lbs','Prep':'Thaw, cook then set aside'},
-    {'Ingredient':'Potatoes','Amount':'12 large','Prep':'Skin, boil, mash then let cool'},
-    {'Ingredient':'Cream','Amount':'2 cups','Prep':'Warm then stir into beef and potatoes'}
-  ]
-  csv_writer = csv.DictWriter(output_file,schema,delimiter='|',lineterminator='\n')
-  csv_writer.writeheader()
-  for item in data:
-    csv_writer.writerow(item)
+<span class="tok-keyword">with</span> <span class="tok-builtin">open</span><span class="tok-punct">(</span><span class="tok-string">&#x27;hotdish_recipe.psv&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;w&#x27;</span><span class="tok-punct">)</span> <span class="tok-keyword">as</span> <span class="tok-name">output_file</span><span class="tok-punct">:</span>
+  <span class="tok-name">schema</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-string">&#x27;Ingredient&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Amount&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Prep&#x27;</span><span class="tok-punct">]</span>
+  <span class="tok-name">data</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span>
+    <span class="tok-punct">{</span><span class="tok-string">&#x27;Ingredient&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;beef&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Amount&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;2 lbs&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Prep&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;Thaw, cook then set aside&#x27;</span><span class="tok-punct">}</span><span class="tok-punct">,</span>
+    <span class="tok-punct">{</span><span class="tok-string">&#x27;Ingredient&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;Potatoes&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Amount&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;12 large&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Prep&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;Skin, boil, mash then let cool&#x27;</span><span class="tok-punct">}</span><span class="tok-punct">,</span>
+    <span class="tok-punct">{</span><span class="tok-string">&#x27;Ingredient&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;Cream&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Amount&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;2 cups&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Prep&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;Warm then stir into beef and potatoes&#x27;</span><span class="tok-punct">}</span>
+  <span class="tok-punct">]</span>
+  <span class="tok-name">csv_writer</span> <span class="tok-operator">=</span> <span class="tok-name">csv</span><span class="tok-punct">.</span><span class="tok-name">DictWriter</span><span class="tok-punct">(</span><span class="tok-name">output_file</span><span class="tok-punct">,</span><span class="tok-name">schema</span><span class="tok-punct">,</span><span class="tok-name">delimiter</span><span class="tok-operator">=</span><span class="tok-string">&#x27;|&#x27;</span><span class="tok-punct">,</span><span class="tok-name">lineterminator</span><span class="tok-operator">=</span><span class="tok-string">&#x27;\n&#x27;</span><span class="tok-punct">)</span>
+  <span class="tok-name">csv_writer</span><span class="tok-punct">.</span><span class="tok-name">writeheader</span><span class="tok-punct">(</span><span class="tok-punct">)</span>
+  <span class="tok-keyword">for</span> <span class="tok-name">item</span> <span class="tok-keyword">in</span> <span class="tok-name">data</span><span class="tok-punct">:</span>
+    <span class="tok-name">csv_writer</span><span class="tok-punct">.</span><span class="tok-name">writerow</span><span class="tok-punct">(</span><span class="tok-name">item</span><span class="tok-punct">)</span>
 
-# This example above is not the most efficient method. The data variable is a List of Dictionaries which works well
-# but relies on the header values being duplicated on each row.
+<span class="tok-comment"># This example above is not the most efficient method. The data variable is a List of Dictionaries which works well</span>
+<span class="tok-comment"># but relies on the header values being duplicated on each row.</span>
 
-# ###################################################### #
-#   File System: JSON Format                             #
-# ###################################################### #
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   File System: JSON Format                             #</span>
+<span class="tok-comment"># ###################################################### #</span>
 
-# Python also supports reading and writing JSON data with the json module
-# Let's create some sample data for the next examples
+<span class="tok-comment"># Python also supports reading and writing JSON data with the json module</span>
+<span class="tok-comment"># Let&#x27;s create some sample data for the next examples</span>
 
-def json_payload(data: str) -> None:                 # : str and -> None are called type hints
-  with open('python_primer.json','w') as json_file:
-    json_file.write(data)
+<span class="tok-keyword">def</span> <span class="tok-name">json_payload</span><span class="tok-punct">(</span><span class="tok-name">data</span><span class="tok-punct">:</span> <span class="tok-builtin">str</span><span class="tok-punct">)</span> <span class="tok-operator">-&gt;</span> <span class="tok-keyword">None</span><span class="tok-punct">:</span>                 <span class="tok-comment"># : str and -&gt; None are called type hints</span>
+  <span class="tok-keyword">with</span> <span class="tok-builtin">open</span><span class="tok-punct">(</span><span class="tok-string">&#x27;python_primer.json&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;w&#x27;</span><span class="tok-punct">)</span> <span class="tok-keyword">as</span> <span class="tok-name">json_file</span><span class="tok-punct">:</span>
+    <span class="tok-name">json_file</span><span class="tok-punct">.</span><span class="tok-name">write</span><span class="tok-punct">(</span><span class="tok-name">data</span><span class="tok-punct">)</span>
 
-# Python's json module has a load function which will read JSON from disk and output a data
-# structure for us from the contents
+<span class="tok-comment"># Python&#x27;s json module has a load function which will read JSON from disk and output a data</span>
+<span class="tok-comment"># structure for us from the contents</span>
 
-json_payload('{"hello":"world"}')              # Save some JSON to disk
-from json import load as json_load             # Import the load function from json as json_load
-with open('python_primer.json') as json_file:  # Open the JSON file in read mode
-  json_data = json_load(json_file)             # Load the JSON into a variable
+<span class="tok-name">json_payload</span><span class="tok-punct">(</span><span class="tok-string">&#x27;{&quot;hello&quot;:&quot;world&quot;}&#x27;</span><span class="tok-punct">)</span>              <span class="tok-comment"># Save some JSON to disk</span>
+<span class="tok-keyword">from</span> <span class="tok-name">json</span> <span class="tok-keyword">import</span> <span class="tok-name">load</span> <span class="tok-keyword">as</span> <span class="tok-name">json_load</span>             <span class="tok-comment"># Import the load function from json as json_load</span>
+<span class="tok-keyword">with</span> <span class="tok-builtin">open</span><span class="tok-punct">(</span><span class="tok-string">&#x27;python_primer.json&#x27;</span><span class="tok-punct">)</span> <span class="tok-keyword">as</span> <span class="tok-name">json_file</span><span class="tok-punct">:</span>  <span class="tok-comment"># Open the JSON file in read mode</span>
+  <span class="tok-name">json_data</span> <span class="tok-operator">=</span> <span class="tok-name">json_load</span><span class="tok-punct">(</span><span class="tok-name">json_file</span><span class="tok-punct">)</span>             <span class="tok-comment"># Load the JSON into a variable</span>
 
-# Python's json module returns JSON data in a list or dictionary format depending on the
-# schema of the JSON itself
+<span class="tok-comment"># Python&#x27;s json module returns JSON data in a list or dictionary format depending on the</span>
+<span class="tok-comment"># schema of the JSON itself</span>
 
-print('Hello, {}!'.format(json_data['hello']))
+<span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;Hello, {}!&#x27;</span><span class="tok-punct">.</span><span class="tok-builtin">format</span><span class="tok-punct">(</span><span class="tok-name">json_data</span><span class="tok-punct">[</span><span class="tok-string">&#x27;hello&#x27;</span><span class="tok-punct">]</span><span class="tok-punct">)</span><span class="tok-punct">)</span>
 
-# Let's define json_get so we don't have to copy the JSON read code over and over again for the next examples
+<span class="tok-comment"># Let&#x27;s define json_get so we don&#x27;t have to copy the JSON read code over and over again for the next examples</span>
 
-def json_get():
-  with open('python_primer.json') as json_file:
-    return json_load(json_file)
+<span class="tok-keyword">def</span> <span class="tok-name">json_get</span><span class="tok-punct">(</span><span class="tok-punct">)</span><span class="tok-punct">:</span>
+  <span class="tok-keyword">with</span> <span class="tok-builtin">open</span><span class="tok-punct">(</span><span class="tok-string">&#x27;python_primer.json&#x27;</span><span class="tok-punct">)</span> <span class="tok-keyword">as</span> <span class="tok-name">json_file</span><span class="tok-punct">:</span>
+    <span class="tok-keyword">return</span> <span class="tok-name">json_load</span><span class="tok-punct">(</span><span class="tok-name">json_file</span><span class="tok-punct">)</span>
 
-# Let's show some other examples of how Python processes JSON
+<span class="tok-comment"># Let&#x27;s show some other examples of how Python processes JSON</span>
 
-json_payload('[{"hello":"world"}]')            # This JSON is an array of objects
-json_output = json_get()                       # Python returns a List with one Dictonary item
-json_output[0]['hello']
+<span class="tok-name">json_payload</span><span class="tok-punct">(</span><span class="tok-string">&#x27;[{&quot;hello&quot;:&quot;world&quot;}]&#x27;</span><span class="tok-punct">)</span>            <span class="tok-comment"># This JSON is an array of objects</span>
+<span class="tok-name">json_output</span> <span class="tok-operator">=</span> <span class="tok-name">json_get</span><span class="tok-punct">(</span><span class="tok-punct">)</span>                       <span class="tok-comment"># Python returns a List with one Dictonary item</span>
+<span class="tok-name">json_output</span><span class="tok-punct">[</span><span class="tok-number">0</span><span class="tok-punct">]</span><span class="tok-punct">[</span><span class="tok-string">&#x27;hello&#x27;</span><span class="tok-punct">]</span>
 
-json_payload('{"hello":{"place":"world"}}')    # This JSON is an object with a subobject
-json_output = json_get()                       # Python returns a Dictionary with one Dictionary value
-json_output['hello']['place']
+<span class="tok-name">json_payload</span><span class="tok-punct">(</span><span class="tok-string">&#x27;{&quot;hello&quot;:{&quot;place&quot;:&quot;world&quot;}}&#x27;</span><span class="tok-punct">)</span>    <span class="tok-comment"># This JSON is an object with a subobject</span>
+<span class="tok-name">json_output</span> <span class="tok-operator">=</span> <span class="tok-name">json_get</span><span class="tok-punct">(</span><span class="tok-punct">)</span>                       <span class="tok-comment"># Python returns a Dictionary with one Dictionary value</span>
+<span class="tok-name">json_output</span><span class="tok-punct">[</span><span class="tok-string">&#x27;hello&#x27;</span><span class="tok-punct">]</span><span class="tok-punct">[</span><span class="tok-string">&#x27;place&#x27;</span><span class="tok-punct">]</span>
 
-json_payload('{"hello":[{"place":"world"}]}')  # This JSON is an object with a subarray of objects
-json_output = json_get()                       # Python returns a Dictionary with one List value of Dictionary type
-json_output['hello'][0]['place']
+<span class="tok-name">json_payload</span><span class="tok-punct">(</span><span class="tok-string">&#x27;{&quot;hello&quot;:[{&quot;place&quot;:&quot;world&quot;}]}&#x27;</span><span class="tok-punct">)</span>  <span class="tok-comment"># This JSON is an object with a subarray of objects</span>
+<span class="tok-name">json_output</span> <span class="tok-operator">=</span> <span class="tok-name">json_get</span><span class="tok-punct">(</span><span class="tok-punct">)</span>                       <span class="tok-comment"># Python returns a Dictionary with one List value of Dictionary type</span>
+<span class="tok-name">json_output</span><span class="tok-punct">[</span><span class="tok-string">&#x27;hello&#x27;</span><span class="tok-punct">]</span><span class="tok-punct">[</span><span class="tok-number">0</span><span class="tok-punct">]</span><span class="tok-punct">[</span><span class="tok-string">&#x27;place&#x27;</span><span class="tok-punct">]</span>
 
-# What you'll notice about Python and JSON is how Python deserializes native JSON into native Python
-# data structures. Any JSON can be expressed as a Dictionary, List, or Dictionary of Lists or
-# List of Dictionaries.
+<span class="tok-comment"># What you&#x27;ll notice about Python and JSON is how Python deserializes native JSON into native Python</span>
+<span class="tok-comment"># data structures. Any JSON can be expressed as a Dictionary, List, or Dictionary of Lists or</span>
+<span class="tok-comment"># List of Dictionaries.</span>
 
-# Conversely, the JSON module let's us serialize native Python Dictionary and List types to JSON
+<span class="tok-comment"># Conversely, the JSON module let&#x27;s us serialize native Python Dictionary and List types to JSON</span>
 
-from json import dump
-def json_out(data,filename: str = 'python_primer.json'):
-  with open(filename,'w') as json_file:
-    dump(data,json_file)                                  # The dump function writes JSON to a file from an object
+<span class="tok-keyword">from</span> <span class="tok-name">json</span> <span class="tok-keyword">import</span> <span class="tok-name">dump</span>
+<span class="tok-keyword">def</span> <span class="tok-name">json_out</span><span class="tok-punct">(</span><span class="tok-name">data</span><span class="tok-punct">,</span><span class="tok-name">filename</span><span class="tok-punct">:</span> <span class="tok-builtin">str</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;python_primer.json&#x27;</span><span class="tok-punct">)</span><span class="tok-punct">:</span>
+  <span class="tok-keyword">with</span> <span class="tok-builtin">open</span><span class="tok-punct">(</span><span class="tok-name">filename</span><span class="tok-punct">,</span><span class="tok-string">&#x27;w&#x27;</span><span class="tok-punct">)</span> <span class="tok-keyword">as</span> <span class="tok-name">json_file</span><span class="tok-punct">:</span>
+    <span class="tok-name">dump</span><span class="tok-punct">(</span><span class="tok-name">data</span><span class="tok-punct">,</span><span class="tok-name">json_file</span><span class="tok-punct">)</span>                                  <span class="tok-comment"># The dump function writes JSON to a file from an object</span>
 
-# We can now write various Python data structures out to native JSON
+<span class="tok-comment"># We can now write various Python data structures out to native JSON</span>
 
-list_of_letters = ['a','b','c','d','e','f','g','h','i','j','k','l']        # Serialized as-is
-list_of_tuples = [('a','b'),('c','d'),('e','f'),('g','h')]                 # Tuples are serialized as arrays
-list_of_dictionaries = [{'a':'b'},{'c':'d'},{'e':'f'},{'g':'h'}]           # Serialized as a list of objects
-dictionary_of_lists = {'a':['b','c','d'],'e':['f','g','h']}                # Serialized as an object with array properties
-dictionary_of_dictionaries = {'a':{'b':'c'},'d':{'e':'f'},'g':{'h':'i'}}   # Serialized as an object with object properties
+<span class="tok-name">list_of_letters</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-string">&#x27;a&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;b&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;c&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;d&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;e&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;f&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;g&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;h&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;i&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;j&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;k&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;l&#x27;</span><span class="tok-punct">]</span>        <span class="tok-comment"># Serialized as-is</span>
+<span class="tok-name">list_of_tuples</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-punct">(</span><span class="tok-string">&#x27;a&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;b&#x27;</span><span class="tok-punct">)</span><span class="tok-punct">,</span><span class="tok-punct">(</span><span class="tok-string">&#x27;c&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;d&#x27;</span><span class="tok-punct">)</span><span class="tok-punct">,</span><span class="tok-punct">(</span><span class="tok-string">&#x27;e&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;f&#x27;</span><span class="tok-punct">)</span><span class="tok-punct">,</span><span class="tok-punct">(</span><span class="tok-string">&#x27;g&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;h&#x27;</span><span class="tok-punct">)</span><span class="tok-punct">]</span>                 <span class="tok-comment"># Tuples are serialized as arrays</span>
+<span class="tok-name">list_of_dictionaries</span> <span class="tok-operator">=</span> <span class="tok-punct">[</span><span class="tok-punct">{</span><span class="tok-string">&#x27;a&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;b&#x27;</span><span class="tok-punct">}</span><span class="tok-punct">,</span><span class="tok-punct">{</span><span class="tok-string">&#x27;c&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;d&#x27;</span><span class="tok-punct">}</span><span class="tok-punct">,</span><span class="tok-punct">{</span><span class="tok-string">&#x27;e&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;f&#x27;</span><span class="tok-punct">}</span><span class="tok-punct">,</span><span class="tok-punct">{</span><span class="tok-string">&#x27;g&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;h&#x27;</span><span class="tok-punct">}</span><span class="tok-punct">]</span>           <span class="tok-comment"># Serialized as a list of objects</span>
+<span class="tok-name">dictionary_of_lists</span> <span class="tok-operator">=</span> <span class="tok-punct">{</span><span class="tok-string">&#x27;a&#x27;</span><span class="tok-punct">:</span><span class="tok-punct">[</span><span class="tok-string">&#x27;b&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;c&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;d&#x27;</span><span class="tok-punct">]</span><span class="tok-punct">,</span><span class="tok-string">&#x27;e&#x27;</span><span class="tok-punct">:</span><span class="tok-punct">[</span><span class="tok-string">&#x27;f&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;g&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;h&#x27;</span><span class="tok-punct">]</span><span class="tok-punct">}</span>                <span class="tok-comment"># Serialized as an object with array properties</span>
+<span class="tok-name">dictionary_of_dictionaries</span> <span class="tok-operator">=</span> <span class="tok-punct">{</span><span class="tok-string">&#x27;a&#x27;</span><span class="tok-punct">:</span><span class="tok-punct">{</span><span class="tok-string">&#x27;b&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;c&#x27;</span><span class="tok-punct">}</span><span class="tok-punct">,</span><span class="tok-string">&#x27;d&#x27;</span><span class="tok-punct">:</span><span class="tok-punct">{</span><span class="tok-string">&#x27;e&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;f&#x27;</span><span class="tok-punct">}</span><span class="tok-punct">,</span><span class="tok-string">&#x27;g&#x27;</span><span class="tok-punct">:</span><span class="tok-punct">{</span><span class="tok-string">&#x27;h&#x27;</span><span class="tok-punct">:</span><span class="tok-string">&#x27;i&#x27;</span><span class="tok-punct">}</span><span class="tok-punct">}</span>   <span class="tok-comment"># Serialized as an object with object properties</span>
 
-json_out(list_of_letters,'py_list_of_letters.json')
-json_out(list_of_tuples,'py_list_of_tuples.json')
-json_out(list_of_dictionaries,'py_list_of_dictionaries.json')
-json_out(dictionary_of_lists,'py_dictionary_of_lists.json')
-json_out(dictionary_of_dictionaries,'py_dictionary_of_dictionaries.json')
+<span class="tok-name">json_out</span><span class="tok-punct">(</span><span class="tok-name">list_of_letters</span><span class="tok-punct">,</span><span class="tok-string">&#x27;py_list_of_letters.json&#x27;</span><span class="tok-punct">)</span>
+<span class="tok-name">json_out</span><span class="tok-punct">(</span><span class="tok-name">list_of_tuples</span><span class="tok-punct">,</span><span class="tok-string">&#x27;py_list_of_tuples.json&#x27;</span><span class="tok-punct">)</span>
+<span class="tok-name">json_out</span><span class="tok-punct">(</span><span class="tok-name">list_of_dictionaries</span><span class="tok-punct">,</span><span class="tok-string">&#x27;py_list_of_dictionaries.json&#x27;</span><span class="tok-punct">)</span>
+<span class="tok-name">json_out</span><span class="tok-punct">(</span><span class="tok-name">dictionary_of_lists</span><span class="tok-punct">,</span><span class="tok-string">&#x27;py_dictionary_of_lists.json&#x27;</span><span class="tok-punct">)</span>
+<span class="tok-name">json_out</span><span class="tok-punct">(</span><span class="tok-name">dictionary_of_dictionaries</span><span class="tok-punct">,</span><span class="tok-string">&#x27;py_dictionary_of_dictionaries.json&#x27;</span><span class="tok-punct">)</span>
 
-# In Python, any serializable object can be written into JSON
+<span class="tok-comment"># In Python, any serializable object can be written into JSON</span>
 
-# ################################################################################################# #
-#                                                                                                   #
-#  6. Classes                                                                                       #
-#                                                                                                   #
-# ################################################################################################# #
+<span class="tok-comment"># ################################################################################################# #</span>
+<span class="tok-comment">#                                                                                                   #</span>
+<span class="tok-comment">#  6. Classes                                                                                       #</span>
+<span class="tok-comment">#                                                                                                   #</span>
+<span class="tok-comment"># ################################################################################################# #</span>
 
-# Python is a typed language, every object in Python has a type which you can get using the type function
+<span class="tok-comment"># Python is a typed language, every object in Python has a type which you can get using the type function</span>
 
-type(5)                       # 5 is an int
-type('five')                  # 'five is an str (String)
-type([5,'five'])              # [] is a List
-type({5:'five'})              # {} is a Dictionary
-type(('five',5))              # () is a Tuple
-type({'five','six','seven'})  # {1,2,3} is a Set
+<span class="tok-builtin">type</span><span class="tok-punct">(</span><span class="tok-number">5</span><span class="tok-punct">)</span>                       <span class="tok-comment"># 5 is an int</span>
+<span class="tok-builtin">type</span><span class="tok-punct">(</span><span class="tok-string">&#x27;five&#x27;</span><span class="tok-punct">)</span>                  <span class="tok-comment"># &#x27;five is an str (String)</span>
+<span class="tok-builtin">type</span><span class="tok-punct">(</span><span class="tok-punct">[</span><span class="tok-number">5</span><span class="tok-punct">,</span><span class="tok-string">&#x27;five&#x27;</span><span class="tok-punct">]</span><span class="tok-punct">)</span>              <span class="tok-comment"># [] is a List</span>
+<span class="tok-builtin">type</span><span class="tok-punct">(</span><span class="tok-punct">{</span><span class="tok-number">5</span><span class="tok-punct">:</span><span class="tok-string">&#x27;five&#x27;</span><span class="tok-punct">}</span><span class="tok-punct">)</span>              <span class="tok-comment"># {} is a Dictionary</span>
+<span class="tok-builtin">type</span><span class="tok-punct">(</span><span class="tok-punct">(</span><span class="tok-string">&#x27;five&#x27;</span><span class="tok-punct">,</span><span class="tok-number">5</span><span class="tok-punct">)</span><span class="tok-punct">)</span>              <span class="tok-comment"># () is a Tuple</span>
+<span class="tok-builtin">type</span><span class="tok-punct">(</span><span class="tok-punct">{</span><span class="tok-string">&#x27;five&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;six&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;seven&#x27;</span><span class="tok-punct">}</span><span class="tok-punct">)</span>  <span class="tok-comment"># {1,2,3} is a Set</span>
 
-# Python allows you to check run-time types using the is keyword
+<span class="tok-comment"># Python allows you to check run-time types using the is keyword</span>
 
-if type(5) is int: print(f'5 is an int')
+<span class="tok-keyword">if</span> <span class="tok-builtin">type</span><span class="tok-punct">(</span><span class="tok-number">5</span><span class="tok-punct">)</span> <span class="tok-keyword">is</span> <span class="tok-builtin">int</span><span class="tok-punct">:</span> <span class="tok-builtin">print</span><span class="tok-punct">(</span>f&#x27;5 is an int&#x27;<span class="tok-punct">)</span>
 
-# The defined type of an object is called its class
+<span class="tok-comment"># The defined type of an object is called its class</span>
 
-# ###################################################### #
-#   User-Defined Classes                                 #
-# ###################################################### #
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   User-Defined Classes                                 #</span>
+<span class="tok-comment"># ###################################################### #</span>
 
-# In Python, like in many languages, every object has a type and the class keyword lets you define your own
+<span class="tok-comment"># In Python, like in many languages, every object has a type and the class keyword lets you define your own</span>
 
-class Person:                                                  # The class keyword defines a class by name
+<span class="tok-keyword">class</span> <span class="tok-name">Person</span><span class="tok-punct">:</span>                                                  <span class="tok-comment"># The class keyword defines a class by name</span>
 
-  name = 'George Costanza'                                     # Variables at the class scope are called attributes
+  <span class="tok-name">name</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;George Costanza&#x27;</span>                                     <span class="tok-comment"># Variables at the class scope are called attributes</span>
 
-  def __init__(self,name):                                     # The __init__ dunder method defines the constructor
-    self.name = name                                           # The new instance itself must always be the first argument
+  <span class="tok-keyword">def</span> <span class="tok-name">__init__</span><span class="tok-punct">(</span><span class="tok-name">self</span><span class="tok-punct">,</span><span class="tok-name">name</span><span class="tok-punct">)</span><span class="tok-punct">:</span>                                     <span class="tok-comment"># The __init__ dunder method defines the constructor</span>
+    <span class="tok-name">self</span><span class="tok-punct">.</span><span class="tok-name">name</span> <span class="tok-operator">=</span> <span class="tok-name">name</span>                                           <span class="tok-comment"># The new instance itself must always be the first argument</span>
 
-  def __repr__(self):                                          # The dunder method that converts this to a string
-    return self.name                                           # Python classes have many dunder methods (built-ins)
+  <span class="tok-keyword">def</span> <span class="tok-name">__repr__</span><span class="tok-punct">(</span><span class="tok-name">self</span><span class="tok-punct">)</span><span class="tok-punct">:</span>                                          <span class="tok-comment"># The dunder method that converts this to a string</span>
+    <span class="tok-keyword">return</span> <span class="tok-name">self</span><span class="tok-punct">.</span><span class="tok-name">name</span>                                           <span class="tok-comment"># Python classes have many dunder methods (built-ins)</span>
 
-  def greet(self,greeter: Person) -> str:                      # This is an instance method, note how self is an argument
-    return f'Hello, {greeter.name}. My name is {self.name}.'   # self is not an ephemeral variable like 'this' in other
-                                                               # object-oriented languages, it must be declared
+  <span class="tok-keyword">def</span> <span class="tok-name">greet</span><span class="tok-punct">(</span><span class="tok-name">self</span><span class="tok-punct">,</span><span class="tok-name">greeter</span><span class="tok-punct">:</span> <span class="tok-name">Person</span><span class="tok-punct">)</span> <span class="tok-operator">-&gt;</span> <span class="tok-builtin">str</span><span class="tok-punct">:</span>                      <span class="tok-comment"># This is an instance method, note how self is an argument</span>
+    <span class="tok-keyword">return</span> f&#x27;Hello, <span class="tok-punct">{</span><span class="tok-name">greeter</span><span class="tok-punct">.</span><span class="tok-name">name</span><span class="tok-punct">}</span>. My name is <span class="tok-punct">{</span><span class="tok-name">self</span><span class="tok-punct">.</span><span class="tok-name">name</span><span class="tok-punct">}</span>.&#x27;   <span class="tok-comment"># self is not an ephemeral variable like &#x27;this&#x27; in other</span>
+                                                               <span class="tok-comment"># object-oriented languages, it must be declared</span>
 
-  def sayhello(this):                                          # The fun part is that 'self' is not a keyword, it's only
-    return f'Hello, my name is {this.name}.'                   # a convention, so you can technically use any name for
-                                                               # the argument to reference the current instance
+  <span class="tok-keyword">def</span> <span class="tok-name">sayhello</span><span class="tok-punct">(</span><span class="tok-name">this</span><span class="tok-punct">)</span><span class="tok-punct">:</span>                                          <span class="tok-comment"># The fun part is that &#x27;self&#x27; is not a keyword, it&#x27;s only</span>
+    <span class="tok-keyword">return</span> f&#x27;Hello, my name is <span class="tok-punct">{</span><span class="tok-name">this</span><span class="tok-punct">.</span><span class="tok-name">name</span><span class="tok-punct">}</span>.&#x27;                   <span class="tok-comment"># a convention, so you can technically use any name for</span>
+                                                               <span class="tok-comment"># the argument to reference the current instance</span>
 
-  def echo():         # Every instance method of a class is required to have 1 argument and that one first argument will
-    return 'Hello'    # always be set to the instance of the class itself calling the method. This method definition, while
-                      # it can be defined, will actually throw a TypeError if you try to invoke it because the run-time is
-                      # passing the instance of itself as the first argument automatically, but this definition does not
-                      # accept any arguments at all.
+  <span class="tok-keyword">def</span> <span class="tok-name">echo</span><span class="tok-punct">(</span><span class="tok-punct">)</span><span class="tok-punct">:</span>         <span class="tok-comment"># Every instance method of a class is required to have 1 argument and that one first argument will</span>
+    <span class="tok-keyword">return</span> <span class="tok-string">&#x27;Hello&#x27;</span>    <span class="tok-comment"># always be set to the instance of the class itself calling the method. This method definition, while</span>
+                      <span class="tok-comment"># it can be defined, will actually throw a TypeError if you try to invoke it because the run-time is</span>
+                      <span class="tok-comment"># passing the instance of itself as the first argument automatically, but this definition does not</span>
+                      <span class="tok-comment"># accept any arguments at all.</span>
 
-# The class definition ends when we outdent back to the local namespace
-# Let's instantiate some instances of our new class and do things with them
+<span class="tok-comment"># The class definition ends when we outdent back to the local namespace</span>
+<span class="tok-comment"># Let&#x27;s instantiate some instances of our new class and do things with them</span>
 
-# ###################################################### #
-#   User-Defined Class Variables                         #
-# ###################################################### #
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   User-Defined Class Variables                         #</span>
+<span class="tok-comment"># ###################################################### #</span>
 
-# Python lets you declare & create (instantiate) any class you define by "calling" the class like a function
-# This calls the __init__ method on the class and gives you a new instance of the class
+<span class="tok-comment"># Python lets you declare &amp; create (instantiate) any class you define by &quot;calling&quot; the class like a function</span>
+<span class="tok-comment"># This calls the __init__ method on the class and gives you a new instance of the class</span>
 
-alice = Person('Alice')   # Make a new Person named Alice
-bob = Person('Bob')       # Make a new Person named Bob
+<span class="tok-name">alice</span> <span class="tok-operator">=</span> <span class="tok-name">Person</span><span class="tok-punct">(</span><span class="tok-string">&#x27;Alice&#x27;</span><span class="tok-punct">)</span>   <span class="tok-comment"># Make a new Person named Alice</span>
+<span class="tok-name">bob</span> <span class="tok-operator">=</span> <span class="tok-name">Person</span><span class="tok-punct">(</span><span class="tok-string">&#x27;Bob&#x27;</span><span class="tok-punct">)</span>       <span class="tok-comment"># Make a new Person named Bob</span>
 
-# Python lets you access class attributes and call methods using the dot (.) operator
+<span class="tok-comment"># Python lets you access class attributes and call methods using the dot (.) operator</span>
 
-print(alice.sayhello())   # Make Alice say Hello
-print(bob.sayhello())     # Make Bob say Hello
+<span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-name">alice</span><span class="tok-punct">.</span><span class="tok-name">sayhello</span><span class="tok-punct">(</span><span class="tok-punct">)</span><span class="tok-punct">)</span>   <span class="tok-comment"># Make Alice say Hello</span>
+<span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-name">bob</span><span class="tok-punct">.</span><span class="tok-name">sayhello</span><span class="tok-punct">(</span><span class="tok-punct">)</span><span class="tok-punct">)</span>     <span class="tok-comment"># Make Bob say Hello</span>
 
-print(alice.greet(bob))   # Have Alice greet Bob
-print(bob.greet(alice))   # Have Bob greet Alice
+<span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-name">alice</span><span class="tok-punct">.</span><span class="tok-name">greet</span><span class="tok-punct">(</span><span class="tok-name">bob</span><span class="tok-punct">)</span><span class="tok-punct">)</span>   <span class="tok-comment"># Have Alice greet Bob</span>
+<span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-name">bob</span><span class="tok-punct">.</span><span class="tok-name">greet</span><span class="tok-punct">(</span><span class="tok-name">alice</span><span class="tok-punct">)</span><span class="tok-punct">)</span>   <span class="tok-comment"># Have Bob greet Alice</span>
 
-# alice.echo()            # If you try to run this, you'll generate a TypeError because echo() has no arguments
+<span class="tok-comment"># alice.echo()            # If you try to run this, you&#x27;ll generate a TypeError because echo() has no arguments</span>
 
-# ###################################################### #
-#   Attribute Testing                                    #
-# ###################################################### #
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   Attribute Testing                                    #</span>
+<span class="tok-comment"># ###################################################### #</span>
 
-# Python run-time allows you to test objects for their attributes to avoid run-time errors
+<span class="tok-comment"># Python run-time allows you to test objects for their attributes to avoid run-time errors</span>
 
-alice.name = 'Alice'    # Our class Person has a name attribute
-hasattr(alice,'name')   # We can test for it using the hasattr function
-getattr(alice,'name')   # We can use the getattr function to get alice.name
-getattr(alice,'name','Alice')   # This is useful if we don't know if alice has a name, we can get a default value instead
+<span class="tok-name">alice</span><span class="tok-punct">.</span><span class="tok-name">name</span> <span class="tok-operator">=</span> <span class="tok-string">&#x27;Alice&#x27;</span>    <span class="tok-comment"># Our class Person has a name attribute</span>
+<span class="tok-builtin">hasattr</span><span class="tok-punct">(</span><span class="tok-name">alice</span><span class="tok-punct">,</span><span class="tok-string">&#x27;name&#x27;</span><span class="tok-punct">)</span>   <span class="tok-comment"># We can test for it using the hasattr function</span>
+<span class="tok-builtin">getattr</span><span class="tok-punct">(</span><span class="tok-name">alice</span><span class="tok-punct">,</span><span class="tok-string">&#x27;name&#x27;</span><span class="tok-punct">)</span>   <span class="tok-comment"># We can use the getattr function to get alice.name</span>
+<span class="tok-builtin">getattr</span><span class="tok-punct">(</span><span class="tok-name">alice</span><span class="tok-punct">,</span><span class="tok-string">&#x27;name&#x27;</span><span class="tok-punct">,</span><span class="tok-string">&#x27;Alice&#x27;</span><span class="tok-punct">)</span>   <span class="tok-comment"># This is useful if we don&#x27;t know if alice has a name, we can get a default value instead</span>
 
-# Python provides a directory list using the dir function allowing you to get every attribute in a List
+<span class="tok-comment"># Python provides a directory list using the dir function allowing you to get every attribute in a List</span>
 
-scope_list = dir()         # Gets every attribute in the current scope
-person_list = dir(alice)   # Gets every attribute of the alice instance of Person
+<span class="tok-name">scope_list</span> <span class="tok-operator">=</span> <span class="tok-builtin">dir</span><span class="tok-punct">(</span><span class="tok-punct">)</span>         <span class="tok-comment"># Gets every attribute in the current scope</span>
+<span class="tok-name">person_list</span> <span class="tok-operator">=</span> <span class="tok-builtin">dir</span><span class="tok-punct">(</span><span class="tok-name">alice</span><span class="tok-punct">)</span>   <span class="tok-comment"># Gets every attribute of the alice instance of Person</span>
 
-print([a for a in dir(alice) if a.find('__') < 0])  # A List Comprehension removing dunder methods so we can find all the
-                                                    # user-defined attributes and methods of a Person
+<span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-punct">[</span><span class="tok-name">a</span> <span class="tok-keyword">for</span> <span class="tok-name">a</span> <span class="tok-keyword">in</span> <span class="tok-builtin">dir</span><span class="tok-punct">(</span><span class="tok-name">alice</span><span class="tok-punct">)</span> <span class="tok-keyword">if</span> <span class="tok-name">a</span><span class="tok-punct">.</span><span class="tok-name">find</span><span class="tok-punct">(</span><span class="tok-string">&#x27;__&#x27;</span><span class="tok-punct">)</span> <span class="tok-operator">&lt;</span> <span class="tok-number">0</span><span class="tok-punct">]</span><span class="tok-punct">)</span>  <span class="tok-comment"># A List Comprehension removing dunder methods so we can find all the</span>
+                                                    <span class="tok-comment"># user-defined attributes and methods of a Person</span>
 
-# ###################################################### #
-#   Type Hints                                           #
-# ###################################################### #
+<span class="tok-comment"># ###################################################### #</span>
+<span class="tok-comment">#   Type Hints                                           #</span>
+<span class="tok-comment"># ###################################################### #</span>
 
-# Up until now we have been defining functions with simple declaration statements
+<span class="tok-comment"># Up until now we have been defining functions with simple declaration statements</span>
 
-def add_two_numbers(a,b):   # We expect two numbers, but that's not explicitly stated
-  return a + b              # We add them together and return the result
-                            # This won't behave as expected if a or b are not a number
+<span class="tok-keyword">def</span> <span class="tok-name">add_two_numbers</span><span class="tok-punct">(</span><span class="tok-name">a</span><span class="tok-punct">,</span><span class="tok-name">b</span><span class="tok-punct">)</span><span class="tok-punct">:</span>   <span class="tok-comment"># We expect two numbers, but that&#x27;s not explicitly stated</span>
+  <span class="tok-keyword">return</span> <span class="tok-name">a</span> <span class="tok-operator">+</span> <span class="tok-name">b</span>              <span class="tok-comment"># We add them together and return the result</span>
+                            <span class="tok-comment"># This won&#x27;t behave as expected if a or b are not a number</span>
 
-# Type hints allow the Python interpreter to tell the developer what type is expected
+<span class="tok-comment"># Type hints allow the Python interpreter to tell the developer what type is expected</span>
 
-def add_two_numbers(a: int, b: int) -> int:  # Here we use type hints to tell the developer that we
-  return a + b                               # are expecting integers for a and b and that we'll be
-                                             # returning an integer as well
+<span class="tok-keyword">def</span> <span class="tok-name">add_two_numbers</span><span class="tok-punct">(</span><span class="tok-name">a</span><span class="tok-punct">:</span> <span class="tok-builtin">int</span><span class="tok-punct">,</span> <span class="tok-name">b</span><span class="tok-punct">:</span> <span class="tok-builtin">int</span><span class="tok-punct">)</span> <span class="tok-operator">-&gt;</span> <span class="tok-builtin">int</span><span class="tok-punct">:</span>  <span class="tok-comment"># Here we use type hints to tell the developer that we</span>
+  <span class="tok-keyword">return</span> <span class="tok-name">a</span> <span class="tok-operator">+</span> <span class="tok-name">b</span>                               <span class="tok-comment"># are expecting integers for a and b and that we&#x27;ll be</span>
+                                             <span class="tok-comment"># returning an integer as well</span>
 
-# ################################################################################################# #
-#                                                                                                   #
-#  7. Error Handling                                                                                #
-#                                                                                                   #
-# ################################################################################################# #
+<span class="tok-comment"># ################################################################################################# #</span>
+<span class="tok-comment">#                                                                                                   #</span>
+<span class="tok-comment">#  7. Error Handling                                                                                #</span>
+<span class="tok-comment">#                                                                                                   #</span>
+<span class="tok-comment"># ################################################################################################# #</span>
 
-# Python, like most languages, allows you to trap run-time errors at run-time using the try/except syntax
+<span class="tok-comment"># Python, like most languages, allows you to trap run-time errors at run-time using the try/except syntax</span>
 
-try:
-  alice.echo()                                         # Let's call our broken method on the Person class
-except TypeError:                                      # Here we define the expected error TypeError
-  print('alice.echo() generated expected TypeError')   # This will run if alice.echo() generates a TypeError
-                                                       # and the TypeError will not stop our script
+<span class="tok-keyword">try</span><span class="tok-punct">:</span>
+  <span class="tok-name">alice</span><span class="tok-punct">.</span><span class="tok-name">echo</span><span class="tok-punct">(</span><span class="tok-punct">)</span>                                         <span class="tok-comment"># Let&#x27;s call our broken method on the Person class</span>
+<span class="tok-keyword">except</span> <span class="tok-builtin">TypeError</span><span class="tok-punct">:</span>                                      <span class="tok-comment"># Here we define the expected error TypeError</span>
+  <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;alice.echo() generated expected TypeError&#x27;</span><span class="tok-punct">)</span>   <span class="tok-comment"># This will run if alice.echo() generates a TypeError</span>
+                                                       <span class="tok-comment"># and the TypeError will not stop our script</span>
 
-# Your code can also raise errors using the raise keyword if you need to halt execution
+<span class="tok-comment"># Your code can also raise errors using the raise keyword if you need to halt execution</span>
 
-try:
-  raise NameError(name='kwyjibo')
-except:
-  print('Caught error')
+<span class="tok-keyword">try</span><span class="tok-punct">:</span>
+  <span class="tok-keyword">raise</span> <span class="tok-builtin">NameError</span><span class="tok-punct">(</span><span class="tok-name">name</span><span class="tok-operator">=</span><span class="tok-string">&#x27;kwyjibo&#x27;</span><span class="tok-punct">)</span>
+<span class="tok-keyword">except</span><span class="tok-punct">:</span>
+  <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;Caught error&#x27;</span><span class="tok-punct">)</span>
 
-# Finally, here is an example of a full try/except block with all possible operations
-# Except blocks are not mutually exclusive, both except blocks below will execute because
-# the error raised is a NameError, so the NameError block runs, and the any error block
-# also runs. This is by design.
+<span class="tok-comment"># Finally, here is an example of a full try/except block with all possible operations</span>
+<span class="tok-comment"># Except blocks are not mutually exclusive, both except blocks below will execute because</span>
+<span class="tok-comment"># the error raised is a NameError, so the NameError block runs, and the any error block</span>
+<span class="tok-comment"># also runs. This is by design.</span>
 
-try:                              # Here we initiate the error trap
-  print(kwyjibo)
-except NameError:                 # Here we trap a specific NameError
-  print('Caught NameError')
-except:                           # Here we trap any error, regardless of type
-  print('Caught error')
-else:                             # Here we run some code if there were no errors
-  print('No error')
-finally:                          # And finally, we always run this code to make sure everything is cleaned up
-  print('Always runs, for cleanup of issues/open handles, etc.')
-```
+<span class="tok-keyword">try</span><span class="tok-punct">:</span>                              <span class="tok-comment"># Here we initiate the error trap</span>
+  <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-name">kwyjibo</span><span class="tok-punct">)</span>
+<span class="tok-keyword">except</span> <span class="tok-builtin">NameError</span><span class="tok-punct">:</span>                 <span class="tok-comment"># Here we trap a specific NameError</span>
+  <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;Caught NameError&#x27;</span><span class="tok-punct">)</span>
+<span class="tok-keyword">except</span><span class="tok-punct">:</span>                           <span class="tok-comment"># Here we trap any error, regardless of type</span>
+  <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;Caught error&#x27;</span><span class="tok-punct">)</span>
+<span class="tok-keyword">else</span><span class="tok-punct">:</span>                             <span class="tok-comment"># Here we run some code if there were no errors</span>
+  <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;No error&#x27;</span><span class="tok-punct">)</span>
+<span class="tok-keyword">finally</span><span class="tok-punct">:</span>                          <span class="tok-comment"># And finally, we always run this code to make sure everything is cleaned up</span>
+  <span class="tok-builtin">print</span><span class="tok-punct">(</span><span class="tok-string">&#x27;Always runs, for cleanup of issues/open handles, etc.&#x27;</span><span class="tok-punct">)</span></code>
+</pre>
