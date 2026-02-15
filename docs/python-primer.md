@@ -1,3 +1,4 @@
+```python
 # ################################################################################################# #
 #                                                                                                   #
 #  1. Getting Started                                                                               #
@@ -936,3 +937,4 @@ else:                             # Here we run some code if there were no error
   print('No error')
 finally:                          # And finally, we always run this code to make sure everything is cleaned up
   print('Always runs, for cleanup of issues/open handles, etc.')
+```
