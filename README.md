@@ -116,7 +116,10 @@ This script will recursively remove all empty directories at the directory speci
 
 **You will need to run this script with administrative privileges to make changes to the registry.**
 
-This script will modify the Windows Registry to create a protocol handler for spice://server:port pointing to the Virtual Machine Manager Remote Viewer application `remote-viewer.exe`. When run without parameters, the script will try to locate the remote viewer executable in your Program Files directories. If not found, it will exit. However, if you have the remote viewer installed elsewhere, specify that with the `AbsolutePath` parameter. This script will create a new `spice` key and subkeys under the `HKEY_CLASSES_ROOT` key. If the `spice` key already exists, the script will exit.
+This script will modify the Windows Registry to create a protocol handler for `spice://server:port` shortcuts pointing to the Virtual Machine Manager Remote Viewer application `remote-viewer.exe`. This will let you create and use shortcuts or hyperlinks to virtual machines running SPICE.
+
+### _Usage_
+When run without parameters, the script will try to locate the remote viewer executable in your Program Files directories. If not found, it will exit. However, if you have the remote viewer installed elsewhere, specify that with the `AbsolutePath` parameter. This script will create a new `spice` key and subkeys under the `HKEY_CLASSES_ROOT` key. If the `spice` key already exists, the script will exit.
 
 ### _Parameter: AbsolutePath [string] - optional_
 When specified, the `spice` handler will be mapped to this executable. Otherwise, by default, the script will attempt to locate `remote-viewer.exe` in one of your Program Files directories.
