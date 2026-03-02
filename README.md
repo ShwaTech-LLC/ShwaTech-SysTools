@@ -103,6 +103,24 @@ The script requires an `AppRegistrationName` which should match the name of the 
 
 This script will recursively remove all empty directories at the directory specified by `Path`. By default, this script will echo all deleted directories to the console. To suppress this, include the `Quiet` parameter.
 
+## Register-SpiceHandler.ps1
+* Purpose: To register the `spice://server:port` handler for the [Virtual Machine Manager Remote Viewer](https://virt-manager.org/download.html) to make it easy to create shortcuts in Windows for quick connecting to virtual machines hosted on Linux using the SPICE remote graphics service.
+
+|Requirements|Version|
+|-|-|
+|Environment|Windows|
+|PowerShell Version|5.0|
+|Operating System|Windows|
+|Running|Manual, with Admin rights|
+|Parameters|`AbsolutePath` - optional|
+
+**You will need to run this script with administrative privileges to make changes to the registry.**
+
+This script will modify the Windows Registry to create a protocol handler for spice://server:port pointing to the Virtual Machine Manager Remote Viewer application `remote-viewer.exe`. When run without parameters, the script will try to locate the remote viewer executable in your Program Files directories. If not found, it will exit. However, if you have the remote viewer installed elsewhere, specify that with the `AbsolutePath` parameter. This script will create a new `spice` key and subkeys under the `HKEY_CLASSES_ROOT` key. If the `spice` key already exists, the script will exit.
+
+### _Parameter: AbsolutePath [string] - optional_
+When specified, the `spice` handler will be mapped to this executable. Otherwise, by default, the script will attempt to locate `remote-viewer.exe` in one of your Program Files directories.
+
 ## Remove-Duplicates.ps1
 * Purpose: To remove duplicate files detected by `Compare-FileTrees.ps1` or `Deduplicate-Files.ps1`
 
