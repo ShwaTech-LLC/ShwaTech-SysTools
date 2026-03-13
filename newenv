@@ -26,7 +26,8 @@ echo 'sudo apt update && sudo apt upgrade -y' >> "$HOME/bin/update"
 chmod +x "$HOME/bin/update"
 
 echo 'Adding home/bin to the path'
-echo "\n# add our local bin to the path" >> "$HOME/.bashrc"
+echo '' >> "$HOME/.bashrc"
+echo '# add our local bin to the path' >> "$HOME/.bashrc"
 echo 'PATH="$HOME/bin:$PATH"' >> "$HOME/.bashrc"
 read -p "Enter your email address: " EMAIL_ADDY
 ssh-keygen -t ed25519 -C "$EMAIL_ADDY"
