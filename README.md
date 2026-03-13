@@ -9,6 +9,7 @@ A collection of PowerShell scripts and modules for administering various on-prem
 |Operating System|Linux|
 |Environment|bash|
 |bash|5.2|
+|Scope|local user|
 
 ## Clear-WatchFolder.ps1
 * Purpose: To retain files locked by the SharePoint Timer Service.
@@ -99,6 +100,16 @@ The public key can then be uploaded to Microsoft Entra ID in the App Registratio
 This is necessary for modern authentication of custom scripts and applications which access Microsoft 365 resources from command line tools or other code which is not running under the context of a logged in user with an access token.
 
 The script requires an `AppRegistrationName` which should match the name of the Enterprise Application you created in Microsoft Entra ID so that the common name of the certificate matches the app name.  The public and private key are saved to the current directory, a `certificate.json` file is created which contains the thumbprint needed for applications to find the certificate, and the certificate is saved into the `My` store for the current user. You can delete the private key file as it is not needed, but it is generated in case you do need it. The private key is protected by a random password which you can find the `certificate.json` file.
+
+## newenv
+* Purpose: to quickly setup a new Linux virtual machine profile environment for rapid deployment, this does not perform any admin functions, it configures convenience features for the current user
+
+|Requirements|Version|
+|-|-|
+|Operating System|Linux, apt-based|
+|Environment|bash|
+|bash|5.2|
+|Scope|local user|
 
 ## Prune-Path.ps1
 * Purpose: To remove empty directories from a file tree
