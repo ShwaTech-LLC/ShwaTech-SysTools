@@ -1,6 +1,15 @@
 # ShwaTech-SysTools
 A collection of PowerShell scripts and modules for administering various on-prem and cloud systems.
 
+## bashrc
+* Purpose: default .bashrc file for when we (read: I) accidentally blow away our .bashrc file with bash scripting errors
+
+|Requirements|Version|
+|-|-|
+|Operating System|Linux|
+|Environment|bash|
+|bash|5.2|
+
 ## Clear-WatchFolder.ps1
 * Purpose: To retain files locked by the SharePoint Timer Service.
 
